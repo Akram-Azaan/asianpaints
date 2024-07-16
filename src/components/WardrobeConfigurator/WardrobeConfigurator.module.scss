@@ -1,0 +1,136 @@
+.wardrobeContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0;
+
+    .wardrobe {
+        min-height: 520px;
+        border-radius: 24px;
+        position: relative;
+        box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.2);
+
+        .title {
+            position: absolute;
+            top: 20px;
+            text-align: center;
+        }
+
+        .buttons {
+            position: absolute;
+            left: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .roundbox {
+                width: 72px;
+                height: 138px;
+                padding: 6px;
+                gap: 6px;
+                border-radius: 40px;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.2);
+
+                .rounds {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    opacity: .6;
+                    transition: all .4s ease-in-out;
+
+                    &.bordered {
+                        opacity: 1;
+                        border: 1px solid #7345b2;
+                        background-color: rgb(115 69 178 / 20%);
+
+                    }
+                }
+
+            }
+        }
+    }
+
+    .rightBox {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .doorPanel {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+
+            .doorPanelItem {
+                width: 200px;
+                height: 200px;
+                border-radius: 8px;
+                box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.2);
+                padding: 15px;
+                cursor: pointer;
+                opacity: .6;
+
+                &.bordered {
+                    opacity: 1;
+                    border: 1px solid #7345b2;
+                    background-color: rgb(115 69 178 / 20%);
+                }
+
+            }
+        }
+
+        .buttonContainer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            .button {
+                padding: 9px 40px;
+                font-size: 13px;
+                font-weight: 500;
+                color: #7345b2;
+                line-height: 26px;
+                cursor: pointer;
+                border-radius: 80px;
+                border: 1px solid #7345b2;
+            }
+        }
+
+        .label {
+            cursor: pointer;
+            width: 140px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+            border: 1px solid transparent;
+
+            &:has(.input:checked) {
+                border: 1px solid #7345b2;
+                background-color: rgb(115 69 178 / 10%);
+            }
+
+            &:hover {
+                border: 1px solid #7345b2;
+                background-color: rgb(115 69 178 / 10%);
+
+                .input {
+                    accent-color: #7345b2;
+                }
+            }
+
+            .input {
+                margin-right: 15px;
+                accent-color: #7345b2;
+            }
+        }
+    }
+}
