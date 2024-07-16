@@ -1,0 +1,72 @@
+// Bootstrap
+@import "./_variables";
+@import './bootstrapVariables'; // Overrides
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+// Variables
+$primary: var(--primary-color);
+$secondary: var(--secondary-color);
+$primary-text: #121212;
+$secondary-text: #dbdbdb;
+$body-bg: #fafafa;
+
+// Mixins
+@mixin d-flex {
+  display: flex;
+}
+
+@mixin d-flex-column {
+  flex-direction: column;
+}
+
+@mixin d-flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin d-flex-v-center {
+  align-items: center;
+}
+
+@mixin d-flex-h-center {
+  justify-content: center;
+}
+
+@mixin d-flex-between {
+  justify-content: space-between;
+}
+
+@mixin fluid {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin flex-grow {
+  flex-grow: 1;
+}
+
+@mixin drop-shadow {
+  box-shadow: 2px 4px 12px 1px rgba(142, 128, 239, 0.3);
+}
+
+@import './mixins';
+@import './components';
+@import './forms';
+@import './images';
+@import './layouts';
+@import './root';
+@import './modules/curator';
+@import './modules/configurator';
+@import './typography';
+@import './utilities';
+@import './toast';
+
+@import './screens/settings';
+@import './screens/product';
+
+// Module css imports
+
+@import './modules/TagInputField';
+@import './modules/thumbnailCard';
+@import './modules/support.module';

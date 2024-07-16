@@ -1,0 +1,100 @@
+.cardList {
+  display: grid;
+  grid-gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  margin-bottom: 20px;
+}
+
+.card {
+  cursor: pointer;
+  position: relative;
+}
+
+.thumbnailContainer {
+  width: 100%;
+  background-color: #EDEDED;
+  border-radius: 2px;
+
+  img {
+    border-radius: 2px !important;
+  }
+}
+
+.cardTitle {
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.carouselClass {
+  margin: 5px;
+}
+
+.rightArrow {
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  right: 4px;
+  &::before {
+    content: "\e825";
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.leftArrow {
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  left: 4px;
+  &::before {
+    content: "\e824";
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.cardSelected {
+  color: var(--primary-color) !important;
+}
+
+.gridParent {
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  padding: 8px 8px 20px 14px;
+  overflow-y: auto;
+  max-height: 136px;
+}
+
+.textSelected {
+  // color: #EC4E0B !important;
+  color: #ea7a49 !important;
+}

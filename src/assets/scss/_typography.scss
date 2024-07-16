@@ -1,0 +1,109 @@
+.appH1 {
+  font-family: 'PP Neue Montreal' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 48px !important;
+  line-height: 3.51rem !important;
+  text-align: center !important;
+  color: var(--black-color) !important;
+}
+
+.appH2 {
+  font-family: 'PP Neue Montreal' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 32px !important;
+  line-height: 124% !important;
+  text-align: center !important;
+  color: var(--black-color) !important;
+}
+
+.appH2Light {
+  font-family: 'PP Neue Montreal' !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 32px !important;
+  line-height: 124% !important;
+  text-align: center !important;
+  color: var(--black-color) !important;
+}
+
+.appH3 {
+  font-family: 'PP Neue Montreal' !important;
+  font-style: normal !important;
+  font-weight: 300 !important;
+  font-size: 24px !important;
+  line-height: 132% !important;
+  text-align: center !important;
+  color: var(--neutral80-color) !important;
+}
+
+.appH3Bold {
+  font-family: 'PP Neue Montreal' !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
+  line-height: 132% !important;
+  text-align: center !important;
+  color: var(--black-color) !important;
+}
+
+.text-size-1 {
+  font-size: 0.875rem;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--light-grey-1);
+}
+
+.separator:not(:empty)::before {
+  margin-right: 0.5em;
+}
+
+.separator:not(:empty)::after {
+  margin-left: 0.5em;
+}
+
+.font-32 {
+  font-size: 32px !important;
+}
+.subtitles {
+  font-size: 20px;
+  font-weight: 500;
+}
+.smallSubtitles {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+.btn-font {
+  font-size: 1rem;
+}
+
+.title-color {
+  color: var(--neutral80-color);
+}
+
+.title-error-color {
+  color: #e4291d;
+}
+.title-error-color + .form-control::placeholder,
+.title-error-color + div div {
+  color: #e4291d;
+}
+
+.customSelectClass {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+}

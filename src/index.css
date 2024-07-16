@@ -1,0 +1,108 @@
+
+:root {
+  --red: #ff0000;
+  --menu-shadow-color: #e2e2e2;
+  --menu-dark-shadow-color: #444446;
+  --divider: #545456;
+  --font-family: "Roboto", sans-serif;
+  --header-font-size: 0.9em;
+  --base-font-size: 1em;
+  --pg-title-font: 2em;
+  --card-actions-border-radius: 8px;
+  --sidebar-width: 250px;
+  --favourite-bg-color: rgba(45, 49, 54, 0.5);
+  --thumbnail-width: 272px;
+  --thumbnail-info-height: 56px;
+  --light-blue: #e5eefe;
+  --light-grey: #f5f5f5;
+  --light-grey-1: #929292;
+  --render-done: #1bb75e;
+  --render-failed: #e4291d;
+  --render-unselected: var(--neutral20-color);
+  --table-cell-width: 175px;
+  --curator-header-height: 56px;
+  --curator-open-sidebar-width: 416px;
+  --curator-sidebar-width: 96px;
+  --curator-filter-width: 232px;
+  --modal-render-width: 625px;
+  --modal-preview-width: 375px;
+  --render-preview-card: 180px;
+  --render-preview-card-info: 45px;
+  --curator-border-radius: 8px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.h-100 {
+  height: 100% !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.justify-content-center {
+  justify-content: center!important;
+}
+
+.align-items-center {
+  align-items: center!important;
+}
+
+/* .row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--bs-gutter-x)*-.5);
+  margin-right: calc(var(--bs-gutter-x)*-.5);
+  margin-top: calc(var(--bs-gutter-y)*-1);
+} */
+
+.bg-white {
+  --bs-bg-opacity: 1;
+  --bs-white-rgb: 255, 255, 255;
+  background-color: rgba(255, 255, 255, var(--bs-bg-opacity)) !important;
+  background-color: rgba(var(--bs-white-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.px-2 {
+  padding-left: 0.5rem!important;
+  padding-right: 0.5rem!important;
+}
+.m-0 {
+  margin: 0!important;
+}
+
+.px-0 {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+
+.justify-content-end {
+  justify-content: flex-end!important;
+}

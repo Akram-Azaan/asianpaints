@@ -1,0 +1,35 @@
+:root{
+    --papaya-base: #EC4E0B;
+    --papaya-base-rgba: rgba(221, 93, 38, .25);
+    --papaya-10 : #F7D7C9;
+    --papaya-20 : #EEAE93;
+    --papaya-30 : #E6865C;
+    --papaya-40 :   #ee6635;
+
+    --dark-100 : #141414;
+    --dark-200 : #202020;
+    --dark-300 : #2B2B2B;
+    --dark-350 : #494949;
+    --dark-400 : #A1A1A1;
+    --dark-500 : #E7E7E7;
+
+    --dust-600: #D6D1C6;
+
+    --light-gray : #E0E0E0;
+
+    --green : #56CC0E;
+
+    --primary-color: var(--papaya-base);
+    --primary-color-rgba: var(--papaya-base-rgba);
+    --primary-color-10 : var( --papaya-10);
+    --primary-color-20 : var(--papaya-20);
+    --primary-color-30 : var(--papaya-30);
+    --primary-color-40 : var(--papaya-40);
+    --render-selected: var(--primary-color);
+    --secondary-color: var(--primary-color);
+    --success-green-color :var(--green);
+
+    --button-border-radius : 3px;
+    --border-radius : 3px;
+    --input-border-radius : 3px;
+}

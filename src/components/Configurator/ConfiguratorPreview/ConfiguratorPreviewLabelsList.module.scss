@@ -1,0 +1,139 @@
+.cardList {
+  // display: flex;
+  // flex-wrap: wrap;
+
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+}
+
+.card {
+  cursor: pointer;
+}
+
+.image {
+  height: 75px;
+  width: 100%;
+}
+
+.labelRoot {
+  padding: 11px 0;
+
+  .title {
+    margin-bottom: 11px;
+    font-size: 13px;
+  }
+}
+
+.thumbnailColor {
+  width: 100%;
+  padding-bottom: 84%;
+  border-radius: 2px;
+  height: 84%;
+  border: 1px solid var(--neutral20-color);
+}
+
+.thumbnailContainer {
+  position: relative;
+  cursor: pointer;
+  img {
+    border-radius: 2px !important;
+  }
+}
+
+.cardTitle {
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cardActive {
+  color: var(--primary-color);
+}
+
+.addOptionButton {
+  height: 56px;
+  // width: 100%;
+  padding: 0;
+  font-size: 10px;
+  border-radius: 1.5px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.editButton {
+  right: 5px;
+  top: 5px;
+  width: 22px;
+  height: 22px;
+
+  svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+.carouselClass {
+  margin: 5px;
+}
+
+.rightArrow {
+  position: absolute;
+  outline: 0;
+  transition: all 0.5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  right: 4px;
+  &::before {
+    content: '\e825';
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.leftArrow {
+  position: absolute;
+  outline: 0;
+  transition: all 0.5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  left: 4px;
+  &::before {
+    content: '\e824';
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.gridParent {
+  display: grid;
+  grid-gap: 6px;
+  grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+  padding: 8px 8px 20px 14px;
+}

@@ -1,0 +1,20 @@
+{
+  "short_name": "imagine.io",
+  "name": "imagine.io",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "96x96",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#EC4E0B",
+  "background_color": "#ffffff"
+}

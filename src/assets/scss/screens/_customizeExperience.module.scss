@@ -1,0 +1,80 @@
+.interestsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(272px,1fr));
+  align-items: flex-start;
+  padding: 0px;
+  gap: 1em;
+}
+
+.interestCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+
+  // width: 272px;
+  // height: 272px;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--white-color);
+  overflow: hidden;
+}
+
+.interestImage {
+  width: 272px;
+  height: 216px;
+  border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.interestCardBody {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 1em;
+  gap: 10px;
+
+  width: 272px;
+  height: 56px;
+
+  background: var(--white-color);
+  border: none;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+
+  .interestText {
+    text-transform: capitalize;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 150%;
+    color: var(--black-color);
+  }
+
+}
+  
+.selected {
+
+  > span {
+    color: var(--secondary-color) !important;
+  }
+
+  &::after{
+    bottom: 0;
+    content: "";
+    display: block;
+    height: 4px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    background-color: var(--secondary-color);
+  }
+
+}

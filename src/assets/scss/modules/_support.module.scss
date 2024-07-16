@@ -1,0 +1,202 @@
+.support-page {
+  padding-left: 0.5rem !important;
+  padding-right: 0 !important;
+
+  header.pageHeader {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .support-page-container {
+    .support-page-left {
+      padding-right: 0.5rem;
+      border: 1px solid #e6e6e6;
+
+      .ticket-list {
+        height: calc(100vh - 12.25rem - 58px);
+        overflow-y: auto;
+      }
+      .supportTicketList{
+        &::-webkit-scrollbar {
+          height: 0;
+        }
+      }
+     
+      .mainLoader{
+        margin-top: 40%;
+      }
+    }
+
+    .support-page-right {
+      padding-left: 0;
+      height: calc(100vh - 12.25rem);
+
+      .support-page-right-empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        .support-page-right-empty-text {
+          font-size: 1rem;
+          font-weight: 400;
+          color: #404040;
+        }
+      }
+    }
+  }
+}
+
+.list-card {
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &.is-read {
+    background-color: #eeeeee;
+  }
+
+  &-body {
+    height: 3rem;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .list-card-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
+      .list-card-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .list-card-title {
+          max-width: 450px;
+          margin: 0;
+          font-size: 14px;
+          line-height: 1.5rem;
+          font-weight: 400;
+        }
+
+        .list-card-subtitle {
+          font-size: 10px;
+          line-height: 1rem;
+          font-weight: 400;
+        }
+
+        .list-card-subtitle-2 {
+          font-size: 10px;
+          line-height: 0.5rem;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+.support-actions {
+  margin: 0.5rem 0;
+  flex-wrap: nowrap;
+
+  &.memberSidebarOpen {
+    padding-right: 0;
+  }
+
+  .support-filters {
+    min-width: auto;
+  }
+
+  .fc-right {
+    flex: 1;
+
+    .search-form {
+      flex: 1;
+
+      input {
+        max-width: inherit;
+      }
+    }
+  }
+}
+
+// Create ticket modal css
+.create-ticket {
+  .modal-dialog {
+    width: 666px;
+    margin: 0.5rem;
+    position: fixed;
+    top: auto;
+    right: 0;
+    left: auto;
+    bottom: 0;
+
+    .modal-content {
+      height: 91vh;
+      padding: 0;
+      background-color: #f6f6f6;
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        background: #3d4145;
+        color: #ffffff;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+
+      .modal-body {
+        height: calc(91vh - 69px);
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
+      }
+
+      .modal-footer {
+        padding: 0.5rem;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .lfSelect__control {
+    height: 48px !important;
+
+    .lfSelect__value-container {
+      width: 100%;
+      flex: 1;
+      padding: 0;
+    }
+
+    .lfSelect__placeholder {
+      font-size: 16px !important;
+      color: #cccccc !important;
+    }
+  }
+
+  .form-label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 170%;
+    color: #5a5c61;
+  }
+
+  input.form-control {
+    background: var(--white-color);
+
+    &::-webkit-input-placeholder {
+      color: #cccccc;
+    }
+    &::-moz-placeholder {
+      color: #cccccc;
+    }
+    &:-ms-input-placeholder {
+      color: #cccccc;
+    }
+    &:placeholder {
+      color: #cccccc;
+    }
+  }
+}

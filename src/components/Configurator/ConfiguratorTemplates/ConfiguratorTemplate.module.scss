@@ -1,0 +1,185 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  transition: all 0.15s ease-in-out;
+  height: 100vh;
+  padding: calc(16px + var(--configurator-header-height)) 42px 16px;
+
+  &.withSidebar {
+    margin-left: var(--configurator-sidebar-width);
+  }
+}
+
+.innerContainer {
+  background-color: var(--white-color);
+  width: 40%;
+  display: flex;
+  box-shadow: 0px 0px 70.7278px var(--template-inner-container);
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.15s ease-in-out;
+  z-index: 2;
+  padding: 30px 0px 30px 30px;
+  background-color: var(--themes-list-button-background);
+}
+
+.hoverBorder {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  bottom: -2px;
+  right: -2px;
+  border: 2px solid var(--configurator-primary-color);
+  opacity: 0;
+}
+
+.unityContainer {
+  &:hover+.hoverBorder {
+    opacity: 1;
+  }
+}
+
+.accordionBtn button {
+  background-color: var(--themes-list-button-background) !important;
+  padding: 0.4rem 1.25rem;
+  box-shadow: none !important;
+  &::after {
+    transform: rotate(-90deg);
+  }
+}
+
+.accImage {
+  width: 50px;
+  height: 50px;
+  background: var(--accordion-images);
+  border-radius: 2px;
+}
+
+.outerContainer {
+  width: 100%;
+  padding-right: 20px;
+}
+
+.tabHead {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--tab-heading);
+}
+
+.leftContent {
+  width: 50px;
+}
+
+.rightContent {
+  width: calc(100% - 50px);
+}
+
+.tabDesc {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--tab-description)
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--themes-list-overlay) !important;
+}
+
+.unityContentWindow {
+  width: 60%;
+}
+
+.carouselClass {
+  background: var(--themes-list-button-background);
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #f1f0ed;
+  height: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewList {
+  cursor: pointer;
+  padding: 3rem 1rem;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.03em;
+  color: var(--tab-heading);
+}
+
+.rightArrow {
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  right: 4px;
+  &::before {
+    content: "\e825";
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.leftArrow {
+  position: absolute;
+  outline: 0;
+  transition: all .5s;
+  border-radius: 35px;
+  z-index: 9;
+  border: 0;
+  background: var(--theme-list-container-overlay);
+  min-width: 30px;
+  min-height: 30px;
+  opacity: 1;
+  left: 4px;
+  &::before {
+    content: "\e824";
+    font-size: 16px;
+    color: var(--configurator-drag-gb-color);
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
+
+.accordionBodyClass {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.containerMain {
+  z-index: 1;
+}
+
+.unityContentWindow {
+  height: 100%;
+}
+
+.overflowYauto {
+  overflow-y: auto;
+  overflow-x: hidden;
+}

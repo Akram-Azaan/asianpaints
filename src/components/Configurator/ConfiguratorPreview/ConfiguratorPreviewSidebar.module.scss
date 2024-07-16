@@ -1,0 +1,125 @@
+.root {
+  min-height: 100px;
+  width: 100%;
+  // min-width: 307px;
+  min-width: 280px;
+  position: relative;
+  background-color: var(--white-color);
+}
+
+.content {
+  // min-width: 307px;
+  min-width: 280px;
+  // flex: 0 0 31%;
+  // width: 31%;
+
+  border: 2px solid transparent;
+}
+
+.contentSpacing {
+  padding: 30px 14px 22px;
+}
+
+.viewerContentSpacing {
+  padding: 0px 30px 14px 10px;
+}
+
+.content {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+
+  // &:hover {
+  //   box-shadow: inset 0px 0px 0px 2px var(--primary-color);
+  //   border: 2px solid var(--primary-color);
+  // }
+}
+
+.sceneName {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--configurator-dark50-color);
+  margin-bottom: 15px;
+}
+
+.menuButton {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  right: 8px;
+  top: 8px;
+  display: none;
+  z-index: 5;
+
+  .root:hover & {
+    display: block;
+  }
+  
+  & > a {
+    position: absolute;
+    background: var(--configurator-dark-color);
+    border-radius: var(--configurator-border-radius-small);
+    width: 32px;
+    height: 32px;
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: var(--configurator-dark75-color);
+    }
+  }
+}
+
+.dropdownMenu {
+  background-color: var(--configurator-dark-color);
+  border: none;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 8px;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 50px;
+
+  &:global(.show) {
+    display: flex;
+  }
+
+  :global(.dropdown-item) {
+    border-radius: 5px;
+    color: var(--white-color);
+    font-weight: 600;
+    font-size: 12px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+
+    &:hover, &:focus {
+      background-color: var(--configurator-dark75-color);
+    }
+  }
+}
+
+.dropdownMenuIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.previewContainer {
+  height: 100%;
+}

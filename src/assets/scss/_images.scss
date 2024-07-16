@@ -1,0 +1,71 @@
+.imageRoot {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
+
+  img {
+    max-width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 300ms ease;
+    object-fit: cover;
+  }
+
+  .imgContain {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .placeholderIcon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.simpleImage {
+  max-width: 100%;
+  &.profileSidebarImg {
+    height: 56px;
+    width: 56px;
+    object-fit: cover;
+  }
+}
+
+.avatars {
+  display: inline-block;
+  transform: scale(-1, 1);
+}
+.avatar {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  width: 200px;
+}
+
+.avatar img {
+  display: block;
+  width: 150px !important;
+  margin: 12% 22%;
+  border-radius: 8px;
+  height: 150px;
+  // transform: scale(-1, 1);
+}
+
+.lf-link-img {
+  margin-right: 5px;
+}
+
+.coverImage {
+    object-fit: cover;
+}

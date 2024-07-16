@@ -1,0 +1,36 @@
+.theme-container.theme-light, body {
+  --white-color: #ffffff;
+  --black-color: #2d3136;
+  --background-color: #f6f6f6;
+  --neutral80-color: #5a5c61;
+  --neutral60-color: #a3a4a6;
+  --neutral40-color: #c4c4c7;
+  --neutral20-color: #e9e9e9;
+  --neutral10-color: #f9f9f9;
+  --success-color: #1bb75e;
+  --warning-color: #da8622;
+  --error-color: #e4291d;
+  --error10-color: #FCEAE8;
+
+  --image-placeholder: #e0e0e0;
+  --neutral-heading-color:#141414;
+}
+
+.theme-container.theme-dark {
+  --white-color: #e6e6e6;
+  --black-color: #1b1b1e;
+  --background-color: #27272b;
+  --neutral80-color: #a2a2a3;
+  --neutral60-color: #767678;
+  --neutral40-color: #444446;
+  --neutral20-color: #333336;
+  --neutral10-color: #232326;
+  --success-color: #1bb75e;
+  --warning-color: #da8622;
+  --error-color: #e4291d;
+  --error10-color: #FCEAE8;
+
+  --image-placeholder: #e0e0e0;
+  --neutral-heading-color:#141414;
+}
+

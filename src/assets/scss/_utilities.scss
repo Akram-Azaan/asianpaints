@@ -1,0 +1,581 @@
+.error {
+  color: var(--error) !important;
+}
+
+m-bottom-1 {
+  margin-bottom: 1rem;
+}
+
+.m-bottom-2 {
+  margin-bottom: 2rem;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hide {
+  display: none !important;
+}
+
+.page-wrapper {
+  padding-right: 0;
+  overflow-x: hidden;
+
+  & .row:first-child {
+    margin-right: 0 !important;
+  }
+}
+
+.mb0 {
+  margin-bottom: 0px !important;
+}
+
+.btnoutline p {
+  margin-left: 10px;
+}
+
+.mrg-rt {
+  margin-right: 1rem;
+}
+
+.mrg-rt6 {
+  margin-right: 6rem;
+}
+
+.btnwidth {
+  width: 132px !important;
+}
+
+.height {
+  height: 40px;
+}
+
+.allpadding {
+  padding-top: 18px;
+  padding-right: 24px;
+}
+
+.d-flex .allpadding img {
+  border-radius: 12%;
+}
+
+.leftbackground {
+  width: 100%;
+  background: transparent;
+  border-radius: var(--border-radius);
+  padding: 2%;
+}
+
+.leftbackgrounds {
+  width: 100%;
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2%;
+}
+
+.p-0 {
+  padding: 0% !important;
+}
+
+.p-0 .projects-texture-state .container-fluid .texturepreview-right .texturezoom-preview img {
+  margin: 0px;
+}
+
+.linktrg {
+  color: #0159f1 !important;
+}
+
+.amountrate {
+  color: black;
+  font-size: 24px;
+}
+
+.mrg-rt4 {
+  margin-right: 4rem;
+}
+
+.mt-4 {
+  margin-top: 4 !important;
+}
+
+.mt-30 {
+  margin-top: 30px;
+}
+
+.mt-18 {
+  margin-top: 18px;
+}
+
+.my-14 {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.fntweightmore {
+  font-weight: 400 !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0px !important;
+}
+
+.orngbtn {
+  background-color: var(--primary-color) !important;
+  width: 100%;
+}
+
+.block {
+  display: block !important;
+}
+
+.borderradius {
+  border: 1px solid #ced4da;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.trnsparent {
+  color: transparent;
+}
+
+.fullWidth {
+  width: 100% !important;
+}
+
+.minWidth200 {
+  min-width: 200px;
+}
+.minWidth165 {
+  min-width: 165px;
+}
+.minWidth135 {
+  min-width: 135px;
+}
+
+.spaceEvenly {
+  justify-content: space-evenly;
+}
+
+.fontSize85 {
+  font-size: 0.85em;
+}
+
+.hide-btn {
+  display: none !important;
+}
+
+.error-red {
+  color: red;
+}
+
+.header-name-of-my-project {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.topProductButtons {
+  max-height: 40px;
+}
+
+.cursorPointer {
+  cursor: pointer;
+}
+
+.font16 {
+  font-size: 16px;
+}
+.font14 {
+  font-size: 14px;
+}
+.font12 {
+  font-size: 12px;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teamsPageCard {
+  padding: 0.5rem 1rem !important;
+  background-color: #ffffff;
+
+  .teamsPageCard__title {
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .teamsPageCard__role {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 14px;
+    color: #6c757d;
+  }
+
+  &.inactive {
+    .thumbnail-title {
+      padding-left: 0;
+    }
+  }
+  .TeamMainCardStatus {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    border-radius: var(--border-radius);
+    left: 0;
+    top: 50%;
+    transform: translateY(calc(-50%));
+  }
+}
+.main-container {
+  padding-bottom: var(--bs-gutter-x, 0.75rem);
+}
+
+.lfSelect__control {
+  padding: 6px 10px;
+  height: 40px !important;
+  border-radius: var(--border-radius) !important;
+
+  .lfSelect__value-container {
+    width: 110px;
+    flex: 0 0 110px;
+    padding: 0;
+  }
+
+  .lfSelect__indicators {
+    width: 24px;
+    flex: 0 0 24px;
+    min-height: 24px;
+    height: 100%;
+
+    .lfSelect__indicator {
+      padding: 4px;
+    }
+  }
+
+  .lfSelect__input-container {
+    margin: 0;
+    padding: 0;
+  }
+
+  .lfSelect__input-container,
+  .lfSelect__placeholder,
+  .lfSelect__input,
+  .lfSelect__single-value {
+    margin: 0 !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+    color: var(--neutral80-color) !important;
+    line-height: 170% !important;
+  }
+  
+  .lfSelect__single-value {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+.lfSelect__menu {
+  background-color: var(--white-color);
+  box-shadow: none !important;
+  border-radius: var(--border-radius) !important;
+}
+.lfSelect__menu-list {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  border-radius: var(--border-radius) !important;
+  border: 1px solid var(--black-color) !important;
+}
+
+.lfSelect__option {
+  color: var(--black-color) !important;
+  cursor: pointer !important;
+  // height: 56px !important;
+  padding: 16px !important;
+  font-size: 16px !important;
+  line-height: 24px;
+  justify-content: center;
+  word-break: break-all;
+  background-color: transparent !important;
+
+  &.lfSelect__option--is-selected {
+    //   // background-color: var(--white-color) !important;
+    //   // color: inherit !important;
+    //   // // font-weight: 700;
+    // pointer-events: none;
+    // cursor: default !important;
+    border-top: none !important;
+    background-color: var(--neutral10-color) !important;
+    color: var(--neutral60-color) !important;
+    border-bottom: 1px solid var(--neutral40-color) !important;
+  }
+  &:not(.lfSelect__option--is-selected) {
+    order: 1;
+
+    &:hover {
+      background-color: var(--primary-color-20) !important;
+    }
+  }
+  // &.lfSelect__option:first-of-type {
+  //   border-top: none !important;
+  //   background-color: var(--neutral10-color) !important;
+  //   color: var(--neutral60-color) !important;
+  //   border-bottom: 1px solid var(--neutral40-color) !important;
+  // }
+  // &.lfSelect__option--is-focused:not(:first-of-type) {
+  //   background-color: #deebff !important;
+  // }
+
+  // &.lfSelect__option--is-selected:first-of-type {
+  //   font-weight: normal;
+  // }
+  // &.lfSelect__option--is-selected:last-of-type {
+  //   border-bottom: none !important;
+  // }
+}
+
+.lfSelectMulti__control {
+  padding-left: 0px !important;
+  padding-right: 16px !important;
+  background-color: white !important;
+  min-height: fit-content !important;
+  height: fit-content !important;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+  overflow-y: auto !important;
+}
+
+.lfSelectMulti__value-container {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  overflow-y: scroll !important;
+  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+.lfSelectMulti__multi-value {
+  // display: contents;
+}
+
+//  This css for button is placed here as it is being used in different parts of application
+.bigButton {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  gap: 4px;
+  min-width: 85px;
+  width: auto;
+  height: 35px;
+  border-radius: var(--button-border-radius);
+  border: none;
+  text-decoration: none;
+
+  &:not(.keep-text) {
+    > img + span,
+    > svg + span {
+      @media screen and (max-width: 1380px) {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 1380px) {
+      padding: 12px;
+      min-width: 48px;
+    }
+  }
+
+  &.smallBtn {
+    padding: 0.5rem 0.875rem;
+    height: 2.5rem;
+
+    > span {
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+    }
+  }
+
+  img,
+  svg {
+    // transform: scale(1);
+    // transition: all 100ms ease;
+  }
+
+  &:hover {
+    img,
+    svg {
+      // transform: scale(1.25);
+    }
+  }
+
+  &.btn-secondary,
+  &.btn-outline-dark,
+  &.btn-primary {
+    color: var(--black-color);
+    &:hover {
+      color: var(--black-color);
+    }
+  }
+  &.btn-primary:not(.lf-btn-3) {
+    &:hover {
+      background-color: var(--primary-color-40) !important;
+    }
+  }
+
+  > span {
+    color: var(--black-color);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: normal;
+  }
+
+  .circularProgress {
+    border-color: var(--white-color);
+    border-left-color: transparent;
+  }
+}
+
+.top-buttons {
+  button.bigButton:disabled {
+    display: none !important;
+  }
+}
+
+button.lf-btn-4 {
+  padding: 4px 16px;
+  font-size: 16px;
+  height: 32px;
+}
+
+.btn-white {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  border: 1px solid var(--black-color);
+}
+
+button.lf-btn-5 {
+  background-color: var(--background-color) !important;
+  border: none;
+}
+// button[title='Delete'],
+// button[title='Archive'],
+// button[title='Empty trash'],
+// button[title='Move to textures'],
+// button[title='Delete request'],
+button.lf-btn-3 {
+  border: 1px solid var(--neutral80-color) !important;
+  // background-color: var(--background-color) !important;
+  background-color: transparent !important;
+
+  > span {
+    color: var(--neutral80-color) !important;
+  }
+}
+
+// button[title='Add To Collection'],
+// button[title='Share'],
+// button[title='Edit'],
+button.lf-btn-2 {
+  background-color: var(--neutral20-color) !important;
+}
+
+// button[title='Cancel'],
+// button[title='Download'],
+// button[title='New Project'],
+button[title='Upload'],
+// button[title='Upload Textures'],
+// button[title='Invite User'],
+// button[title='Import'],
+// button[title='Submit invitation'], 
+button.lf-btn-1, button.btn-warning {
+  background-color: var(--primary-color) !important;
+  
+
+  &, >span{
+    color: var(--white-color) !important;
+  }
+
+  &:hover {
+    // background-color: var(--primary-color-20) !important;
+    // border-color: var(--primary-color-20) !important;
+  }
+}
+
+button.btn-v2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 15px;  
+  text-align: center;
+  letter-spacing: 0.01em;
+  padding: 14px 24px !important;
+  border: 1px solid rgba(205, 62, 0, 0.2);
+  border-radius: 3px;
+
+  > span {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+}
+
+.lf-capitalize {
+  text-transform: capitalize;
+}
+
+.img-thumbnail {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+}
+
+.description {
+  margin-top: 40px;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.flex {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+}
+
+.hidden-scroll {
+  &::-webkit-scrollbar {
+    width: 10px;
+    // background: var(--secondary-color);
+    border-radius: 8px;
+    background: transparent;
+    width: 0px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    width: 3px;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #bebdbd;
+    background: var(--secondary-color);
+    border-radius: 8px;
+    width: 3px;
+  }
+}
