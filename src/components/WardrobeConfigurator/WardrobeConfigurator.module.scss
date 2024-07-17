@@ -132,5 +132,58 @@
                 accent-color: #7345b2;
             }
         }
+
+        .inputBox {
+            position: relative;
+
+            .inputLabel {
+                position: absolute;
+                top: -7px;
+                left: 8px;
+                font-size: 10px;
+                font-weight: 600;
+                background: white;
+                padding: 0 5px;
+            }
+            .inputCountry,
+            .input {
+                height: 50px;
+                padding: 10px;
+                font-size: 18px;
+                font-weight: 500;
+                color: #000;
+                width: 100%;
+                border: 1.5px solid black;
+                border-radius: 8px;
+            }
+            .inputCountry{
+                padding: 10px 10px 10px 80px;
+            }
+            .countryCode{
+                position: absolute;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top: 0;
+                border-right: 1px solid #b0b2b3;
+                width: 75px;
+                margin: 10px 0;
+            }
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: left;
+            margin: 4px;
+        }
+        .terms{
+            margin: 20px 0;
+            text-align: left;
+            font-size: 18px;
+            color: rgb(0 0 0 / 50%);
+        }
     }
 }
