@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import styles from "./WardrobeConfigurator.module.scss";
 import cx from "classnames";
+import FinishPopup from "./FinishPopup";
+import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
 
 const WardrobeImageViewer = ({ wardrobeDimensions }) => {
   const [slideWardrobe, setSlideWardrobe] = useState(true);
@@ -10,6 +12,10 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
   const [woodFinish, setWoodFinish] = useState("laminate");
   const [showWoodFinish, setShowWoodFinish] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [showPackage, setShowPackage] = useState(false);
+  const [showShades, setShowShades] = useState(false);
+  const [selectedDimension, setSelectedDimension] = useState(wardrobeDimensions[0]?.label || '');
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
     pincode: "",
@@ -18,7 +24,9 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
     receiveUpdates: false,
   });
 
-  const [errors, setErrors] = useState({});
+  const handleRadioChange = (e) => {
+    setSelectedDimension(e.target.value);
+  };
 
   const validate = () => {
     const newErrors = {};
@@ -55,7 +63,9 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
     // }
     // console.log(errors);
     console.log("Form submitted:", formData);
-
+    setShowDetails(false);
+    setShowPackage(true);
+    setShowShades(true);
   };
 
   const showFinishes = () => {
@@ -63,12 +73,19 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
     setShowWoodFinish(true);
   };
 
-  console.log(formData, "formDataformData");
+  const visualizeAgain = () => {
+    setShowDoorpanel(true);
+    setShowWardrobe(false);
+    setShowWoodFinish(false);
+    setShowDetails(false);
+    setShowPackage(false);
+    setShowShades(false);
+  };
 
   return (
     <>
       <div className={styles.wardrobeContainer}>
-        <Row className={`h-100 justify-content-center`}>
+        <Row className={`h-100 justify-content-between align-items-center`}>
           <Col lg={6} md={6} sm={12} xs={12}>
             <div className={styles.wardrobe}>
               <h2 className={styles.title}>
@@ -100,11 +117,25 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                   </div>
                 </div>
               </div>
+              <div className={styles.imageView}>
+                <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />
+              </div>
+              {showShades && (
+                <div className={styles.shadesBox}>
+                  <h4>Available top laminate shades</h4>
+                  <div className={styles.shades}>
+                    <div className={styles.shadeItem}>
+                      <div className={styles.shadeColor}></div>
+                      <div className={styles.shadeTitle}>Green</div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </Col>
           <Col
-            lg={6}
-            md={6}
+            lg={5}
+            md={5}
             sm={12}
             xs={12}
             className={`d-flex align-items-center justify-content-center text-center`}
@@ -163,9 +194,10 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                         <label className={styles.label}>
                           <input
                             type="radio"
-                            name="account_type"
+                            name="wardrobe_dimension"
                             value={dimension.label}
-                            // checked
+                            checked={selectedDimension === dimension.label}
+                            onChange={handleRadioChange}
                             className={styles.input}
                           />
                           <span className={styles.labelText}>
@@ -195,7 +227,12 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
             )}
             {showWoodFinish && (
               <div className={styles.rightBox}>
-                <h4 className="mb-0">3. Select a wood finish</h4>
+                <div
+                  className={`d-flex align-items-center justify-content-center text-center`}
+                >
+                  <h4 className="mb-0 me-3">3. Select a wood finish</h4>
+                  <FinishPopup />
+                </div>
                 <div className={styles.doorPanel}>
                   <div
                     className={cx(
@@ -307,9 +344,7 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                             onChange={handleChange}
                             className={styles.inputCountry}
                           />
-                          <span className={styles.countryCode}>
-                            +91
-                          </span>
+                          <span className={styles.countryCode}>+91</span>
                         </div>
                         {errors.mobile && (
                           <div className={styles.error}>{errors.mobile}</div>
@@ -357,19 +392,72 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                       onClick={() => {
                         setShowWoodFinish(true);
                         setShowDetails(false);
+                        setShowPackage(false);
                       }}
                     >
                       Back
                     </button>
-                    <button
-                      type="submit"
-                      className={styles.button}
-                      // onClick={showFinishes}
-                    >
+                    <button type="submit" className={styles.button}>
                       Submit
                     </button>
                   </div>
                 </form>
+              </div>
+            )}
+            {showPackage && (
+              <div className={styles.packageRightBox}>
+                <h4 className={styles.packageTitle}>Economy Package</h4>
+                <p className={styles.packageDescription}>
+                  High-end interior solutions for the ultimate wardrobe
+                  experience.
+                </p>
+                <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+                <div className={styles.buttonContainer}>
+                  <button className={styles.button} onClick={() => {}}>
+                    Download PDF
+                  </button>
+                  <button className={styles.button} onClick={visualizeAgain}>
+                    Visualize again
+                  </button>
+                </div>
+                <div className={styles.specifications}>
+                  <div className={styles.specificationItem}>
+                    <span className={styles.specificationLabel}>
+                      Core material
+                    </span>
+                    <span className={styles.specificationValue}>HDF</span>
+                  </div>
+                  <div className={styles.specificationItem}>
+                    <span className={styles.specificationLabel}>
+                      Door panel
+                    </span>
+                    <span className={styles.specificationValue}>
+                      Sliding door
+                    </span>
+                  </div>
+                  <div className={styles.specificationItem}>
+                    <span className={styles.specificationLabel}>
+                      Dimensions
+                    </span>
+                    <span className={styles.specificationValue}>
+                      7 x 10 ft.
+                    </span>
+                  </div>
+                  <div className={styles.specificationItem}>
+                    <span className={styles.specificationLabel}>
+                      Wood finish
+                    </span>
+                    <span className={styles.specificationValue}>Laminate</span>
+                  </div>
+                </div>
+                <p className={styles.terms}>
+                  *This is only an indicative price based on our clients'
+                  average spends. The final price can be higher or lower
+                  depending on factors like finish material, number of
+                  furniture, civil work required (painting, flooring, plumbing,
+                  etc.), design elements, and wood type. Don't worry, our
+                  designers can help you understand this better.
+                </p>
               </div>
             )}
           </Col>

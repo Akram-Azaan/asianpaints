@@ -4,15 +4,32 @@
     padding: 40px 0;
 
     .wardrobe {
-        min-height: 520px;
+        min-height: 620px;
         border-radius: 24px;
         position: relative;
         box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .imageView{
+            width: calc(100%);
+            /* height: calc(100% - 114px); */
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                max-width: 50%;
+            }
+        }
 
         .title {
             position: absolute;
             top: 20px;
             text-align: center;
+            font-size: 30px;
+            font-weight: 600;
+
         }
 
         .buttons {
@@ -55,6 +72,72 @@
 
             }
         }
+
+        .shadesBox {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            padding: 0 20px;
+
+            h4 {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .shades {
+                display: flex;
+                width: 100%;
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                -ms-overflow-style: none;
+                /* IE and Edge */
+                scrollbar-width: none;
+
+                /* Firefox */
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .shadeItem {
+                    min-width: calc(16.66% - 4px);
+                    margin-right: 5px;
+                    border-top-right-radius: 12px;
+                    overflow: hidden;
+                    border: 1px solid #CCCCCC99;
+                    cursor: pointer;
+
+                    .shadeColor {
+                        min-width: 20px;
+                        height: 70px;
+                        background-color: #7345b2;
+                    }
+
+                    .shadeTitle {
+                        font-size: 12px;
+                        font-weight: 700;
+                        padding: 4px 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .buttonContainer {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+
+        .button {
+            padding: 9px 40px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #7345b2;
+            line-height: 26px;
+            cursor: pointer;
+            border-radius: 80px;
+            border: 1px solid #7345b2;
+        }
     }
 
     .rightBox {
@@ -82,23 +165,6 @@
                     background-color: rgb(115 69 178 / 20%);
                 }
 
-            }
-        }
-
-        .buttonContainer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-
-            .button {
-                padding: 9px 40px;
-                font-size: 13px;
-                font-weight: 500;
-                color: #7345b2;
-                line-height: 26px;
-                cursor: pointer;
-                border-radius: 80px;
-                border: 1px solid #7345b2;
             }
         }
 
@@ -145,6 +211,7 @@
                 background: white;
                 padding: 0 5px;
             }
+
             .inputCountry,
             .input {
                 height: 50px;
@@ -156,10 +223,12 @@
                 border: 1.5px solid black;
                 border-radius: 8px;
             }
-            .inputCountry{
+
+            .inputCountry {
                 padding: 10px 10px 10px 80px;
             }
-            .countryCode{
+
+            .countryCode {
                 position: absolute;
                 height: 30px;
                 display: flex;
@@ -179,11 +248,77 @@
             text-align: left;
             margin: 4px;
         }
-        .terms{
+
+        .terms {
             margin: 20px 0;
             text-align: left;
             font-size: 18px;
             color: rgb(0 0 0 / 50%);
+        }
+    }
+
+    .packageRightBox {
+        text-align: left;
+
+        .packageTitle {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 10px;
+
+        }
+
+        .packageDescription {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .packagePrice {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .buttonContainer {
+            gap: 25px;
+            margin-bottom: 30px;
+
+            .button {
+                width: 50%;
+            }
+        }
+
+        .specifications {
+            padding: 30px;
+            border: 1px solid #D6D6D6;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+
+            .specificationItem {
+                display: flex;
+
+                .specificationLabel {
+                    width: 50%;
+                    font-size: 18px;
+                    font-weight: 700;
+
+                }
+
+                .specificationValue {
+                    width: 50%;
+                    font-size: 18px;
+                    font-weight: 400;
+
+                }
+            }
+        }
+
+        .terms {
+            font-size: 14px;
+            font-weight: 400;
         }
     }
 }
