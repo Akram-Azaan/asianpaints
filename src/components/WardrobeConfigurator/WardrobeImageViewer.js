@@ -4,17 +4,22 @@ import styles from "./WardrobeConfigurator.module.scss";
 import cx from "classnames";
 import FinishPopup from "./FinishPopup";
 import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
+import {
+  DOOR_LIST,
+  WOOD_FINISH_OPTIONS,
+  WARDROBE_DIMENSIONS,
+} from "../../constants/wardrobeConstants";
 
-const WardrobeImageViewer = ({ wardrobeDimensions }) => {
-  const [slideWardrobe, setSlideWardrobe] = useState(true);
+const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
   const [showDoorPanel, setShowDoorpanel] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(false);
-  const [woodFinish, setWoodFinish] = useState("laminate");
+  const [woodFinish, setWoodFinish] = useState(
+    WOOD_FINISH_OPTIONS[0]?.label || ""
+  );
   const [showWoodFinish, setShowWoodFinish] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [showPackage, setShowPackage] = useState(false);
   const [showShades, setShowShades] = useState(false);
-  const [selectedDimension, setSelectedDimension] = useState(wardrobeDimensions[0]?.label || '');
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +30,10 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
   });
 
   const handleRadioChange = (e) => {
-    setSelectedDimension(e.target.value);
+    setDoorPanelOptions({
+      ...doorPanelOptions,
+      dimension: e.target.value,
+    });
   };
 
   const validate = () => {
@@ -82,6 +90,13 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
     setShowShades(false);
   };
 
+  const handleDoorClick = (door) => {
+    setDoorPanelOptions({
+      ...doorPanelOptions,
+      door: door.label,
+    });
+  };
+
   return (
     <>
       <div className={styles.wardrobeContainer}>
@@ -93,28 +108,17 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
               </h2>
               <div className={styles.buttons}>
                 <div className={styles.roundbox}>
-                  <div
-                    className={cx(
-                      styles.rounds,
-                      slideWardrobe ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setSlideWardrobe(true);
-                    }}
-                  >
-                    slide
-                  </div>
-                  <div
-                    className={cx(
-                      styles.rounds,
-                      !slideWardrobe ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setSlideWardrobe(false);
-                    }}
-                  >
-                    hing
-                  </div>
+                  {DOOR_LIST.map((door, index) => (
+                    <div
+                      key={index}
+                      className={cx(styles.rounds, {
+                        [styles.bordered]: doorPanelOptions?.door === door.label,
+                      })}
+                      onClick={() => handleDoorClick(door)}
+                    >
+                      {door.label}
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className={styles.imageView}>
@@ -144,28 +148,17 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
               <div className={styles.rightBox}>
                 <h4 className="mb-0">1. Select a door panel</h4>
                 <div className={styles.doorPanel}>
-                  <div
-                    className={cx(
-                      styles.doorPanelItem,
-                      slideWardrobe ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setSlideWardrobe(true);
-                    }}
-                  >
-                    Sliding door
-                  </div>
-                  <div
-                    className={cx(
-                      styles.doorPanelItem,
-                      !slideWardrobe ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setSlideWardrobe(false);
-                    }}
-                  >
-                    Hinged door
-                  </div>
+                  {DOOR_LIST.map((door, index) => (
+                    <div
+                      key={index}
+                      className={cx(styles.doorPanelItem, {
+                        [styles.bordered]: doorPanelOptions?.door === door.label,
+                      })}
+                      onClick={() => handleDoorClick(door)}
+                    >
+                      {door.label}
+                    </div>
+                  ))}
                 </div>
                 <div className={styles.buttonContainer}>
                   <button
@@ -185,7 +178,7 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
                 <div>
                   <Row className={`h-100 justify-content-center g-4`}>
-                    {wardrobeDimensions.map((dimension) => (
+                    {WARDROBE_DIMENSIONS.map((dimension) => (
                       <Col
                         key={dimension.id}
                         xs={4}
@@ -196,7 +189,7 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                             type="radio"
                             name="wardrobe_dimension"
                             value={dimension.label}
-                            checked={selectedDimension === dimension.label}
+                            checked={doorPanelOptions?.dimension === dimension.label}
                             onChange={handleRadioChange}
                             className={styles.input}
                           />
@@ -234,39 +227,21 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                   <FinishPopup />
                 </div>
                 <div className={styles.doorPanel}>
-                  <div
-                    className={cx(
-                      styles.doorPanelItem,
-                      woodFinish === "laminate" ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setWoodFinish("laminate");
-                    }}
-                  >
-                    Laminate
-                  </div>
-                  <div
-                    className={cx(
-                      styles.doorPanelItem,
-                      woodFinish === "acrylic" ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setWoodFinish("acrylic");
-                    }}
-                  >
-                    Acrylic
-                  </div>
-                  <div
-                    className={cx(
-                      styles.doorPanelItem,
-                      woodFinish === "pu" ? styles.bordered : ""
-                    )}
-                    onClick={() => {
-                      setWoodFinish("pu");
-                    }}
-                  >
-                    PU
-                  </div>
+                  {WOOD_FINISH_OPTIONS.map((finish) => (
+                    <div
+                      key={finish.id}
+                      className={cx(
+                        styles.doorPanelItem,
+                        finish.label === woodFinish ? styles.bordered : ""
+                      )}
+                      onClick={() => {
+                        setWoodFinish(finish.label);
+                      }}
+                    >
+                      <div>{finish.label}</div>
+                      <p>({finish.subTitle})</p>
+                    </div>
+                  ))}
                 </div>
                 <div className={styles.buttonContainer}>
                   <button
@@ -432,7 +407,7 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                       Door panel
                     </span>
                     <span className={styles.specificationValue}>
-                      Sliding door
+                    {doorPanelOptions?.door} door
                     </span>
                   </div>
                   <div className={styles.specificationItem}>
@@ -440,14 +415,14 @@ const WardrobeImageViewer = ({ wardrobeDimensions }) => {
                       Dimensions
                     </span>
                     <span className={styles.specificationValue}>
-                      7 x 10 ft.
+                    {doorPanelOptions?.dimension}
                     </span>
                   </div>
                   <div className={styles.specificationItem}>
                     <span className={styles.specificationLabel}>
                       Wood finish
                     </span>
-                    <span className={styles.specificationValue}>Laminate</span>
+                    <span className={styles.specificationValue}>{woodFinish}</span>
                   </div>
                 </div>
                 <p className={styles.terms}>

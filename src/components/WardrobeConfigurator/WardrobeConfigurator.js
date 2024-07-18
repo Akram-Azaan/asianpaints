@@ -1,49 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WardrobeImageViewer from "./WardrobeImageViewer";
-
-const wardrobeDimensions = [
-  {
-    id: 1,
-    label: "7 x 10 ft.",
-  },
-  {
-    id: 2,
-    label: "6.25 x 7 ft.",
-  },
-  {
-    id: 3,
-    label: "6.25 x 8 ft.",
-  },
-  {
-    id: 4,
-    label: "7 x 6 ft.",
-  },
-  {
-    id: 5,
-    label: "7 x 7 ft.",
-  },
-  {
-    id: 6,
-    label: "7 x 8 ft.",
-  },
-  {
-    id: 7,
-    label: "8 x 6 ft.",
-  },
-  {
-    id: 8,
-    label: "8 x 7 ft.",
-  },
-  {
-    id: 9,
-    label: "8 x 8 ft.",
-  },
-];
+import {
+  DOOR_LIST,
+  HINGED_DOOR,
+  SLIDING_DOOR,
+  WARDROBE_DIMENSIONS,
+} from "../../constants/wardrobeConstants";
+import { slidingConfiguratorData } from "../../helpers/slidingConfiguratorInfo";
+import { hingedConfiguratorData } from "../../helpers/hingedConfiguratorInfo";
+import { getAllPublicData } from "../../api/configuratorApi";
 
 const WardrobeConfigurator = () => {
+  const [loader, setLoader] = useState(false);
+  const [allStoreList, setAllStoreList] = useState([]);
+  const [currentSelectedStore, setCurrentSelectedStore] = useState({});
+  const [token, setToken] = useState(null);
+  const [isRender, setIsRender] = useState(false);
+  const [localConfiguratorData, setLocalConfiguratorData] = useState();
+  const [doorPanelOptions, setDoorPanelOptions] = useState({
+    door: DOOR_LIST?.[0].label,
+    dimension: WARDROBE_DIMENSIONS?.[0].label,
+  });
+
+  useEffect(() => {
+    setDoorPanelOptions({
+      ...doorPanelOptions,
+      dimension: WARDROBE_DIMENSIONS?.[0].label,
+    });
+    updateDataForModelIdLocal(doorPanelOptions?.door);
+  }, [doorPanelOptions?.door]);
+
+  useEffect(() => {
+    if (localConfiguratorData?.tokenUrl) {
+      setIsRender(checkIfShowRenderData());
+      getAllDataFromModelId(checkIfShowRenderData());
+    }
+  }, [localConfiguratorData]);
+
+  const updateDataForModelIdLocal = (modelId) => {
+    switch (modelId) {
+      case SLIDING_DOOR: {
+        setLocalConfiguratorData(slidingConfiguratorData);
+        break;
+      }
+      case HINGED_DOOR: {
+        setLocalConfiguratorData(hingedConfiguratorData);
+        break;
+      }
+      default: {
+        setLocalConfiguratorData(slidingConfiguratorData);
+      }
+    }
+  };
+
+  const checkIfShowRenderData = () => {
+    return true;
+  };
+
+  const getAllDataFromModelId = async (isRender) => {
+    setLoader(true);
+    let allData = await getAllPublicData({
+      newModelIds: localConfiguratorData?.tokenUrl,
+      isRender,
+      isOpenedFromAdminPanel: false,
+    });
+    const rawData = JSON.parse(JSON.stringify(allData));
+    console.log(allData,"allData");
+    if (allData?.results?.length) {
+      // setAllStoreList(allData?.results);
+      // setToken(rawData?.results?.[0]?.configurator?.token);
+      // setCurrentSelectedStore(allData?.results[0]);
+    }
+    setLoader(false);
+  };
+
+  console.log(localConfiguratorData,doorPanelOptions,"localConfiguratorData");
+
   return (
     <>
-      <WardrobeImageViewer wardrobeDimensions={wardrobeDimensions} />
+      <WardrobeImageViewer
+        doorPanelOptions={doorPanelOptions}
+        setDoorPanelOptions={setDoorPanelOptions}
+      />
     </>
   );
 };
