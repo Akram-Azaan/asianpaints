@@ -10,7 +10,7 @@ import {
   WARDROBE_DIMENSIONS,
 } from "../../constants/wardrobeConstants";
 
-const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
+const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [showDoorPanel, setShowDoorpanel] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(false);
   const [woodFinish, setWoodFinish] = useState(
@@ -112,11 +112,12 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                     <div
                       key={index}
                       className={cx(styles.rounds, {
-                        [styles.bordered]: doorPanelOptions?.door === door.label,
+                        [styles.bordered]:
+                          doorPanelOptions?.door === door.label,
                       })}
                       onClick={() => handleDoorClick(door)}
                     >
-                      {door.label}
+                      <img src={door.thumb} alt={door.label} />
                     </div>
                   ))}
                 </div>
@@ -126,7 +127,7 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
               </div>
               {showShades && (
                 <div className={styles.shadesBox}>
-                  <h4>Available top laminate shades</h4>
+                  <h4>Available top {woodFinish} shades</h4>
                   <div className={styles.shades}>
                     <div className={styles.shadeItem}>
                       <div className={styles.shadeColor}></div>
@@ -152,11 +153,17 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                     <div
                       key={index}
                       className={cx(styles.doorPanelItem, {
-                        [styles.bordered]: doorPanelOptions?.door === door.label,
+                        [styles.bordered]:
+                          doorPanelOptions?.door === door.label,
                       })}
                       onClick={() => handleDoorClick(door)}
                     >
-                      {door.label}
+                      <img
+                        className={styles.doorPanelImage}
+                        src={door.thumb}
+                        alt={door.label}
+                      />
+                      <div className={styles.doorPanelTitle}>{door.label}</div>
                     </div>
                   ))}
                 </div>
@@ -189,7 +196,9 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                             type="radio"
                             name="wardrobe_dimension"
                             value={dimension.label}
-                            checked={doorPanelOptions?.dimension === dimension.label}
+                            checked={
+                              doorPanelOptions?.dimension === dimension.label
+                            }
                             onChange={handleRadioChange}
                             className={styles.input}
                           />
@@ -238,8 +247,15 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                         setWoodFinish(finish.label);
                       }}
                     >
-                      <div>{finish.label}</div>
-                      <p>({finish.subTitle})</p>
+                      <img
+                        className={styles.doorPanelImage}
+                        src={finish.thumb}
+                        alt={finish.label}
+                      />
+                      <div className={styles.doorPanelTitle}>
+                        {finish.label}
+                      </div>
+                      <p className="mb-0">({finish.subTitle})</p>
                     </div>
                   ))}
                 </div>
@@ -272,85 +288,83 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                   Your free quote is just a few details away!
                 </h4>
                 <form onSubmit={handleSubmit}>
-                  <div>
-                    <Row className="h-100 justify-content-center g-4">
-                      <Col lg={6} md={6} sm={12} xs={12}>
-                        <div className={styles.inputBox}>
-                          <label className={styles.inputLabel}>Name</label>
-                          <input
-                            type="text"
-                            name="name"
-                            placeholder="Enter your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className={styles.input}
-                          />
-                        </div>
-                        {errors.name && (
-                          <div className={styles.error}>{errors.name}</div>
-                        )}
-                      </Col>
-                      <Col lg={6} md={6} sm={12} xs={12}>
-                        <div className={styles.inputBox}>
-                          <label className={styles.inputLabel}>Pincode</label>
-                          <input
-                            type="text"
-                            name="pincode"
-                            placeholder="Enter your pincode"
-                            value={formData.pincode}
-                            onChange={handleChange}
-                            className={styles.input}
-                          />
-                        </div>
-                        {errors.pincode && (
-                          <div className={styles.error}>{errors.pincode}</div>
-                        )}
-                      </Col>
-                      <Col lg={6} md={6} sm={12} xs={12}>
-                        <div className={styles.inputBox}>
-                          <label className={styles.inputLabel}>
-                            Mobile number
-                          </label>
-                          <input
-                            type="text"
-                            name="mobile"
-                            placeholder="Mobile number"
-                            value={formData.mobile}
-                            onChange={handleChange}
-                            className={styles.inputCountry}
-                          />
-                          <span className={styles.countryCode}>+91</span>
-                        </div>
-                        {errors.mobile && (
-                          <div className={styles.error}>{errors.mobile}</div>
-                        )}
-                      </Col>
-                      <Col lg={6} md={6} sm={12} xs={12}>
-                        <div className={styles.inputBox}>
-                          <label className={styles.inputLabel}>Email</label>
-                          <input
-                            type="text"
-                            name="email"
-                            placeholder="Enter your email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={styles.input}
-                          />
-                        </div>
-                        {errors.email && (
-                          <div className={styles.error}>{errors.email}</div>
-                        )}
-                      </Col>
-                    </Row>
-                  </div>
-                  <div className="my-3">
+                  <Row className="h-100 justify-content-center g-4">
+                    <Col lg={6} md={6} sm={12} xs={12}>
+                      <div className={styles.inputBox}>
+                        <label className={styles.inputLabel}>Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Enter your name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className={styles.input}
+                        />
+                      </div>
+                      {errors.name && (
+                        <div className={styles.error}>{errors.name}</div>
+                      )}
+                    </Col>
+                    <Col lg={6} md={6} sm={12} xs={12}>
+                      <div className={styles.inputBox}>
+                        <label className={styles.inputLabel}>Pincode</label>
+                        <input
+                          type="text"
+                          name="pincode"
+                          placeholder="Enter your pincode"
+                          value={formData.pincode}
+                          onChange={handleChange}
+                          className={styles.input}
+                        />
+                      </div>
+                      {errors.pincode && (
+                        <div className={styles.error}>{errors.pincode}</div>
+                      )}
+                    </Col>
+                    <Col lg={6} md={6} sm={12} xs={12}>
+                      <div className={styles.inputBox}>
+                        <label className={styles.inputLabel}>
+                          Mobile number
+                        </label>
+                        <input
+                          type="text"
+                          name="mobile"
+                          placeholder="Mobile number"
+                          value={formData.mobile}
+                          onChange={handleChange}
+                          className={styles.inputCountry}
+                        />
+                        <span className={styles.countryCode}>+91</span>
+                      </div>
+                      {errors.mobile && (
+                        <div className={styles.error}>{errors.mobile}</div>
+                      )}
+                    </Col>
+                    <Col lg={6} md={6} sm={12} xs={12}>
+                      <div className={styles.inputBox}>
+                        <label className={styles.inputLabel}>Email</label>
+                        <input
+                          type="text"
+                          name="email"
+                          placeholder="Enter your email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className={styles.input}
+                        />
+                      </div>
+                      {errors.email && (
+                        <div className={styles.error}>{errors.email}</div>
+                      )}
+                    </Col>
+                  </Row>
+                  <div className={styles.checkboxContainer}>
                     <input
                       type="checkbox"
                       name="receiveUpdates"
                       checked={formData.receiveUpdates}
                       onChange={handleChange}
                     />
-                    <span className="ms-2">
+                    <span className={styles.checkboxLabel}>
                       Yes, I would like to receive important updates and
                       notifications on WhatsApp
                     </span>
@@ -407,7 +421,7 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                       Door panel
                     </span>
                     <span className={styles.specificationValue}>
-                    {doorPanelOptions?.door} door
+                      {doorPanelOptions?.door}
                     </span>
                   </div>
                   <div className={styles.specificationItem}>
@@ -415,14 +429,16 @@ const WardrobeImageViewer = ({doorPanelOptions,setDoorPanelOptions}) => {
                       Dimensions
                     </span>
                     <span className={styles.specificationValue}>
-                    {doorPanelOptions?.dimension}
+                      {doorPanelOptions?.dimension}
                     </span>
                   </div>
                   <div className={styles.specificationItem}>
                     <span className={styles.specificationLabel}>
                       Wood finish
                     </span>
-                    <span className={styles.specificationValue}>{woodFinish}</span>
+                    <span className={styles.specificationValue}>
+                      {woodFinish}
+                    </span>
                   </div>
                 </div>
                 <p className={styles.terms}>

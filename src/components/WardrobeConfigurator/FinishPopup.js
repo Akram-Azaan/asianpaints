@@ -25,7 +25,10 @@ const FinishPopup = () => {
               return (
                 <Col lg={4} sm={6} xs={12} key={finish.id}>
                   <div className="FinishCardInfo">
-                    <h3>{finish.label} ({finish.subTitle})</h3>
+                    <img src={finish.thumb} alt={finish.label} />
+                    <h3>
+                      {finish.label} ({finish.subTitle})
+                    </h3>
                     <p>{finish.desc}</p>
                   </div>
                 </Col>

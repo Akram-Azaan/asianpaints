@@ -1,14 +1,22 @@
-export const SLIDING_DOOR = "Sliding";
-export const HINGED_DOOR = "Hinged";
+import SLIDING_THUMB from "../assets/images/sliding.png";
+import HINGED_THUMB from "../assets/images/hinged.png";
+import LAMINATE_THUMB from "../assets/images/laminate.png";
+import ACRYLIC_THUMB from "../assets/images/acrylic.png";
+import PU_THUMB from "../assets/images/pu.png";
+
+export const SLIDING_DOOR = "Sliding door";
+export const HINGED_DOOR = "Hinged door";
 
 export const DOOR_LIST = [
   {
     value: SLIDING_DOOR,
     label: SLIDING_DOOR,
+    thumb: SLIDING_THUMB,
   },
   {
     value: HINGED_DOOR,
     label: HINGED_DOOR,
+    thumb: HINGED_THUMB,
   },
 ];
 
@@ -22,6 +30,7 @@ export const WOOD_FINISH_OPTIONS = [
     value: LAMINATE,
     label: LAMINATE,
     subTitle: "Economy",
+    thumb: LAMINATE_THUMB,
     desc: "Lorem ipsum dolor sit amet consectetur. Id ac tristique eu eget non. In tempus aenean libero lectus vulputate duis laoreet. Ac leo lacus dis orci. Libero malesuada lorem dolor quisque amet.",
   },
   {
@@ -29,6 +38,7 @@ export const WOOD_FINISH_OPTIONS = [
     value: ACRYLIC,
     label: ACRYLIC,
     subTitle: "Premium",
+    thumb: ACRYLIC_THUMB,
     desc: "Lorem ipsum dolor sit amet consectetur. Id ac tristique eu eget non. In tempus aenean libero lectus vulputate duis laoreet. Ac leo lacus dis orci. Libero malesuada lorem dolor quisque amet.",
   },
   {
@@ -36,6 +46,7 @@ export const WOOD_FINISH_OPTIONS = [
     value: PU,
     label: PU,
     subTitle: "Luxury",
+    thumb: PU_THUMB,
     desc: "Lorem ipsum dolor sit amet consectetur. Id ac tristique eu eget non. In tempus aenean libero lectus vulputate duis laoreet. Ac leo lacus dis orci. Libero malesuada lorem dolor quisque amet.",
   },
 ];

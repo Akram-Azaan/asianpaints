@@ -33,6 +33,11 @@
         padding: 0 40px 20px 40px;
 
         .FinishCardInfo {
+            img {
+                max-width: 60%;
+                margin-bottom: 25px;
+            }
+
             h3 {
                 font-size: 18px;
                 font-weight: 700;

@@ -9,6 +9,7 @@ import {
 import { slidingConfiguratorData } from "../../helpers/slidingConfiguratorInfo";
 import { hingedConfiguratorData } from "../../helpers/hingedConfiguratorInfo";
 import { getAllPublicData } from "../../api/configuratorApi";
+import Loader from "../../common/Loader";
 
 const WardrobeConfigurator = () => {
   const [loader, setLoader] = useState(false);
@@ -65,7 +66,7 @@ const WardrobeConfigurator = () => {
       isOpenedFromAdminPanel: false,
     });
     const rawData = JSON.parse(JSON.stringify(allData));
-    console.log(allData,"allData");
+    console.log(allData, "allData");
     if (allData?.results?.length) {
       // setAllStoreList(allData?.results);
       // setToken(rawData?.results?.[0]?.configurator?.token);
@@ -74,14 +75,24 @@ const WardrobeConfigurator = () => {
     setLoader(false);
   };
 
-  console.log(localConfiguratorData,doorPanelOptions,"localConfiguratorData");
+  console.log(localConfiguratorData, doorPanelOptions, "localConfiguratorData");
 
   return (
     <>
-      <WardrobeImageViewer
-        doorPanelOptions={doorPanelOptions}
-        setDoorPanelOptions={setDoorPanelOptions}
-      />
+      {!loader && (
+        <WardrobeImageViewer
+          doorPanelOptions={doorPanelOptions}
+          setDoorPanelOptions={setDoorPanelOptions}
+        />
+      )}
+      {loader && (
+        <Loader
+          zIndex={1000}
+          loading={true}
+          className="bg-white"
+          position="fixed"
+        />
+      )}
     </>
   );
 };
