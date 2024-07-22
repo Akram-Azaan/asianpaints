@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import styles from "./WardrobeConfigurator.module.scss";
 import cx from "classnames";
@@ -28,6 +28,24 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     email: "",
     receiveUpdates: false,
   });
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleRadioChange = (e) => {
     setDoorPanelOptions({
@@ -102,6 +120,16 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       <div className={styles.wardrobeContainer}>
         <Row className={`h-100 justify-content-between align-items-center`}>
           <Col lg={6} md={6} sm={12} xs={12}>
+            {isMobile && showPackage && (
+              <div className={styles.packageRightBox}>
+                <h4 className={styles.packageTitle}>Economy Package</h4>
+                <p className={styles.packageDescription}>
+                  High-end interior solutions for the ultimate wardrobe
+                  experience.
+                </p>
+                <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+              </div>
+            )}
             <div className={styles.wardrobe}>
               <h2 className={styles.title}>
                 Build your wardrobe and get cost estimation
@@ -140,7 +168,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           </Col>
           <Col
             lg={5}
-            md={5}
+            md={6}
             sm={12}
             xs={12}
             className={`d-flex align-items-center justify-content-center text-center`}
@@ -169,7 +197,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 </div>
                 <div className={styles.buttonContainer}>
                   <button
-                    className={styles.button}
+                    className={styles.button1}
                     onClick={() => {
                       setShowDoorpanel(false);
                       setShowWardrobe(true);
@@ -213,7 +241,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
                 <div className={styles.buttonContainer}>
                   <button
-                    className={styles.button}
+                    className={styles.button2}
                     onClick={() => {
                       setShowDoorpanel(true);
                       setShowWardrobe(false);
@@ -221,7 +249,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                   >
                     Back
                   </button>
-                  <button className={styles.button} onClick={showFinishes}>
+                  <button className={styles.button1} onClick={showFinishes}>
                     Next
                   </button>
                 </div>
@@ -261,7 +289,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 </div>
                 <div className={styles.buttonContainer}>
                   <button
-                    className={styles.button}
+                    className={styles.button2}
                     onClick={() => {
                       setShowWardrobe(true);
                       setShowWoodFinish(false);
@@ -270,7 +298,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     Back
                   </button>
                   <button
-                    className={styles.button}
+                    className={styles.button1}
                     onClick={() => {
                       setShowWardrobe(false);
                       setShowWoodFinish(false);
@@ -296,6 +324,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           type="text"
                           name="name"
                           placeholder="Enter your name"
+                          autoComplete="off"
                           value={formData.name}
                           onChange={handleChange}
                           className={styles.input}
@@ -312,6 +341,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           type="text"
                           name="pincode"
                           placeholder="Enter your pincode"
+                          autoComplete="off"
                           value={formData.pincode}
                           onChange={handleChange}
                           className={styles.input}
@@ -330,6 +360,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           type="text"
                           name="mobile"
                           placeholder="Mobile number"
+                          autoComplete="off"
                           value={formData.mobile}
                           onChange={handleChange}
                           className={styles.inputCountry}
@@ -347,6 +378,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           type="text"
                           name="email"
                           placeholder="Enter your email"
+                          autoComplete="off"
                           value={formData.email}
                           onChange={handleChange}
                           className={styles.input}
@@ -377,7 +409,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
                   <div className={styles.buttonContainer}>
                     <button
-                      className={styles.button}
+                      className={styles.button2}
                       onClick={() => {
                         setShowWoodFinish(true);
                         setShowDetails(false);
@@ -386,7 +418,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     >
                       Back
                     </button>
-                    <button type="submit" className={styles.button}>
+                    <button type="submit" className={styles.button3}>
                       Submit
                     </button>
                   </div>
@@ -395,17 +427,21 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
             )}
             {showPackage && (
               <div className={styles.packageRightBox}>
-                <h4 className={styles.packageTitle}>Economy Package</h4>
-                <p className={styles.packageDescription}>
-                  High-end interior solutions for the ultimate wardrobe
-                  experience.
-                </p>
-                <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+                {!isMobile && (
+                  <>
+                    <h4 className={styles.packageTitle}>Economy Package</h4>
+                    <p className={styles.packageDescription}>
+                      High-end interior solutions for the ultimate wardrobe
+                      experience.
+                    </p>
+                    <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+                  </>
+                )}
                 <div className={styles.buttonContainer}>
-                  <button className={styles.button} onClick={() => {}}>
+                  <button className={styles.button3} onClick={() => {}}>
                     Download PDF
                   </button>
-                  <button className={styles.button} onClick={visualizeAgain}>
+                  <button className={styles.button1} onClick={visualizeAgain}>
                     Visualize again
                   </button>
                 </div>

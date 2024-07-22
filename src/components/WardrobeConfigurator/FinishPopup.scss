@@ -51,3 +51,35 @@
         }
     }
 }
+
+.info-icon {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+    .finish-modal {
+        .modal-dialog {
+            margin: 16px;
+
+            .modal-content {
+                border-radius: 0;
+
+                .modal-header {
+                    padding: 16px;
+                }
+
+                .modal-body {
+                    padding: 16px;
+
+                    .FinishCardInfo {
+                        img {
+                            width: 64px;
+                            height: auto;
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

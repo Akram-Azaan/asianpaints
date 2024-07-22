@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { ReactComponent as HelpIcon } from "../../assets/images/Help.svg";
+import { ReactComponent as InfoIcon } from "../../assets/images/Info.svg";
 import { Modal } from "../../common/Modal";
 import "./FinishPopup.scss";
 import { WOOD_FINISH_OPTIONS } from "../../constants/wardrobeConstants";
@@ -9,8 +9,8 @@ const FinishPopup = () => {
   const [openHelpModal, setOpenHelpModal] = useState(false);
   return (
     <>
-      <div className={`help-icon`}>
-        <HelpIcon onClick={() => setOpenHelpModal(!openHelpModal)} />
+      <div className={`info-icon`}>
+        <InfoIcon onClick={() => setOpenHelpModal(!openHelpModal)} />
       </div>
       {openHelpModal && (
         <Modal
