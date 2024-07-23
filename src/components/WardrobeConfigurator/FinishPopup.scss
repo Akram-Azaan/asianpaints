@@ -54,6 +54,11 @@
 
 .info-icon {
     cursor: pointer;
+    display: flex;
+    svg{
+        width: 24px;
+        height: 24px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -80,6 +85,12 @@
                     }
                 }
             }
+        }
+    }
+    .info-icon {
+        svg{
+            width: 20px;
+            height: 20px;
         }
     }
 }

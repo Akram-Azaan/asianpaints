@@ -4,6 +4,7 @@ import styles from "./WardrobeConfigurator.module.scss";
 import cx from "classnames";
 import FinishPopup from "./FinishPopup";
 import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
+import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
@@ -21,6 +22,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [showPackage, setShowPackage] = useState(false);
   const [showShades, setShowShades] = useState(false);
   const [errors, setErrors] = useState({});
+  const [loadingScreen, setLoadingScreen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     pincode: "",
@@ -88,7 +90,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     //   setErrors(validationErrors);
     // }
     // console.log(errors);
-    console.log("Form submitted:", formData);
+    // console.log("Form submitted:", formData);
     setShowDetails(false);
     setShowPackage(true);
     setShowShades(true);
@@ -130,41 +132,43 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
               </div>
             )}
-            <div className={styles.wardrobe}>
-              <h2 className={styles.title}>
-                Build your wardrobe and get cost estimation
-              </h2>
-              <div className={styles.buttons}>
-                <div className={styles.roundbox}>
-                  {DOOR_LIST.map((door, index) => (
-                    <div
-                      key={index}
-                      className={cx(styles.rounds, {
-                        [styles.bordered]:
-                          doorPanelOptions?.door === door.label,
-                      })}
-                      onClick={() => handleDoorClick(door)}
-                    >
-                      <img src={door.thumb} alt={door.label} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.imageView}>
-                <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />
-              </div>
-              {showShades && (
-                <div className={styles.shadesBox}>
-                  <h4>Available top {woodFinish} shades</h4>
-                  <div className={styles.shades}>
-                    <div className={styles.shadeItem}>
-                      <div className={styles.shadeColor}></div>
-                      <div className={styles.shadeTitle}>Green</div>
-                    </div>
+            {!(showDetails && isMobile) && (
+              <div className={styles.wardrobe}>
+                <h2 className={styles.title}>
+                  Build your wardrobe and get cost estimation
+                </h2>
+                <div className={styles.buttons}>
+                  <div className={styles.roundbox}>
+                    {DOOR_LIST.map((door, index) => (
+                      <div
+                        key={index}
+                        className={cx(styles.rounds, {
+                          [styles.bordered]:
+                            doorPanelOptions?.door === door.label,
+                        })}
+                        onClick={() => handleDoorClick(door)}
+                      >
+                        <img src={door.thumb} alt={door.label} />
+                      </div>
+                    ))}
                   </div>
                 </div>
-              )}
-            </div>
+                <div className={styles.imageView}>
+                  <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />
+                </div>
+                {showShades && (
+                  <div className={styles.shadesBox}>
+                    <h4>Available top {woodFinish} shades</h4>
+                    <div className={styles.shades}>
+                      <div className={styles.shadeItem}>
+                        <div className={styles.shadeColor}></div>
+                        <div className={styles.shadeTitle}>Green</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </Col>
           <Col
             lg={5}
@@ -186,11 +190,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                       })}
                       onClick={() => handleDoorClick(door)}
                     >
-                      <img
-                        className={styles.doorPanelImage}
-                        src={door.thumb}
-                        alt={door.label}
-                      />
+                      <div className={styles.doorPanelImage}>
+                        <img src={door.thumb} alt={door.label} />
+                      </div>
                       <div className={styles.doorPanelTitle}>{door.label}</div>
                     </div>
                   ))}
@@ -275,11 +277,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                         setWoodFinish(finish.label);
                       }}
                     >
-                      <img
-                        className={styles.doorPanelImage}
-                        src={finish.thumb}
-                        alt={finish.label}
-                      />
+                      <div className={styles.doorPanelImage}>
+                        <img src={finish.thumb} alt={finish.label} />
+                      </div>
                       <div className={styles.doorPanelTitle}>
                         {finish.label}
                       </div>
@@ -423,6 +423,18 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     </button>
                   </div>
                 </form>
+              </div>
+            )}
+            {loadingScreen && (
+              <div className={styles.loadingScreen}>
+                <div className={styles.gif}>
+                  <img src={LOADING_GIF} alt="loading" />
+                </div>
+                <p>
+                  Please allow us a moment as
+                  <br />
+                  we generate an estimate for your <span>wardrobe!</span>
+                </p>
               </div>
             )}
             {showPackage && (

@@ -49,6 +49,7 @@
             text-align: center;
             font-size: 30px;
             font-weight: 600;
+            color: #1D1D1F;
             margin-bottom: 20px;
         }
 
@@ -105,6 +106,7 @@
             h4 {
                 font-size: 18px;
                 font-weight: 700;
+                color: #202020;
             }
 
             .shades {
@@ -137,6 +139,7 @@
                     .shadeTitle {
                         font-size: 12px;
                         font-weight: 700;
+                        color: #202020;
                         padding: 4px 0;
                     }
                 }
@@ -160,6 +163,7 @@
             border-radius: 80px;
             border: 1px solid #7345b2;
             background-color: transparent;
+            white-space: nowrap;
         }
 
         .button2 {
@@ -181,6 +185,7 @@
         h4 {
             font-size: 24px;
             font-weight: 700;
+            color: #222;
         }
 
         .doorPanel {
@@ -208,9 +213,15 @@
                 }
 
                 .doorPanelImage {
-                    max-height: 115px;
+                    height: 150px;
                     width: auto;
                     margin-bottom: 20px;
+
+                    img {
+                        height: 100%;
+                        max-width: 100%;
+                        width: auto;
+                    }
                 }
 
                 @media screen and (max-width: 992px) {
@@ -222,11 +233,13 @@
                 .doorPanelTitle {
                     font-size: 16px;
                     font-weight: 700;
+                    color: #1D1D1F;
                 }
 
                 p {
                     font-size: 13px;
                     font-weight: 400;
+                    color: #1D1D1F;
                 }
             }
         }
@@ -247,6 +260,7 @@
                 white-space: nowrap;
                 font-size: 16px;
                 font-weight: 600;
+                color: #1D1D1F;
             }
 
             &:has(.input:checked),
@@ -298,6 +312,9 @@
 
             .countryCode {
                 position: absolute;
+                font-size: 16px;
+                font-weight: 500;
+                color: #000;
                 height: 30px;
                 display: flex;
                 justify-content: center;
@@ -326,7 +343,7 @@
                 text-align: left;
                 font-size: 14px;
                 font-weight: 400;
-                text-align: left;
+                color: #000;
             }
         }
 
@@ -343,7 +360,8 @@
             text-align: left;
             font-size: 14px;
             font-weight: 400;
-            color: rgb(0 0 0 / 50%);
+            color: #323232;
+            opacity: 0.6;
         }
     }
 
@@ -353,19 +371,21 @@
         .packageTitle {
             font-size: 30px;
             font-weight: 700;
+            color: #202020;
             margin-bottom: 6px;
-
         }
 
         .packageDescription {
             font-size: 18px;
             font-weight: 400;
+            color: #202020;
             margin-bottom: 16px;
         }
 
         .packagePrice {
             font-size: 42px;
             font-weight: 700;
+            color: #000;
             margin-bottom: 30px;
         }
 
@@ -395,14 +415,14 @@
                     width: 50%;
                     font-size: 18px;
                     font-weight: 700;
-
+                    color: #202020;
                 }
 
                 .specificationValue {
                     width: 50%;
                     font-size: 18px;
                     font-weight: 400;
-
+                    color: #202020;
                 }
             }
         }
@@ -410,6 +430,44 @@
         .terms {
             font-size: 14px;
             font-weight: 400;
+            color: #202020;
+            margin-bottom: 0;
+        }
+    }
+}
+
+.loadingScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .gif {
+        width: 125px;
+        height: 125px;
+        border-radius: 100%;
+        margin-bottom: 16px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        img {
+            width: 90px;
+            height: auto;
+        }
+    }
+
+    p {
+        color: #000;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.4;
+        margin-bottom: 0;
+
+        span {
+            font-weight: 900;
         }
     }
 }
@@ -466,6 +524,23 @@
             width: 100%;
             gap: 20px;
 
+            h4 {
+                font-size: 14px;
+            }
+
+            .doorPanel {
+                .doorPanelItem {
+                    .doorPanelTitle {
+                        font-size: 12px;
+                    }
+
+                    p {
+                        font-size: 9px;
+                        font-weight: 500;
+                    }
+                }
+            }
+
             .inputBox {
                 .inputLabel {
                     background-color: #f6ecfd;
@@ -491,6 +566,7 @@
                     font-weight: 500;
                 }
             }
+
             h4,
             .specifications,
             .terms {
@@ -501,6 +577,25 @@
                 gap: 20px;
                 margin-bottom: 20px;
             }
+
+            .packageTitle {
+                font-size: 18px;
+            }
+
+            .packageDescription {
+                font-size: 14px;
+            }
+
+            .packagePrice {
+                font-size: 28px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid rgba(#000, 0.15);
+                margin-bottom: 0;
+            }
         }
+    }
+
+    .loadingScreen {
+        min-height: 600px;
     }
 }

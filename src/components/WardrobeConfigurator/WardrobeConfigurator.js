@@ -75,7 +75,7 @@ const WardrobeConfigurator = () => {
     setLoader(false);
   };
 
-  console.log(localConfiguratorData, doorPanelOptions, "localConfiguratorData");
+  // console.log(localConfiguratorData, doorPanelOptions, "localConfiguratorData");
 
   return (
     <>
