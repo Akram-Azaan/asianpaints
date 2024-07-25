@@ -599,3 +599,373 @@
         min-height: 600px;
     }
 }
+
+.pdfContainer {
+    padding: 35px 40px;
+    width: 595px;
+    height: auto;
+    background-color: #fff;
+    position: relative;
+
+    .pdfHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(#000, 0.2);
+        margin-bottom: 16px;
+
+        h2 {
+            color: #222;
+            font-family: BioRhyme;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 32px;
+            letter-spacing: 0.48px;
+            text-transform: capitalize;
+        }
+    }
+
+    .pdfBody {
+        h3 {
+            color: #000;
+            font-family: Lato;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            /* 111.111% */
+        }
+
+        .pdfBodyDetails {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+
+            p {
+                color: #000;
+                font-family: Lato;
+                font-size: 11px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 16px;
+                margin-bottom: 0;
+
+                /* 145.455% */
+                span {
+                    color: #000;
+                    font-family: Lato;
+                    font-size: 11px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                }
+            }
+        }
+
+        .pdfWardrobeDetails {
+            border: 1px solid rgba(0, 0, 0, 0.10);
+            margin-bottom: 18px;
+
+            .pdfWardrobeDetailsHeader {
+                display: flex;
+                align-items: center;
+                padding: 26px 20px;
+                background-color: rgb(3, 96, 3);
+
+                .firstBox {
+                    width: 30%;
+                }
+
+                .secondBox {
+                    width: 70%;
+                }
+
+                p {
+                    color: #fff;
+                    font-family: Lato;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 130%;
+                    /* 18.2px */
+                    margin-bottom: 6px;
+                }
+
+                h3 {
+                    color: #fff;
+                    font-family: BioRhyme;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 117.2%;
+                    /* 23.44px */
+                    margin-bottom: 0;
+                }
+            }
+
+            .pdfWardrobeDetailsBody {
+                width: 100%;
+                padding: 30px;
+
+                .imageBox {
+                    width: 200px;
+                    height: 250px;
+                    margin: 0 auto 15px;
+
+                    img {
+                        max-height: 100%;
+                        width: auto;
+                    }
+                }
+
+                .detailsBox {
+                    width: 220px;
+                    margin: 0 auto;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+
+                    .detailsBoxItem {
+                        display: flex;
+                        justify-content: flex-start;
+
+                        span {
+                            width: 40%;
+                            color: #202020;
+                            font-family: Lato;
+                            font-size: 12px;
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: 18px;
+                            /* 150% */
+                            letter-spacing: -0.132px;
+                            margin-bottom: 0;
+
+                            &:first-child {
+                                width: 60%;
+                                color: #202020;
+                                font-family: Lato;
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 700;
+                                line-height: 18px;
+                                /* 150% */
+                                letter-spacing: -0.132px;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        p {
+            color: #202020;
+            font-family: Lato;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 14px;
+            /* 140% */
+        }
+
+        .headingCenter {
+            color: #202020;
+            font-family: Lato;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 20px;
+            /* 111.111% */
+            letter-spacing: -0.198px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .pdfWardrobeShades {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            gap: 12px;
+            margin-bottom: 20px;
+
+            .shadeBox {
+                width: calc(50% - 6px);
+                border-radius: 6px;
+                background: #F4F3EC;
+                padding: 10px;
+
+                .imageBox {
+                    height: 170px;
+                    margin-bottom: 12px;
+
+                    img {
+                        display: flex;
+                        max-height: 100%;
+                        width: auto;
+                        margin: 0 auto;
+                    }
+                }
+
+                h4 {
+                    color: #202020;
+                    text-align: center;
+                    font-family: Lato;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 18px;
+                    /* 150% */
+                    letter-spacing: -0.132px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        h4 {
+            color: #000;
+            font-family: Lato;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 16px;
+            /* 114.286% */
+            margin-bottom: 12px;
+        }
+
+        .para {
+            color: #323232;
+            font-family: Lato;
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 140%;
+            /* 14px */
+            margin-bottom: 40px;
+        }
+
+        .ourProcess {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            .processBox {
+                width: 15%;
+                text-align: center;
+
+                svg {
+                    width: 72px;
+                    height: 72px;
+                }
+
+                h4 {
+                    color: #323232;
+                    text-align: center;
+                    font-family: Lato;
+                    font-size: 10px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 130%;
+                    /* 13px */
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        .pdfReasonBox {
+            width: calc(100% + 80px);
+            padding: 40px;
+            margin: 0 -40px 30px;
+            background: linear-gradient(133deg, #7345B2 9.91%, #522E83 73.96%);
+
+            h2 {
+                color: #FFF;
+                font-family: Lato;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 16px;
+                /* 114.286% */
+                text-align: center;
+                margin-bottom: 22px;
+            }
+
+            .pdfReasonsCards {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 36px 20px;
+                width: 100%;
+
+                .reasonCard {
+                    width: 30%;
+                    text-align: center;
+
+                    svg {
+                        width: 30px;
+                        height: 30px;
+                        margin-bottom: 12px;
+                    }
+
+                    h3 {
+                        color: #FFF;
+                        text-align: center;
+                        font-family: Lato;
+                        font-size: 12px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 120%;
+                        /* 14.4px */
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .pdfQueryBox {
+        position: absolute;
+        text-align: center;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        width: calc(100% - 80px);
+        margin-right: 40px;
+
+        p {
+            color: #323232;
+            font-family: Lato;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 140%;
+
+            /* 16.8px */
+            span {
+                color: #000;
+                text-align: right;
+                font-family: Lato;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 29px;
+                /* 241.667% */
+                letter-spacing: -0.132px;
+
+                svg {
+                    opacity: 0.6;
+                    margin-bottom: 4px;
+                }
+            }
+        }
+    }
+}
+@media print {
+    .pdfContainer {
+      page-break-before: always;
+    }
+  }

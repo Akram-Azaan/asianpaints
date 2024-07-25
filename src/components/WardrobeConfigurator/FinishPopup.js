@@ -16,7 +16,7 @@ const FinishPopup = () => {
         <Modal
           show={openHelpModal}
           title="Wood finishes"
-          handleClose={() => setOpenHelpModal(!openHelpModal)}
+          onHide={() => setOpenHelpModal(false)}
           className="finish-modal"
           centered
         >
