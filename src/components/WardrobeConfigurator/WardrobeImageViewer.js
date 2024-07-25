@@ -365,7 +365,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       }
 
       try {
-        const canvas = await html2canvas(input, { scale: 2 }); // Adjust scale for higher resolution
+        const canvas = await html2canvas(input, { scale: 1.5 });
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
         const imgWidth = imgProps.width;
@@ -406,10 +406,6 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
             pdfWidth,
             (srcHeight * pdfWidth) / imgWidth
           );
-
-          console.log(
-            `Added ${elementId} part ${i + 1} of ${totalPages} to PDF`
-          );
         }
       } catch (error) {
         console.error(`Failed to capture element with ID ${elementId}`, error);
@@ -420,7 +416,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     await addPageToPdf("page-2");
     await addPageToPdf("page-3");
 
-    pdf.save("asianPaints.pdf");
+    pdf.save("wardrobeEstimate.pdf");
   };
 
   return (
