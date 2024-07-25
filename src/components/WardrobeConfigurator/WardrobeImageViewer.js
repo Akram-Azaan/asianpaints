@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -7,19 +7,19 @@ import cx from "classnames";
 import FinishPopup from "./FinishPopup";
 import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
 import LOADING_GIF from "../../assets/images/loadingGif.gif";
-import { ReactComponent as BeautifullHomesLogo } from "../../assets/images/BeautifulHomesLogo.svg";
-import { ReactComponent as ProcessIcon1 } from "../../assets/images/ProcessIcon1.svg";
-import { ReactComponent as ProcessIcon2 } from "../../assets/images/ProcessIcon2.svg";
-import { ReactComponent as ProcessIcon3 } from "../../assets/images/ProcessIcon3.svg";
-import { ReactComponent as ProcessIcon4 } from "../../assets/images/ProcessIcon4.svg";
-import { ReactComponent as ProcessIcon5 } from "../../assets/images/ProcessIcon5.svg";
-import { ReactComponent as ReasonsIcon1 } from "../../assets/images/ReasonsIcon1.svg";
-import { ReactComponent as ReasonsIcon2 } from "../../assets/images/ReasonsIcon2.svg";
-import { ReactComponent as ReasonsIcon3 } from "../../assets/images/ReasonsIcon3.svg";
-import { ReactComponent as ReasonsIcon4 } from "../../assets/images/ReasonsIcon4.svg";
-import { ReactComponent as ReasonsIcon5 } from "../../assets/images/ReasonsIcon5.svg";
-import { ReactComponent as ReasonsIcon6 } from "../../assets/images/ReasonsIcon6.svg";
-import { ReactComponent as PhoneIcon } from "../../assets/images/Phone.svg";
+import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
+import ProcessIcon1 from "../../assets/images/ProcessIcon1.png";
+import ProcessIcon2 from "../../assets/images/ProcessIcon2.png";
+import ProcessIcon3 from "../../assets/images/ProcessIcon3.png";
+import ProcessIcon4 from "../../assets/images/ProcessIcon4.png";
+import ProcessIcon5 from "../../assets/images/ProcessIcon5.png";
+import ReasonsIcon1 from "../../assets/images/ReasonsIcon1.png";
+import ReasonsIcon2 from "../../assets/images/ReasonsIcon2.png";
+import ReasonsIcon3 from "../../assets/images/ReasonsIcon3.png";
+import ReasonsIcon4 from "../../assets/images/ReasonsIcon4.png";
+import ReasonsIcon5 from "../../assets/images/ReasonsIcon5.png";
+import ReasonsIcon6 from "../../assets/images/ReasonsIcon6.png";
+import PhoneIcon from "../../assets/images/phone.png";
 
 import {
   DOOR_LIST,
@@ -133,204 +133,223 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     });
   };
 
-  const pdfBody = () => {
-    return (
-      <div id="pdf-content">
-        {/* 1st page starts */}
-        <div id="page-1" className={styles.pdfContainer}>
-          <div className={styles.pdfHeader}>
-            <h2>Wardrobe estimate</h2>
-            <BeautifullHomesLogo />
-          </div>
-          <div className={styles.pdfBody}>
-            <h3>Dear Yogesh Kandari</h3>
-            <div className={styles.pdfBodyDetails}>
-              <div>
-                <p>
-                  Here is the quote that you requested. Please <br />
-                  review and reach out to us, for any questions.
-                </p>
-              </div>
-              <div>
-                <p>
-                  Mobile no: <span>9090909009</span>
-                </p>
-                <p>
-                  Email: <span>yogesh.kandari@asianpaints.com</span>
-                </p>
-              </div>
-            </div>
-            <div className={styles.pdfWardrobeDetails}>
-              <div className={styles.pdfWardrobeDetailsHeader}>
-                <span className={styles.firstBox}>
-                  <p>Package :</p>
-                  <h3>Economy</h3>
-                </span>
-                <span className={styles.secondBox}>
-                  <p>Estimated cost: </p>
-                  <h3>₹ 2,06,247.00</h3>
-                </span>
-              </div>
-              <div className={styles.pdfWardrobeDetailsBody}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="wardrobe" />
-                </div>
-                <div className={styles.detailsBox}>
-                  <div className={styles.detailsBoxItem}>
-                    <span>Core material</span>
-                    <span>HDF</span>
-                  </div>
-                  <div className={styles.detailsBoxItem}>
-                    <span>Door panel</span>
-                    <span>Sliding door</span>
-                  </div>
-                  <div className={styles.detailsBoxItem}>
-                    <span>Dimensions (approx.)</span>
-                    <span>8 ft. x 9 ft.</span>
-                  </div>
-                  <div className={styles.detailsBoxItem}>
-                    <span>Wood finish</span>
-                    <span>Laminate</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p>
-              *This is only an indicative price based on our clients' average
-              spends. The final price can be higher or lower depending on
-              factors like finish material, number of furniture, civil work
-              required (painting, flooring, plumbing, etc.), design elements,
-              and wood type. Don't worry, our designers can help you understand
-              this better.
-            </p>
-          </div>
+  // const pdfContentRef = useRef(null);
+
+  useEffect(() => {
+    pdfContent();
+  }, [doorPanelOptions, woodFinish]);
+
+  const pdfContent = () => {
+    // Remove any existing hidden div to avoid duplications
+    const existingDiv = document.getElementById("pdf-content");
+    if (existingDiv) {
+      existingDiv.remove();
+    }
+
+    // Create a new hidden div
+    const hiddenDiv = document.createElement("div");
+    hiddenDiv.id = "pdf-content";
+    hiddenDiv.style.position = "absolute";
+    hiddenDiv.style.left = "-9999px"; // Move off-screen
+    hiddenDiv.style.width = "100%";
+    hiddenDiv.style.height = "100%";
+    hiddenDiv.style.overflow = "visible";
+
+    // Add the hidden div to the body
+    document.body.appendChild(hiddenDiv);
+
+    // Insert your HTML content into the hidden div
+    hiddenDiv.innerHTML = `
+      <div id="page-1" class="${styles.pdfContainer}">
+        <div class="${styles.pdfHeader}">
+          <h2>Wardrobe estimate</h2>
+          <img src="${BeautifullHomesLogo}" alt="logo" />
         </div>
-
-        {/* 2nd page starts */}
-        <div id="page-2" className={styles.pdfContainer}>
-          <div className={styles.pdfBody}>
-            <h2 className={styles.headingCenter}>
-              Available top laminate shades
-            </h2>
-            <div className={styles.pdfWardrobeShades}>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 1</h4>
-              </div>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 2</h4>
-              </div>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 3</h4>
-              </div>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 4</h4>
-              </div>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 5</h4>
-              </div>
-              <div className={styles.shadeBox}>
-                <div className={styles.imageBox}>
-                  <img src={WARDROBE_IMAGE} alt="shade" />
-                </div>
-                <h4>Shade 6</h4>
-              </div>
+        <div class="${styles.pdfBody}">
+          <h3>Dear Yogesh Kandari</h3>
+          <div class="${styles.pdfBodyDetails}">
+            <div>
+              <p>
+                Here is the quote that you requested. Please <br />
+                review and reach out to us, for any questions.
+              </p>
+            </div>
+            <div>
+              <p>
+                Mobile no: <span>9090909009</span>
+              </p>
+              <p>
+                Email: <span>yogesh.kandari@abc.com</span>
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* 3rd page starts */}
-        <div id="page-3" className={styles.pdfContainer}>
-          <div className={styles.pdfBody}>
-            <h4>Beautiful homes - Your one-stop for interior design needs</h4>
-            <p className={styles.para}>
-              Our team of experienced designers can help you choose the perfect
-              traditional or modern style to enhance the interior of your home
-              according to your requirements. You can book an online
-              consultation with us or visit our store for personalized
-              recommendations. We are available in all major cities including
-              Mumbai, Delhi, Amritsar, Ernakulam, Raipur, Ooty, Pune, Ahmedabad,
-              Hyderabad, Bangalore, Kolkata, and Chennai.
-            </p>
-            <h4>Our Process</h4>
-            <div className={styles.ourProcess}>
-              <div className={styles.processBox}>
-                <ProcessIcon1 />
-                <h4>Understand your requirements</h4>
-              </div>
-              <div className={styles.processBox}>
-                <ProcessIcon2 />
-                <h4>Reimagine with a 3D design layout</h4>
-              </div>
-              <div className={styles.processBox}>
-                <ProcessIcon3 />
-                <h4>Material selection within budget</h4>
-              </div>
-              <div className={styles.processBox}>
-                <ProcessIcon4 />
-
-                <h4>Execute the Design</h4>
-              </div>
-              <div className={styles.processBox}>
-                <ProcessIcon5 />
-                <h4>Step into your Beautiful Home</h4>
-              </div>
-            </div>
-            <div className={styles.pdfReasonBox}>
-              <h2>Reasons to choose us</h2>
-              <div className={styles.pdfReasonsCards}>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon1 />
-                  <h3>Customised Design</h3>
-                </div>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon2 />
-                  <h3>On Time Completion</h3>
-                </div>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon3 />
-                  <h3>Upto 10 Years Warranty</h3>
-                </div>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon4 />
-                  <h3>3D Visualization</h3>
-                </div>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon5 />
-                  <h3>Easy EMI Options</h3>
-                </div>
-                <div className={styles.reasonCard}>
-                  <ReasonsIcon6 />
-                  <h3>On Budget</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={styles.pdfQueryBox}>
-            <p>
-              For any queries call us on
-              <span>
-                1800-209-5678 <PhoneIcon />
+          <div class="${styles.pdfWardrobeDetails}">
+            <div class="${styles.pdfWardrobeDetailsHeader}">
+              <span class="${styles.firstBox}">
+                <p>Package :</p>
+                <h3>Economy</h3>
               </span>
-            </p>
+              <span class="${styles.secondBox}">
+                <p>Estimated cost: </p>
+                <h3>₹ 2,51,527.00</h3>
+              </span>
+            </div>
+            <div class="${styles.pdfWardrobeDetailsBody}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="wardrobe" />
+              </div>
+              <div class="${styles.detailsBox}">
+                <div class="${styles.detailsBoxItem}">
+                  <span>Core material</span>
+                  <span>HDF</span>
+                </div>
+                <div class="${styles.detailsBoxItem}">
+                  <span>Door panel</span>
+                  <span>${doorPanelOptions?.door || "N/A"}</span>
+                </div>
+                <div class="${styles.detailsBoxItem}">
+                  <span>Dimensions (approx.)</span>
+                  <span>${doorPanelOptions?.dimension || "N/A"}</span>
+                </div>
+                <div class="${styles.detailsBoxItem}">
+                  <span>Wood finish</span>
+                  <span>${woodFinish || "N/A"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            *This is only an indicative price based on our clients' average
+            spends. The final price can be higher or lower depending on
+            factors like finish material, number of furniture, civil work
+            required (painting, flooring, plumbing, etc.), design elements,
+            and wood type. Don't worry, our designers can help you understand
+            this better.
+          </p>
+        </div>
+      </div>
+  
+      <div id="page-2" class="${styles.pdfContainer}">
+        <div class="${styles.pdfBody}">
+          <h2 class="${styles.headingCenter}">
+            Available top ${woodFinish} shades
+          </h2>
+          <div class="${styles.pdfWardrobeShades}">
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 1</h4>
+            </div>
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 2</h4>
+            </div>
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 3</h4>
+            </div>
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 4</h4>
+            </div>
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 5</h4>
+            </div>
+            <div class="${styles.shadeBox}">
+              <div class="${styles.imageBox}">
+                <img src="${WARDROBE_IMAGE}" alt="shade" />
+              </div>
+              <h4>Shade 6</h4>
+            </div>
           </div>
         </div>
       </div>
-    );
+  
+      <div id="page-3" class="${styles.pdfContainer}">
+        <div class="${styles.pdfBody}">
+          <h4>Beautiful homes - Your one-stop for interior design needs</h4>
+          <p class="${styles.para}">
+            Our team of experienced designers can help you choose the perfect
+            traditional or modern style to enhance the interior of your home
+            according to your requirements. You can book an online
+            consultation with us or visit our store for personalized
+            recommendations. We are available in all major cities including
+            Mumbai, Delhi, Amritsar, Ernakulam, Raipur, Ooty, Pune, Ahmedabad,
+            Hyderabad, Bangalore, Kolkata, and Chennai.
+          </p>
+          <h4>Our Process</h4>
+          <div class="${styles.ourProcess}">
+            <div class="${styles.processBox}">
+              <img src="${ProcessIcon1}" alt="process 1" />
+              <h4>Understand your requirements</h4>
+            </div>
+            <div class="${styles.processBox}">
+              <img src="${ProcessIcon2}" alt="process 2" />
+              <h4>Reimagine with a 3D design layout</h4>
+            </div>
+            <div class="${styles.processBox}">
+              <img src="${ProcessIcon3}" alt="process 3" />
+              <h4>Material selection within budget</h4>
+            </div>
+            <div class="${styles.processBox}">
+              <img src="${ProcessIcon4}" alt="process 4" />
+              <h4>Execute the Design</h4>
+            </div>
+            <div class="${styles.processBox}">
+              <img src="${ProcessIcon5}" alt="process 5" />
+              <h4>Step into your Beautiful Home</h4>
+            </div>
+          </div>
+          <div class="${styles.pdfReasonBox}">
+            <h2>Reasons to choose us</h2>
+            <div class="${styles.pdfReasonsCards}">
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon1}" alt="reason 1" />
+                <h3>Customised Design</h3>
+              </div>
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon2}" alt="reason 2" />
+                <h3>On Time Completion</h3>
+              </div>
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon3}" alt="reason 3" />
+                <h3>Upto 10 Years Warranty</h3>
+              </div>
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon4}" alt="reason 4" />
+                <h3>3D Visualization</h3>
+              </div>
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon5}" alt="reason 5" />
+                <h3>Easy EMI Options</h3>
+              </div>
+              <div class="${styles.reasonCard}">
+                <img src="${ReasonsIcon6}" alt="reason 6" />
+                <h3>On Budget</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="${styles.pdfQueryBox}">
+          <p>
+            For any queries call us on
+            <span>
+              1800-209-5678 <img src="${PhoneIcon}" alt="phone" />
+            </span>
+          </p>
+        </div>
+      </div>
+    `;
   };
 
   const handleDownloadPdf = async () => {
@@ -346,7 +365,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       }
 
       try {
-        const canvas = await html2canvas(input);
+        const canvas = await html2canvas(input, { scale: 2 }); // Adjust scale for higher resolution
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
         const imgWidth = imgProps.width;
@@ -791,7 +810,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
             )}
           </Col>
         </Row>
-        {pdfBody()}
+        {/* <div ref={pdfContentRef}></div> */}
       </div>
     </>
   );
