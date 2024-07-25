@@ -137,7 +137,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   useEffect(() => {
     pdfContent();
-  }, [doorPanelOptions, woodFinish]);
+  }, [doorPanelOptions, woodFinish,formData]);
 
   const pdfContent = () => {
     // Remove any existing hidden div to avoid duplications
@@ -166,7 +166,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           <img src="${BeautifullHomesLogo}" alt="logo" />
         </div>
         <div class="${styles.pdfBody}">
-          <h3>Dear Yogesh Kandari</h3>
+          <h3>Dear ${formData?.name}</h3>
           <div class="${styles.pdfBodyDetails}">
             <div>
               <p>
@@ -176,10 +176,10 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
             </div>
             <div>
               <p>
-                Mobile no: <span>9090909009</span>
+                Mobile no: <span>${formData?.mobile}</span>
               </p>
               <p>
-                Email: <span>yogesh.kandari@abc.com</span>
+                Email: <span>${formData?.email}</span>
               </p>
             </div>
           </div>
