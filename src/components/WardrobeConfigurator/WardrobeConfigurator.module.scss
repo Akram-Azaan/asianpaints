@@ -855,6 +855,59 @@
             .processBox {
                 width: 15%;
                 text-align: center;
+                position: relative;
+
+                &:first-child {
+                    &::after {
+                        content: "";
+                        top: 38px;
+                        right: -45px;
+                        position: absolute;
+                        height: 10px;
+                        width: 50px;
+                        background: url("../../assets/images/line1.png");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                &:nth-child(2) {
+                    &::after {
+                        content: "";
+                        top: 28px;
+                        right: -45px;
+                        position: absolute;
+                        height: 10px;
+                        width: 50px;
+                        background: url("../../assets/images/line2.png");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                &:nth-child(3) {
+                    &::after {
+                        content: "";
+                        top: 38px;
+                        right: -45px;
+                        position: absolute;
+                        height: 10px;
+                        width: 50px;
+                        background: url("../../assets/images/line3.png");
+                        background-repeat: no-repeat;
+                    }
+                }
+
+                &:nth-child(4) {
+                    &::after {
+                        content: "";
+                        top: 28px;
+                        right: -47px;
+                        position: absolute;
+                        height: 10px;
+                        width: 50px;
+                        background: url("../../assets/images/line4.png");
+                        background-repeat: no-repeat;
+                    }
+                }
 
                 img {
                     width: 72px;
@@ -905,8 +958,8 @@
                     text-align: center;
 
                     img {
-                        width: 30px;
-                        height: 30px;
+                        width: auto;
+                        height: 35px;
                         margin-bottom: 12px;
                     }
 
@@ -964,8 +1017,9 @@
         }
     }
 }
+
 @media print {
     .pdfContainer {
-      page-break-before: always;
+        page-break-before: always;
     }
-  }
+}

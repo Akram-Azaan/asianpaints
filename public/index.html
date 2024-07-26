@@ -47,17 +47,30 @@
         return params;
       }
       function loadScriptConditionally() {
-        const params = getQueryParams();
-        if (params?.["envType"]) {
+          const currentUrl = window.location.href;
+          console.log("Current URL : ",currentUrl);
+          const params = getQueryParams();
+          const envType = params?.["envType"];
+          if (!envType) return;
+
+          const isWardrobe = currentUrl.includes("wardrobe");
           const script = document.createElement("script");
           script.type = "text/javascript";
-          script.async = "";
-          script.src =
-            params["envType"] === "prod"
-              ? "https://assets.adobedtm.com/launch-ENf4c71a0706064fe7b2ffe21cbff613f3.min.js" // Production Enviroment
-              : "https://assets.adobedtm.com/launch-EN495a9f3edad74404a35ef4ec6c95ed17-staging.min.js"; // Staging Enviroment
+          script.async = true;
+          if (isWardrobe) {
+              script.src =
+                  envType === "prod"
+                      ? "https://assets.adobedtm.com/ef0f7eb243a4/86be44fc9fd9/launch-a79d4e77858c.min.js"
+                      : "https://assets.adobedtm.com/ef0f7eb243a4/86be44fc9fd9/launch-03b4278cb656-development.min.js";
+              // console.log(script.src, isWardrobe, currentUrl);
+          } else {
+              script.src =
+                  envType === "prod"
+                      ? "https://assets.adobedtm.com/launch-ENf4c71a0706064fe7b2ffe21cbff613f3.min.js"
+                      : "https://assets.adobedtm.com/launch-EN495a9f3edad74404a35ef4ec6c95ed17-staging.min.js";
+              // console.log(script.src, isWardrobe, currentUrl);
+          }
           document.body.appendChild(script);
-        }
       }
       loadScriptConditionally();
     </script>

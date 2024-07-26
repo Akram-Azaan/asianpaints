@@ -26,12 +26,25 @@ import {
   WOOD_FINISH_OPTIONS,
   WARDROBE_DIMENSIONS,
 } from "../../constants/wardrobeConstants";
+import {
+  adobeAnaDimensionBack,
+  adobeAnaDimensionNext,
+  adobeAnaLeadFormSubmition,
+  adobeAnaSelectedDoorPanel,
+  adobeAnaSelectedShades,
+  adobeAnaSelectedTab,
+  adobeAnaSelectedWoodFinish,
+  adobeAnaWardrobeAction,
+} from "../../helpers/jsHelper";
 
 const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [showDoorPanel, setShowDoorpanel] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(false);
   const [woodFinish, setWoodFinish] = useState(
     WOOD_FINISH_OPTIONS[0]?.label || ""
+  );
+  const [wardrobePackage, setWardrobePackage] = useState(
+    WOOD_FINISH_OPTIONS[0]?.subTitle || ""
   );
   const [showWoodFinish, setShowWoodFinish] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -98,6 +111,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData, "formDataformData");
+    const leadID = Math.floor(Math.random() * 1000000);
+    adobeAnaLeadFormSubmition(formData.pincode, leadID, "sucess");
     // const validationErrors = validate();
     // if (Object.keys(validationErrors).length === 0) {
     //   // Submit the form
@@ -113,11 +129,14 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   };
 
   const showFinishes = () => {
+    adobeAnaDimensionNext(doorPanelOptions.dimension);
     setShowWardrobe(false);
     setShowWoodFinish(true);
+    // doorPanelOptions
   };
 
   const visualizeAgain = () => {
+    adobeAnaWardrobeAction("visualize again", wardrobePackage);
     setShowDoorpanel(true);
     setShowWardrobe(false);
     setShowWoodFinish(false);
@@ -127,6 +146,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   };
 
   const handleDoorClick = (door) => {
+    adobeAnaSelectedTab(door.label);
     setDoorPanelOptions({
       ...doorPanelOptions,
       door: door.label,
@@ -137,7 +157,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   useEffect(() => {
     pdfContent();
-  }, [doorPanelOptions, woodFinish,formData]);
+  }, [doorPanelOptions, woodFinish, formData]);
 
   const pdfContent = () => {
     // Remove any existing hidden div to avoid duplications
@@ -187,7 +207,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
             <div class="${styles.pdfWardrobeDetailsHeader}">
               <span class="${styles.firstBox}">
                 <p>Package :</p>
-                <h3>Economy</h3>
+                <h3>${wardrobePackage || "N/A"}</h3>
               </span>
               <span class="${styles.secondBox}">
                 <p>Estimated cost: </p>
@@ -353,6 +373,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   };
 
   const handleDownloadPdf = async () => {
+    adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -426,7 +447,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           <Col lg={6} md={6} sm={12} xs={12}>
             {isMobile && showPackage && (
               <div className={styles.packageRightBox}>
-                <h4 className={styles.packageTitle}>Economy Package</h4>
+                <h4 className={styles.packageTitle}>
+                  {wardrobePackage} Package
+                </h4>
                 <p className={styles.packageDescription}>
                   High-end interior solutions for the ultimate wardrobe
                   experience.
@@ -461,7 +484,12 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 {showShades && (
                   <div className={styles.shadesBox}>
                     <h4>Available top {woodFinish} shades</h4>
-                    <div className={styles.shades}>
+                    <div
+                      className={styles.shades}
+                      onClick={() => {
+                        adobeAnaSelectedShades(woodFinish, "Green");
+                      }}
+                    >
                       <div className={styles.shadeItem}>
                         <div className={styles.shadeColor}></div>
                         <div className={styles.shadeTitle}>Green</div>
@@ -505,6 +533,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     onClick={() => {
                       setShowDoorpanel(false);
                       setShowWardrobe(true);
+                      adobeAnaSelectedDoorPanel(doorPanelOptions?.door);
                     }}
                   >
                     Next
@@ -549,6 +578,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     onClick={() => {
                       setShowDoorpanel(true);
                       setShowWardrobe(false);
+                      adobeAnaDimensionBack();
                     }}
                   >
                     Back
@@ -577,6 +607,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                       )}
                       onClick={() => {
                         setWoodFinish(finish.label);
+                        setWardrobePackage(finish.subTitle);
                       }}
                     >
                       <div className={styles.doorPanelImage}>
@@ -602,6 +633,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                   <button
                     className={styles.button1}
                     onClick={() => {
+                      adobeAnaSelectedWoodFinish(woodFinish);
                       setShowWardrobe(false);
                       setShowWoodFinish(false);
                       setShowDetails(true);
@@ -743,7 +775,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
               <div className={styles.packageRightBox}>
                 {!isMobile && (
                   <>
-                    <h4 className={styles.packageTitle}>Economy Package</h4>
+                    <h4 className={styles.packageTitle}>
+                      {wardrobePackage} Package
+                    </h4>
                     <p className={styles.packageDescription}>
                       High-end interior solutions for the ultimate wardrobe
                       experience.
