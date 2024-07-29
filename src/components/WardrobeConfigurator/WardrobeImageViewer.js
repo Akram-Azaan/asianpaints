@@ -545,7 +545,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
               <div className={styles.rightBox}>
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
                 <div>
-                  <Row className={`h-100 justify-content-center g-4`}>
+                  <Row className={`h-100 justify-content-start g-4`}>
                     {WARDROBE_DIMENSIONS.map((dimension) => (
                       <Col
                         key={dimension.id}
