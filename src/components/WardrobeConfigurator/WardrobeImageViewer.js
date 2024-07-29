@@ -8,23 +8,14 @@ import FinishPopup from "./FinishPopup";
 import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
 import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
-import ProcessIcon1 from "../../assets/images/ProcessIcon1.png";
-import ProcessIcon2 from "../../assets/images/ProcessIcon2.png";
-import ProcessIcon3 from "../../assets/images/ProcessIcon3.png";
-import ProcessIcon4 from "../../assets/images/ProcessIcon4.png";
-import ProcessIcon5 from "../../assets/images/ProcessIcon5.png";
-import ReasonsIcon1 from "../../assets/images/ReasonsIcon1.png";
-import ReasonsIcon2 from "../../assets/images/ReasonsIcon2.png";
-import ReasonsIcon3 from "../../assets/images/ReasonsIcon3.png";
-import ReasonsIcon4 from "../../assets/images/ReasonsIcon4.png";
-import ReasonsIcon5 from "../../assets/images/ReasonsIcon5.png";
-import ReasonsIcon6 from "../../assets/images/ReasonsIcon6.png";
 import PhoneIcon from "../../assets/images/phone.png";
 
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
   WARDROBE_DIMENSIONS,
+  PDF_PROCESS,
+  PDF_REASONS,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -175,6 +166,24 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     hiddenDiv.style.height = "100%";
     hiddenDiv.style.overflow = "visible";
 
+    const processBoxHtml = PDF_PROCESS.map((process) => {
+      return `
+        <div class="${styles.processBox}" key="${process.id}">
+          <img src="${process.value}" alt="process ${process.id}" />
+          <h4>${process.desc}</h4>
+        </div>
+      `;
+    }).join("");
+    
+    const reasonBoxHtml = PDF_REASONS.map((reasons) => {
+      return `
+        <div class="${styles.reasonCard}" key="${reasons.id}">
+          <img src="${reasons.value}" alt="reason ${reasons.id}" />
+          <h3>${reasons.desc}</h3>
+        </div>
+      `;
+    }).join(""); 
+
     // Add the hidden div to the body
     document.body.appendChild(hiddenDiv);
 
@@ -309,54 +318,12 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           </p>
           <h4>Our Process</h4>
           <div class="${styles.ourProcess}">
-            <div class="${styles.processBox}">
-              <img src="${ProcessIcon1}" alt="process 1" />
-              <h4>Understand your requirements</h4>
-            </div>
-            <div class="${styles.processBox}">
-              <img src="${ProcessIcon2}" alt="process 2" />
-              <h4>Reimagine with a 3D design layout</h4>
-            </div>
-            <div class="${styles.processBox}">
-              <img src="${ProcessIcon3}" alt="process 3" />
-              <h4>Material selection within budget</h4>
-            </div>
-            <div class="${styles.processBox}">
-              <img src="${ProcessIcon4}" alt="process 4" />
-              <h4>Execute the Design</h4>
-            </div>
-            <div class="${styles.processBox}">
-              <img src="${ProcessIcon5}" alt="process 5" />
-              <h4>Step into your Beautiful Home</h4>
-            </div>
+            ${processBoxHtml}
           </div>
           <div class="${styles.pdfReasonBox}">
             <h2>Reasons to choose us</h2>
             <div class="${styles.pdfReasonsCards}">
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon1}" alt="reason 1" />
-                <h3>Customised Design</h3>
-              </div>
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon2}" alt="reason 2" />
-                <h3>On Time Completion</h3>
-              </div>
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon3}" alt="reason 3" />
-                <h3>Upto 10 Years Warranty</h3>
-              </div>
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon4}" alt="reason 4" />
-                <h3>3D Visualization</h3>
-              </div>
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon5}" alt="reason 5" />
-                <h3>Easy EMI Options</h3>
-              </div>
-              <div class="${styles.reasonCard}">
-                <img src="${ReasonsIcon6}" alt="reason 6" />
-                <h3>On Budget</h3>
-              </div>
+              ${reasonBoxHtml}
             </div>
           </div>
         </div>

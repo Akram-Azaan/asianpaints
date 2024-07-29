@@ -3,6 +3,17 @@ import HINGED_THUMB from "../assets/images/hinged.png";
 import LAMINATE_THUMB from "../assets/images/laminate.png";
 import ACRYLIC_THUMB from "../assets/images/acrylic.png";
 import PU_THUMB from "../assets/images/pu.png";
+import ProcessIcon1 from "../assets/images/ProcessIcon1.png";
+import ProcessIcon2 from "../assets/images/ProcessIcon2.png";
+import ProcessIcon3 from "../assets/images/ProcessIcon3.png";
+import ProcessIcon4 from "../assets/images/ProcessIcon4.png";
+import ProcessIcon5 from "../assets/images/ProcessIcon5.png";
+import ReasonsIcon1 from "../assets/images/ReasonsIcon1.png";
+import ReasonsIcon2 from "../assets/images/ReasonsIcon2.png";
+import ReasonsIcon3 from "../assets/images/ReasonsIcon3.png";
+import ReasonsIcon4 from "../assets/images/ReasonsIcon4.png";
+import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
+import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
 
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
@@ -87,5 +98,67 @@ export const WARDROBE_DIMENSIONS = [
   {
     id: 9,
     label: "8 x 8 ft.",
+  },
+];
+
+export const PDF_PROCESS = [
+  {
+    id: 1,
+    value: ProcessIcon1,
+    desc: "Understand your requirements",
+  },
+  {
+    id: 2,
+    value: ProcessIcon2,
+    desc: "Reimagine with a 3D design layout",
+  },
+  {
+    id: 3,
+    value: ProcessIcon3,
+    desc: "Material selection within budget",
+  },
+  {
+    id: 4,
+    value: ProcessIcon4,
+    desc: "Execute the Design",
+  },
+  {
+    id: 5,
+    value: ProcessIcon5,
+    desc: "Step into your Beautiful Home",
+  },
+];
+
+
+export const PDF_REASONS = [
+  {
+    id: 1,
+    value: ReasonsIcon1,
+    desc: "Customised Design",
+  },
+  {
+    id: 2,
+    value: ReasonsIcon2,
+    desc: "On Time Completion",
+  },
+  {
+    id: 3,
+    value: ReasonsIcon3,
+    desc: "Upto 10 Years Warranty",
+  },
+  {
+    id: 4,
+    value: ReasonsIcon4,
+    desc: "3D Visualization",
+  },
+  {
+    id: 5,
+    value: ReasonsIcon5,
+    desc: "Easy EMI Options",
+  },
+  {
+    id: 5,
+    value: ReasonsIcon6,
+    desc: "On Budge",
   },
 ];
