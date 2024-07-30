@@ -174,7 +174,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         </div>
       `;
     }).join("");
-    
+
     const reasonBoxHtml = PDF_REASONS.map((reasons) => {
       return `
         <div class="${styles.reasonCard}" key="${reasons.id}">
@@ -182,7 +182,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           <h3>${reasons.desc}</h3>
         </div>
       `;
-    }).join(""); 
+    }).join("");
 
     // Add the hidden div to the body
     document.body.appendChild(hiddenDiv);

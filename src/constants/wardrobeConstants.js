@@ -129,7 +129,6 @@ export const PDF_PROCESS = [
   },
 ];
 
-
 export const PDF_REASONS = [
   {
     id: 1,
