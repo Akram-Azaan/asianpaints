@@ -13,9 +13,10 @@ import PhoneIcon from "../../assets/images/phone.png";
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
-  WARDROBE_DIMENSIONS,
   PDF_PROCESS,
   PDF_REASONS,
+  WARDROBE_TYPE_WITH_DIMENSIONS,
+  WARDROBE_DATA,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -51,6 +52,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     receiveUpdates: false,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [price, setPrice] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -100,9 +102,12 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData, "formDataformData");
+    const updatedPrice = await getPrice();
+    const formattedPrice = formatIndianCurrency(updatedPrice);
+    setPrice(formattedPrice);
     const leadID = Math.floor(Math.random() * 1000000);
     adobeAnaLeadFormSubmition(formData.pincode, leadID, "sucess");
     // const validationErrors = validate();
@@ -144,11 +149,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     });
   };
 
-  // const pdfContentRef = useRef(null);
-
   useEffect(() => {
     pdfContent();
-  }, [doorPanelOptions, woodFinish, formData]);
+  }, [doorPanelOptions, woodFinish, formData,price]);
 
   const pdfContent = () => {
     // Remove any existing hidden div to avoid duplications
@@ -220,7 +223,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
               </span>
               <span class="${styles.secondBox}">
                 <p>Estimated cost: </p>
-                <h3>₹ 2,51,527.00</h3>
+                <h3>${price}</h3>
               </span>
             </div>
             <div class="${styles.pdfWardrobeDetailsBody}">
@@ -407,6 +410,38 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     pdf.save("wardrobeEstimate.pdf");
   };
 
+  const filteredDimensions = WARDROBE_TYPE_WITH_DIMENSIONS.filter(
+    (type) => type.id === doorPanelOptions?.door
+  )[0].dimensions;
+
+  const formatIndianCurrency = (number) => {
+    // Convert the number to a string with fixed 2 decimal places
+    let [integerPart, decimalPart] = number.toFixed(2).split(".");
+
+    // Convert integer part to Indian numbering system
+    let lastThreeDigits = integerPart.slice(-3);
+    let otherDigits = integerPart.slice(0, -3);
+    if (otherDigits !== "") {
+      lastThreeDigits = "," + lastThreeDigits;
+    }
+    const formattedInteger =
+      otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThreeDigits;
+
+    return `₹ ${formattedInteger}.${decimalPart}`;
+  };
+
+  const getPrice = () => {
+    const matchingType = WARDROBE_DATA.find((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.label === doorPanelOptions?.dimension &&
+        type.finishType === woodFinish
+      );
+    });
+    const wardrobePrice = matchingType ? matchingType.price : null;
+    return wardrobePrice;
+  };
+
   return (
     <>
       <div className={styles.wardrobeContainer}>
@@ -421,7 +456,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                   High-end interior solutions for the ultimate wardrobe
                   experience.
                 </p>
-                <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+                <h2 className={styles.packagePrice}>{price}</h2>
               </div>
             )}
             {!(showDetails && isMobile) && (
@@ -513,7 +548,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
                 <div>
                   <Row className={`h-100 justify-content-start g-4`}>
-                    {WARDROBE_DIMENSIONS.map((dimension) => (
+                    {filteredDimensions.map((dimension) => (
                       <Col
                         key={dimension.id}
                         xs={4}
@@ -531,7 +566,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                             className={styles.input}
                           />
                           <span className={styles.labelText}>
-                            {dimension.label}
+                            {dimension.label}.
                           </span>
                         </label>
                       </Col>
@@ -749,7 +784,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                       High-end interior solutions for the ultimate wardrobe
                       experience.
                     </p>
-                    <h2 className={styles.packagePrice}>₹ 2,51,527.00</h2>
+                    <h2 className={styles.packagePrice}>{price}</h2>
                   </>
                 )}
                 <div className={styles.buttonContainer}>

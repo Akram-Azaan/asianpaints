@@ -4,7 +4,7 @@ import {
   DOOR_LIST,
   HINGED_DOOR,
   SLIDING_DOOR,
-  WARDROBE_DIMENSIONS,
+  WARDROBE_TYPE_WITH_DIMENSIONS,
 } from "../../constants/wardrobeConstants";
 import { slidingConfiguratorData } from "../../helpers/slidingConfiguratorInfo";
 import { hingedConfiguratorData } from "../../helpers/hingedConfiguratorInfo";
@@ -20,13 +20,13 @@ const WardrobeConfigurator = () => {
   const [localConfiguratorData, setLocalConfiguratorData] = useState();
   const [doorPanelOptions, setDoorPanelOptions] = useState({
     door: DOOR_LIST?.[0].label,
-    dimension: WARDROBE_DIMENSIONS?.[0].label,
+    dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
   });
 
   useEffect(() => {
     setDoorPanelOptions({
       ...doorPanelOptions,
-      dimension: WARDROBE_DIMENSIONS?.[0].label,
+      dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
     });
     updateDataForModelIdLocal(doorPanelOptions?.door);
   }, [doorPanelOptions?.door]);
