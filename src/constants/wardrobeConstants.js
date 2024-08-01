@@ -19,13 +19,11 @@ export const SALESFORCE_TOKEN_URL =
   "https://test.salesforce.com/services/oauth2/token";
 export const SALESFORCE_LEAD_URL =
   "https://1ap--devnew.sandbox.my.salesforce.com/services/apexrest/Lead/";
-export const REACT_APP_SALESFORCE_CLIENT_ID =
-  "3MVG9qT0j3YAi4EtQRW.9zA7hFGh51dU_zuCdAG3AQnalqJ7tGNr.c.I4VHyK3oFV7P10WhMAfJheHnaVlv6X";
-export const REACT_APP_SALESFORCE_CLIENT_SECRET =
-  "FB30856C7551F376125B80CDB6FB4032975349921153F8F65FFF5E1A42D5D593";
-export const REACT_APP_SALESFORCE_USERNAME = "integration.user@ap.prod.devnew";
-export const REACT_APP_SALESFORCE_PASSWORD =
-  "apDevNew@123hdrODuruBtvmdRn7JRomtrgj";
+
+export const SALESFORCE_CLIENT_ID = process.env.REACT_APP_SALESFORCE_CLIENT_ID
+export const SALESFORCE_CLIENT_SECRET =process.env.REACT_APP_SALESFORCE_CLIENT_SECRET
+export const SALESFORCE_USERNAME = process.env.REACT_APP_SALESFORCE_USERNAME
+export const SALESFORCE_PASSWORD =process.env.REACT_APP_SALESFORCE_PASSWORD
 
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";

@@ -11,10 +11,10 @@ import {
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
 import {
-  REACT_APP_SALESFORCE_CLIENT_ID,
-  REACT_APP_SALESFORCE_CLIENT_SECRET,
-  REACT_APP_SALESFORCE_PASSWORD,
-  REACT_APP_SALESFORCE_USERNAME,
+  SALESFORCE_CLIENT_ID,
+  SALESFORCE_CLIENT_SECRET,
+  SALESFORCE_PASSWORD,
+  SALESFORCE_USERNAME,
   SALESFORCE_LEAD_URL,
   SALESFORCE_TOKEN_URL,
 } from "../constants/wardrobeConstants";
@@ -143,10 +143,10 @@ export const getSalesforceToken = async () => {
   const url = SALESFORCE_TOKEN_URL;
   const params = new URLSearchParams({
     grant_type: "password",
-    client_id: REACT_APP_SALESFORCE_CLIENT_ID,
-    client_secret: REACT_APP_SALESFORCE_CLIENT_SECRET,
-    username: REACT_APP_SALESFORCE_USERNAME,
-    password: REACT_APP_SALESFORCE_PASSWORD,
+    client_id: SALESFORCE_CLIENT_ID,
+    client_secret: SALESFORCE_CLIENT_SECRET,
+    username: SALESFORCE_USERNAME,
+    password: SALESFORCE_PASSWORD,
   }).toString();
 
   try {
