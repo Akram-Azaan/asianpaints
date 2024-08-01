@@ -15,8 +15,23 @@ import ReasonsIcon4 from "../assets/images/ReasonsIcon4.png";
 import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
 import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
 
+export const SALESFORCE_TOKEN_URL =
+  "https://test.salesforce.com/services/oauth2/token";
+export const SALESFORCE_LEAD_URL =
+  "https://1ap--devnew.sandbox.my.salesforce.com/services/apexrest/Lead/";
+export const REACT_APP_SALESFORCE_CLIENT_ID =
+  "3MVG9qT0j3YAi4EtQRW.9zA7hFGh51dU_zuCdAG3AQnalqJ7tGNr.c.I4VHyK3oFV7P10WhMAfJheHnaVlv6X";
+export const REACT_APP_SALESFORCE_CLIENT_SECRET =
+  "FB30856C7551F376125B80CDB6FB4032975349921153F8F65FFF5E1A42D5D593";
+export const REACT_APP_SALESFORCE_USERNAME = "integration.user@ap.prod.devnew";
+export const REACT_APP_SALESFORCE_PASSWORD =
+  "apDevNew@123hdrODuruBtvmdRn7JRomtrgj";
+
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
+
+export const CAMERA_ANGLE_1 = SLIDING_THUMB;
+export const CAMERA_ANGLE_2 = SLIDING_THUMB;
 
 export const DOOR_LIST = [
   {

@@ -10,6 +10,7 @@ import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 
+import { createLeadInSalesforce } from "../../api/configuratorApi";
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
@@ -17,6 +18,8 @@ import {
   PDF_REASONS,
   WARDROBE_TYPE_WITH_DIMENSIONS,
   WARDROBE_DATA,
+  CAMERA_ANGLE_1,
+  CAMERA_ANGLE_2,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -53,6 +56,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
+  const [cameraAngle, setCameraAngle] = useState("front");
 
   useEffect(() => {
     const handleResize = () => {
@@ -105,23 +109,35 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData, "formDataformData");
-    const updatedPrice = await getPrice();
-    const formattedPrice = formatIndianCurrency(updatedPrice);
-    setPrice(formattedPrice);
-    const leadID = Math.floor(Math.random() * 1000000);
-    adobeAnaLeadFormSubmition(formData.pincode, leadID, "sucess");
-    // const validationErrors = validate();
-    // if (Object.keys(validationErrors).length === 0) {
-    //   // Submit the form
-    //   console.log("Form submitted:", formData);
-    // } else {
-    //   setErrors(validationErrors);
-    // }
-    // console.log(errors);
-    // console.log("Form submitted:", formData);
-    setShowDetails(false);
-    setShowPackage(true);
-    setShowShades(true);
+
+    const validationErrors = await validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      console.log(validationErrors);
+      return;
+    }
+
+    try {
+      const response = await createLeadInSalesforce(formData);
+      console.log("Lead created successfully:", response);
+
+      setShowDetails(false);
+      setShowPackage(true);
+      setShowShades(true);
+
+      const updatedPrice = await getPrice();
+      const formattedPrice = formatIndianCurrency(updatedPrice);
+      setPrice(formattedPrice);
+
+      // const leadID = response.CRMleadId;
+      adobeAnaLeadFormSubmition(
+        formData.pincode,
+        response.CRMleadId,
+        response.returnCode
+      );
+    } catch (error) {
+      console.error("Error creating lead:", error);
+    }
   };
 
   const showFinishes = () => {
@@ -142,16 +158,21 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   };
 
   const handleDoorClick = (door) => {
-    adobeAnaSelectedTab(door.label);
+    // adobeAnaSelectedTab(door.label);
     setDoorPanelOptions({
       ...doorPanelOptions,
       door: door.label,
     });
   };
 
+  const handleCameraAngleClick = (angle) => {
+    adobeAnaSelectedTab(angle);
+    setCameraAngle(angle);
+  };
+
   useEffect(() => {
     pdfContent();
-  }, [doorPanelOptions, woodFinish, formData,price]);
+  }, [doorPanelOptions, woodFinish, formData, price]);
 
   const pdfContent = () => {
     // Remove any existing hidden div to avoid duplications
@@ -466,7 +487,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 </h2>
                 <div className={styles.buttons}>
                   <div className={styles.roundbox}>
-                    {DOOR_LIST.map((door, index) => (
+                    {/* {DOOR_LIST.map((door, index) => (
                       <div
                         key={index}
                         className={cx(styles.rounds, {
@@ -477,7 +498,23 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                       >
                         <img src={door.thumb} alt={door.label} />
                       </div>
-                    ))}
+                    ))} */}
+                    <div
+                      className={cx(styles.rounds, {
+                        [styles.bordered]: cameraAngle === "front",
+                      })}
+                      onClick={() => handleCameraAngleClick("front")}
+                    >
+                      <img src={CAMERA_ANGLE_1} alt={"front"} />
+                    </div>
+                    <div
+                      className={cx(styles.rounds, {
+                        [styles.bordered]: cameraAngle === "side",
+                      })}
+                      onClick={() => handleCameraAngleClick("side")}
+                    >
+                      <img src={CAMERA_ANGLE_2} alt={"side"} />
+                    </div>
                   </div>
                 </div>
                 <div className={styles.imageView}>
