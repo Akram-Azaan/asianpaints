@@ -86,8 +86,8 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const validate = () => {
     const newErrors = {};
   
-    if (!formData.firstname) newErrors.name = 'First name is required';
-    if (!formData.lastname || formData.lastname === 'NA') newErrors.name = 'Last name is required';
+    if (!formData.firstname) newErrors.name = 'Name is required';
+    // if (!formData.lastname || formData.lastname === 'NA') newErrors.name = 'Last name is required';
   
     // Pincode validation
     if (!formData.pincode) {
@@ -154,17 +154,18 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       return;
     }
 
-    try {
-      const response = await createLeadInSalesforce(formData);
+    try {  
+      const updatedPrice = await getPrice();
+      console.log(updatedPrice, "updatedPrice");
+      const formattedPrice = formatIndianCurrency(updatedPrice);
+      setPrice(formattedPrice);
+
+      const response = await createLeadInSalesforce(formData,updatedPrice);
       console.log("Lead created successfully:", response);
 
       setShowDetails(false);
       setShowPackage(true);
       setShowShades(true);
-
-      const updatedPrice = await getPrice();
-      const formattedPrice = formatIndianCurrency(updatedPrice);
-      setPrice(formattedPrice);
 
       // const leadID = response.CRMleadId;
       adobeAnaLeadFormSubmition(

@@ -143,10 +143,10 @@ export const getSalesforceToken = async () => {
   const url = SALESFORCE_TOKEN_URL;
   const params = new URLSearchParams({
     grant_type: "password",
-    client_id: SALESFORCE_CLIENT_ID,
-    client_secret: SALESFORCE_CLIENT_SECRET,
-    username: SALESFORCE_USERNAME,
-    password: SALESFORCE_PASSWORD,
+    client_id: "3MVG9qT0j3YAi4EtQRW.9zA7hFGh51dU_zuCdAG3AQnalqJ7tGNr.c.I4VHyK3oFV7P10WhMAfJheHnaVlv6X",
+    client_secret: "FB30856C7551F376125B80CDB6FB4032975349921153F8F65FFF5E1A42D5D593",
+    username: "integration.user@ap.prod.devnew",
+    password: "apDevNew@123hdrODuruBtvmdRn7JRomtrgj",
   }).toString();
 
   try {
@@ -162,7 +162,7 @@ export const getSalesforceToken = async () => {
   }
 };
 
-export const createLeadInSalesforce = async (leadData) => {
+export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   try {
     const token = await getSalesforceToken();
 
@@ -177,11 +177,11 @@ export const createLeadInSalesforce = async (leadData) => {
       req: {
         C_Pincode: leadData.pincode,
         C_Mobile: leadData.mobile,
-        C_FirstName: leadData.name,
+        C_FirstName: leadData.firstname,
+        C_LastName: leadData.lastname,
         C_Email: leadData.email,
-        // C_LastName: "doe",
-        // C_EstimatedValue: "212121",
-        // C_CampaignId: "DECOR_ORGANIC",
+        C_EstimatedValue: estimatedPrice,
+        C_CampaignId: "WARDROBE_DECORE_IMAGINE",
         C_IntegrationSource: "Wardrobe_Calculator_Imagine",
       },
     };
