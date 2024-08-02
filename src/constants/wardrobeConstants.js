@@ -15,16 +15,7 @@ import ReasonsIcon4 from "../assets/images/ReasonsIcon4.png";
 import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
 import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
 
-export const SALESFORCE_TOKEN_URL =
-  "https://test.salesforce.com/services/oauth2/token";
-export const SALESFORCE_LEAD_URL =
-  "https://1ap--devnew.sandbox.my.salesforce.com/services/apexrest/Lead/";
-
-export const SALESFORCE_CLIENT_ID = process.env.REACT_APP_SALESFORCE_CLIENT_ID
-export const SALESFORCE_CLIENT_SECRET =process.env.REACT_APP_SALESFORCE_CLIENT_SECRET
-export const SALESFORCE_USERNAME = process.env.REACT_APP_SALESFORCE_USERNAME
-export const SALESFORCE_PASSWORD =process.env.REACT_APP_SALESFORCE_PASSWORD
-
+export const IMAGINE_AP_SALESFORCE = "https:dev2.imagine.io/configurator/api/v2/ap-sf-wardrobe/"
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
 

@@ -10,14 +10,7 @@ import {
 } from "../constants/apiConstant";
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
-import {
-  SALESFORCE_CLIENT_ID,
-  SALESFORCE_CLIENT_SECRET,
-  SALESFORCE_PASSWORD,
-  SALESFORCE_USERNAME,
-  SALESFORCE_LEAD_URL,
-  SALESFORCE_TOKEN_URL,
-} from "../constants/wardrobeConstants";
+import { IMAGINE_AP_SALESFORCE } from "../constants/wardrobeConstants";
 
 export async function getAllPublicData({
   newModelIds,
@@ -139,37 +132,10 @@ export const fetchAllPages = async (api, callToPage = null) => {
   };
 };
 
-export const getSalesforceToken = async () => {
-  const url = SALESFORCE_TOKEN_URL;
-  const params = new URLSearchParams({
-    grant_type: "password",
-    client_id: SALESFORCE_CLIENT_ID,
-    client_secret: SALESFORCE_CLIENT_SECRET,
-    username: SALESFORCE_USERNAME,
-    password: SALESFORCE_PASSWORD,
-  }).toString();
-
-  try {
-    const response = await axios.post(url, params, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-    return response.data.access_token;
-  } catch (error) {
-    console.error("Error obtaining Salesforce token", error);
-    throw error;
-  }
-};
-
 export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   try {
-    const token = await getSalesforceToken();
-
-    const url = SALESFORCE_LEAD_URL;
-
+    const url = IMAGINE_AP_SALESFORCE;
     const headers = {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     };
 

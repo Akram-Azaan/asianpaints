@@ -257,7 +257,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           <img src="${BeautifullHomesLogo}" alt="logo" />
         </div>
         <div class="${styles.pdfBody}">
-          <h3>Dear ${formData?.name}</h3>
+          <h3>Dear ${formData?.firstname} ${formData?.lastname !== 'NA' ? ` ${formData.lastname}` : ''}</h3>
           <div class="${styles.pdfBodyDetails}">
             <div>
               <p>
@@ -525,18 +525,6 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 </h2>
                 <div className={styles.buttons}>
                   <div className={styles.roundbox}>
-                    {/* {DOOR_LIST.map((door, index) => (
-                      <div
-                        key={index}
-                        className={cx(styles.rounds, {
-                          [styles.bordered]:
-                            doorPanelOptions?.door === door.label,
-                        })}
-                        onClick={() => handleDoorClick(door)}
-                      >
-                        <img src={door.thumb} alt={door.label} />
-                      </div>
-                    ))} */}
                     <div
                       className={cx(styles.rounds, {
                         [styles.bordered]: cameraAngle === "front",
