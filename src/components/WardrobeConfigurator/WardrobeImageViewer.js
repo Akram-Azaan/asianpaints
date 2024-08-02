@@ -48,7 +48,8 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [errors, setErrors] = useState({});
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
+    firstname: '',
+    lastname: '',
     pincode: "",
     mobile: "",
     email: "",
@@ -84,9 +85,31 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = "Name is required";
-    if (!formData.pincode) newErrors.pincode = "Pincode is required";
-    if (!formData.mobile) newErrors.mobile = "Mobile number is required";
+  
+    if (!formData.firstname) newErrors.name = 'First name is required';
+    if (!formData.lastname || formData.lastname === 'NA') newErrors.name = 'Last name is required';
+  
+    // Pincode validation
+    if (!formData.pincode) {
+      newErrors.pincode = "Pincode is required";
+    } else {
+      const pincodeRegex = /^[1-9][0-9]{2}\s?[0-9]{3}$/;
+      if (!pincodeRegex.test(formData.pincode)) {
+        newErrors.pincode = "Enter valid Pincode";
+      }
+    }
+  
+    // Mobile number validation
+    if (!formData.mobile) {
+      newErrors.mobile = "Mobile number is required";
+    } else {
+      const mobileRegex = /^[7-9][0-9]{9}$/;
+      if (!mobileRegex.test(formData.mobile)) {
+        newErrors.mobile = "Enter valid Mobile number";
+      }
+    }
+  
+    // Email validation
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else {
@@ -95,15 +118,29 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         newErrors.email = "Email is invalid";
       }
     }
+  
     return newErrors;
   };
+  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+
+    if (name === 'name') {
+      const [firstname, ...lastnameArray] = value.split(' ');
+      const lastname = lastnameArray.length > 0 ? lastnameArray.join(' ') : 'NA';
+
+      setFormData({
+        ...formData,
+        firstname,
+        lastname,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -711,7 +748,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                       <div className={styles.inputBox}>
                         <label className={styles.inputLabel}>Pincode</label>
                         <input
-                          type="text"
+                          type="number"
                           name="pincode"
                           placeholder="Enter your pincode"
                           autoComplete="off"
@@ -730,7 +767,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           Mobile number
                         </label>
                         <input
-                          type="text"
+                          type="number"
                           name="mobile"
                           placeholder="Mobile number"
                           autoComplete="off"
