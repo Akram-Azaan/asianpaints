@@ -159,11 +159,11 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       console.log(updatedPrice, "updatedPrice");
       const formattedPrice = formatIndianCurrency(updatedPrice);
       setPrice(formattedPrice);
-
+      setShowDetails(false);
+      setLoadingScreen(true)
       const response = await createLeadInSalesforce(formData,updatedPrice);
       console.log("Lead created successfully:", response);
-
-      setShowDetails(false);
+      setLoadingScreen(false)
       setShowPackage(true);
       setShowShades(true);
 
@@ -193,6 +193,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     setShowDetails(false);
     setShowPackage(false);
     setShowShades(false);
+    // window.location.reload();
   };
 
   const handleDoorClick = (door) => {
@@ -518,7 +519,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 <h2 className={styles.packagePrice}>{price}</h2>
               </div>
             )}
-            {!(showDetails && isMobile) && (
+            {!(showDetails && isMobile) && !loadingScreen && (
               <div className={styles.wardrobe}>
                 <h2 className={styles.title}>
                   Build your wardrobe and get cost estimation
