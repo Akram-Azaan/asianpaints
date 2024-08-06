@@ -146,7 +146,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData, "formDataformData");
-
+    // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const validationErrors = await validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -161,6 +161,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       setPrice(formattedPrice);
       setShowDetails(false);
       setLoadingScreen(true)
+      // await delay(10000);
       const response = await createLeadInSalesforce(formData,updatedPrice);
       console.log("Lead created successfully:", response);
       setLoadingScreen(false)
@@ -519,7 +520,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                 <h2 className={styles.packagePrice}>{price}</h2>
               </div>
             )}
-            {!(showDetails && isMobile) && !loadingScreen && (
+            {!(showDetails && isMobile) && (!isMobile || !loadingScreen) && (
               <div className={styles.wardrobe}>
                 <h2 className={styles.title}>
                   Build your wardrobe and get cost estimation
