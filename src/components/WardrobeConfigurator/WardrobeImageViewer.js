@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import ReactDOMServer from "react-dom/server";
 import { Col, Row } from "react-bootstrap";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -9,7 +10,7 @@ import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
 import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
-
+import { LogoIcon } from "../../assets/images/LogoIcon.js";
 import { createLeadInSalesforce } from "../../api/configuratorApi";
 import {
   DOOR_LIST,
@@ -48,8 +49,8 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [errors, setErrors] = useState({});
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
+    firstname: "",
+    lastname: "",
     pincode: "",
     mobile: "",
     email: "",
@@ -85,10 +86,10 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const validate = () => {
     const newErrors = {};
-  
-    if (!formData.firstname) newErrors.name = 'Name is required';
+
+    if (!formData.firstname) newErrors.name = "Name is required";
     // if (!formData.lastname || formData.lastname === 'NA') newErrors.name = 'Last name is required';
-  
+
     // Pincode validation
     if (!formData.pincode) {
       newErrors.pincode = "Pincode is required";
@@ -98,7 +99,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         newErrors.pincode = "Enter valid Pincode";
       }
     }
-  
+
     // Mobile number validation
     if (!formData.mobile) {
       newErrors.mobile = "Mobile number is required";
@@ -108,7 +109,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         newErrors.mobile = "Enter valid Mobile number";
       }
     }
-  
+
     // Email validation
     if (!formData.email) {
       newErrors.email = "Email is required";
@@ -118,41 +119,41 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         newErrors.email = "Email is invalid";
       }
     }
-  
+
     return newErrors;
   };
-  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (name === 'name') {
-      const [firstname, ...lastnameArray] = value.split(' ');
-      const lastname = lastnameArray.length > 0 ? lastnameArray.join(' ') : 'NA';
+    if (name === "name") {
+      const [firstname, ...lastnameArray] = value.split(" ");
+      const lastname =
+        lastnameArray.length > 0 ? lastnameArray.join(" ") : "NA";
 
       setFormData({
         ...formData,
         firstname,
         lastname,
       });
-    } else if (name === 'pincode') {
+    } else if (name === "pincode") {
       if (value.length <= 6) {
         setFormData({
           ...formData,
-          [name]: value
+          [name]: value,
         });
       }
-    } else if (name === 'mobile') {
+    } else if (name === "mobile") {
       if (value.length <= 10) {
         setFormData({
           ...formData,
-          [name]: value
+          [name]: value,
         });
       }
     } else {
       setFormData({
         ...formData,
-        [name]: type === 'checkbox' ? checked : value,
+        [name]: type === "checkbox" ? checked : value,
       });
     }
   };
@@ -168,17 +169,17 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       return;
     }
 
-    try {  
+    try {
       const updatedPrice = await getPrice();
       console.log(updatedPrice, "updatedPrice");
       const formattedPrice = formatIndianCurrency(updatedPrice);
       setPrice(formattedPrice);
       setShowDetails(false);
-      setLoadingScreen(true)
+      setLoadingScreen(true);
       // await delay(10000);
-      const response = await createLeadInSalesforce(formData,updatedPrice);
+      const response = await createLeadInSalesforce(formData, updatedPrice);
       console.log("Lead created successfully:", response);
-      setLoadingScreen(false)
+      setLoadingScreen(false);
       setShowPackage(true);
       setShowShades(true);
 
@@ -262,6 +263,8 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       `;
     }).join("");
 
+    const logoIconHtml = ReactDOMServer.renderToString(<LogoIcon />);
+
     // Add the hidden div to the body
     document.body.appendChild(hiddenDiv);
 
@@ -270,10 +273,10 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       <div id="page-1" class="${styles.pdfContainer}">
         <div class="${styles.pdfHeader}">
           <h2>Wardrobe estimate</h2>
-          <img src="${BeautifullHomesLogo}" alt="logo" />
+          ${logoIconHtml}
         </div>
         <div class="${styles.pdfBody}">
-          <h3>Dear ${formData?.firstname} ${formData?.lastname !== 'NA' ? ` ${formData.lastname}` : ''}</h3>
+          <h3>Dear ${formData?.firstname} ${formData?.lastname !== "NA" ? ` ${formData.lastname}` : ""}</h3>
           <div class="${styles.pdfBodyDetails}">
             <div>
               <p>
@@ -431,7 +434,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       }
 
       try {
-        const canvas = await html2canvas(input, { scale: 1.5 });
+        const canvas = await html2canvas(input, { scale: 2 });
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
         const imgWidth = imgProps.width;
