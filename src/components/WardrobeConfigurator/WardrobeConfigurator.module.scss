@@ -1,12 +1,15 @@
 * {
     font-family: Lato;
 }
+body{
+  background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
+}
 
 .wardrobeContainer {
     max-width: 100%;
     margin: 0 auto;
     padding: 40px;
-    background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
+    // background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
 
     .wardrobe {
         border-radius: 24px;
@@ -469,6 +472,11 @@
         span {
             font-weight: 900;
         }
+    }
+}
+@media screen and (min-width: 1100px) {
+    .wardrobeContainer {
+        height: 730px;
     }
 }
 
