@@ -53,7 +53,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     pincode: "",
     mobile: "",
     email: "",
-    receiveUpdates: false,
+    receiveUpdates: true,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
@@ -135,6 +135,20 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
         firstname,
         lastname,
       });
+    } else if (name === 'pincode') {
+      if (value.length <= 6) {
+        setFormData({
+          ...formData,
+          [name]: value
+        });
+      }
+    } else if (name === 'mobile') {
+      if (value.length <= 10) {
+        setFormData({
+          ...formData,
+          [name]: value
+        });
+      }
     } else {
       setFormData({
         ...formData,
@@ -188,13 +202,13 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const visualizeAgain = () => {
     adobeAnaWardrobeAction("visualize again", wardrobePackage);
-    setShowDoorpanel(true);
-    setShowWardrobe(false);
-    setShowWoodFinish(false);
-    setShowDetails(false);
-    setShowPackage(false);
-    setShowShades(false);
-    // window.location.reload();
+    // setShowDoorpanel(true);
+    // setShowWardrobe(false);
+    // setShowWoodFinish(false);
+    // setShowDetails(false);
+    // setShowPackage(false);
+    // setShowShades(false);
+    window.location.reload();
   };
 
   const handleDoorClick = (door) => {
