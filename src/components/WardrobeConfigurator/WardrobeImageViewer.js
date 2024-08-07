@@ -203,13 +203,26 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const visualizeAgain = () => {
     adobeAnaWardrobeAction("visualize again", wardrobePackage);
-    // setShowDoorpanel(true);
-    // setShowWardrobe(false);
-    // setShowWoodFinish(false);
-    // setShowDetails(false);
-    // setShowPackage(false);
-    // setShowShades(false);
-    window.location.reload();
+    setShowDoorpanel(true);
+    setShowWardrobe(false);
+    setShowWoodFinish(false);
+    setShowDetails(false);
+    setShowPackage(false);
+    setShowShades(false);
+    setDoorPanelOptions({
+      door: DOOR_LIST?.[0].label,
+      dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
+    });
+    setWoodFinish(WOOD_FINISH_OPTIONS[0]?.label || "");
+    setFormData({
+      firstname: "",
+      lastname: "",
+      pincode: "",
+      mobile: "",
+      email: "",
+      receiveUpdates: true,
+    });
+    // window.location.reload();
   };
 
   const handleDoorClick = (door) => {
