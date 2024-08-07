@@ -7,10 +7,11 @@ import {
   GET_LABEL_OPTIONS_API,
   GET_SCENE_PUBLIC_DATA,
   GET_SCENE_VIEW_BG_INFO_PUBLIC_API,
+  API_ROOT_URL_DEV,
+  IMAGINE_AP_SALESFORCE,
 } from "../constants/apiConstant";
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
-import { IMAGINE_AP_SALESFORCE } from "../constants/wardrobeConstants";
 
 export async function getAllPublicData({
   newModelIds,
@@ -132,9 +133,22 @@ export const fetchAllPages = async (api, callToPage = null) => {
   };
 };
 
+export function getQueryParams() {
+  const params = {};
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  for (const [key, value] of urlParams.entries()) {
+    params[key] = value;
+  }
+  return params;
+}
+
 export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
+  const params = getQueryParams();
+  const envType = params.envType;
+  const baseUrl = envType === "prod" ? API_ROOT_URL : API_ROOT_URL_DEV;
+  const url = `${baseUrl}${IMAGINE_AP_SALESFORCE}`;
   try {
-    const url = IMAGINE_AP_SALESFORCE;
     const headers = {
       "Content-Type": "application/json",
     };

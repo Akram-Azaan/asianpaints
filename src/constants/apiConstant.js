@@ -1,5 +1,6 @@
 // export const API_ROOT_URL = 'https://stag2.imagine.io';
 export const API_ROOT_URL = 'https://prod.imagine.io';
+export const API_ROOT_URL_DEV = 'https:dev2.imagine.io';
 
 export const GET_SCENE_LABEL_PUBLIC_API = '/configurator/api/v2/sceneoption-public-data/';
 export const GET_LABEL_OPTIONS_PUBLIC_API = '/configurator/api/v2/scenetexture-public-data/';
@@ -19,3 +20,6 @@ export const CONFIG_PUBLIC_DATA = 'configurator/api/config-public-data/';
 export const GET_LABEL_OPTIONS_API = '/configurator/api/v2/scene-texture/';
 export const GET_SCENE_PUBLIC_DATA = '/configurator/api/v2/all-scene-public-data/';
 export const CHECK_FOR_UNICODE = '';
+
+//wardrobe api
+export const IMAGINE_AP_SALESFORCE = "/configurator/api/v2/ap-sf-wardrobe/"

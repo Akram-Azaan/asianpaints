@@ -15,7 +15,6 @@ import ReasonsIcon4 from "../assets/images/ReasonsIcon4.png";
 import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
 import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
 
-export const IMAGINE_AP_SALESFORCE = "https:dev2.imagine.io/configurator/api/v2/ap-sf-wardrobe/"
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
 
