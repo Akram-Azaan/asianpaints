@@ -20,16 +20,30 @@ const WardrobeConfigurator = () => {
   const [localConfiguratorData, setLocalConfiguratorData] = useState();
   const [doorPanelOptions, setDoorPanelOptions] = useState({
     door: DOOR_LIST?.[0].label,
-    dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
+    dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].size,
   });
+
+  const getTokenUrl = (door, dimension) => {
+    const doorType = WARDROBE_TYPE_WITH_DIMENSIONS.find(d => d.id === door);
+    if (doorType) {
+      const dimensionObj = doorType.dimensions.find(dim => dim.size === dimension);
+      if (dimensionObj) {
+        return dimensionObj;
+      }
+    }
+    return null;
+  };
 
   useEffect(() => {
     setDoorPanelOptions({
       ...doorPanelOptions,
-      dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
+      // dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].size,
     });
-    updateDataForModelIdLocal(doorPanelOptions?.door);
-  }, [doorPanelOptions?.door]);
+    const tokenUrlObject = getTokenUrl(doorPanelOptions.door, doorPanelOptions.dimension);
+    // const tokenUrl = tokenUrlObject?.tokenUrl;
+    // updateDataForModelIdLocal(tokenUrlObject);
+    setLocalConfiguratorData(tokenUrlObject);
+  }, [doorPanelOptions?.door,doorPanelOptions?.dimension]);
 
   useEffect(() => {
     if (localConfiguratorData?.tokenUrl) {
@@ -38,44 +52,31 @@ const WardrobeConfigurator = () => {
     }
   }, [localConfiguratorData]);
 
-  const updateDataForModelIdLocal = (modelId) => {
-    switch (modelId) {
-      case SLIDING_DOOR: {
-        setLocalConfiguratorData(slidingConfiguratorData);
-        break;
-      }
-      case HINGED_DOOR: {
-        setLocalConfiguratorData(hingedConfiguratorData);
-        break;
-      }
-      default: {
-        setLocalConfiguratorData(slidingConfiguratorData);
-      }
-    }
-  };
-
   const checkIfShowRenderData = () => {
     return true;
   };
 
   const getAllDataFromModelId = async (isRender) => {
+    console.log(localConfiguratorData,isRender,"localConfiguratorData")
     setLoader(true);
-    let allData = await getAllPublicData({
-      newModelIds: localConfiguratorData?.tokenUrl,
-      isRender,
-      isOpenedFromAdminPanel: false,
-    });
-    const rawData = JSON.parse(JSON.stringify(allData));
-    console.log(allData, "allData");
-    if (allData?.results?.length) {
-      // setAllStoreList(allData?.results);
-      // setToken(rawData?.results?.[0]?.configurator?.token);
-      // setCurrentSelectedStore(allData?.results[0]);
-    }
+    // let allData = await getAllPublicData({
+    //   newModelIds: localConfiguratorData?.tokenUrl,
+    //   isRender,
+    //   isOpenedFromAdminPanel: false,
+    // });
+    // const rawData = JSON.parse(JSON.stringify(allData));
+    // console.log(allData, "allData");
+    // if (allData?.results?.length) {
+    //   setAllStoreList(allData?.results);
+    //   setToken(rawData?.results?.[0]?.configurator?.token);
+    //   setCurrentSelectedStore(allData?.results[0]);
+    // }
     setLoader(false);
   };
-
-  // console.log(localConfiguratorData, doorPanelOptions, "localConfiguratorData");
+  // const updateDataForModelIdLocal = (tokenUrlObject) => {
+  //   console.log("tokenUrlObject", tokenUrlObject);
+  //   setLocalConfiguratorData(tokenUrlObject);
+  // };
 
   return (
     <>

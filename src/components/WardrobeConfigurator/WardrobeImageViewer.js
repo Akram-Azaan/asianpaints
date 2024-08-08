@@ -59,7 +59,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
   const [cameraAngle, setCameraAngle] = useState("front");
-
+  const [downloading, setDownloading] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -183,7 +183,6 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       setShowPackage(true);
       setShowShades(true);
 
-      // const leadID = response.CRMleadId;
       adobeAnaLeadFormSubmition(
         formData.pincode,
         response.CRMleadId,
@@ -211,7 +210,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     setShowShades(false);
     setDoorPanelOptions({
       door: DOOR_LIST?.[0].label,
-      dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].label,
+      dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].size,
     });
     setWoodFinish(WOOD_FINISH_OPTIONS[0]?.label || "");
     setFormData({
@@ -227,9 +226,15 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const handleDoorClick = (door) => {
     // adobeAnaSelectedTab(door.label);
+    // setDoorPanelOptions({
+    //   ...doorPanelOptions,
+    //   door: door.label,
+    // });
+    const newDoor = door.label;
+    const firstDimension = WARDROBE_TYPE_WITH_DIMENSIONS.find(d => d.id === newDoor).dimensions[0].size;
     setDoorPanelOptions({
-      ...doorPanelOptions,
-      door: door.label,
+      door: newDoor,
+      dimension: firstDimension,
     });
   };
 
@@ -435,6 +440,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const handleDownloadPdf = async () => {
     adobeAnaWardrobeAction("download pdf", wardrobePackage);
+    setDownloading(true);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -499,6 +505,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     await addPageToPdf("page-3");
 
     pdf.save("wardrobeEstimate.pdf");
+    setDownloading(false);
   };
 
   const filteredDimensions = WARDROBE_TYPE_WITH_DIMENSIONS.filter(
@@ -525,7 +532,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     const matchingType = WARDROBE_DATA.find((type) => {
       return (
         type.doorType === doorPanelOptions?.door &&
-        type.label === doorPanelOptions?.dimension &&
+        type.size === doorPanelOptions?.dimension &&
         type.finishType === woodFinish
       );
     });
@@ -653,15 +660,15 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                           <input
                             type="radio"
                             name="wardrobe_dimension"
-                            value={dimension.label}
+                            value={dimension.size}
                             checked={
-                              doorPanelOptions?.dimension === dimension.label
+                              doorPanelOptions?.dimension === dimension.size
                             }
                             onChange={handleRadioChange}
                             className={styles.input}
                           />
                           <span className={styles.labelText}>
-                            {dimension.label}.
+                            {dimension.size}.
                           </span>
                         </label>
                       </Col>
@@ -887,7 +894,7 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                     className={styles.button3}
                     onClick={handleDownloadPdf}
                   >
-                    Download PDF
+                    {downloading ? "downloading PDF..." : "Download PDF"}
                   </button>
                   <button className={styles.button1} onClick={visualizeAgain}>
                     Visualize again
