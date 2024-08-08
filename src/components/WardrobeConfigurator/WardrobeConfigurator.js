@@ -57,20 +57,21 @@ const WardrobeConfigurator = () => {
   };
 
   const getAllDataFromModelId = async (isRender) => {
-    console.log(localConfiguratorData,isRender,"localConfiguratorData")
+    // console.log(localConfiguratorData,isRender,"localConfiguratorData")
     setLoader(true);
-    // let allData = await getAllPublicData({
-    //   newModelIds: localConfiguratorData?.tokenUrl,
-    //   isRender,
-    //   isOpenedFromAdminPanel: false,
-    // });
-    // const rawData = JSON.parse(JSON.stringify(allData));
-    // console.log(allData, "allData");
-    // if (allData?.results?.length) {
-    //   setAllStoreList(allData?.results);
-    //   setToken(rawData?.results?.[0]?.configurator?.token);
-    //   setCurrentSelectedStore(allData?.results[0]);
-    // }
+    let allData = await getAllPublicData({
+      newModelIds: localConfiguratorData?.tokenUrl,
+      isRender,
+      isOpenedFromAdminPanel: false,
+    });
+    const rawData = JSON.parse(JSON.stringify(allData));
+    console.log(allData, "allData");
+    if (allData?.results?.length) {
+      setAllStoreList(allData?.results);
+      // setToken(rawData?.results?.[0]?.configurator?.token);
+      setToken(localConfiguratorData?.tokenUrl)
+      setCurrentSelectedStore(allData?.results[0]);
+    }
     setLoader(false);
   };
   // const updateDataForModelIdLocal = (tokenUrlObject) => {
@@ -80,20 +81,17 @@ const WardrobeConfigurator = () => {
 
   return (
     <>
-      {!loader && (
-        <WardrobeImageViewer
-          doorPanelOptions={doorPanelOptions}
-          setDoorPanelOptions={setDoorPanelOptions}
-        />
-      )}
-      {loader && (
-        <Loader
-          zIndex={1000}
-          loading={true}
-          className="bg-white"
-          position="fixed"
-        />
-      )}
+      <WardrobeImageViewer
+        isImageViewer={true}
+        doorPanelOptions={doorPanelOptions}
+        setDoorPanelOptions={setDoorPanelOptions}
+        loader={loader}
+        setLoader={setLoader}
+        selectedStoreLocal={currentSelectedStore}
+        allStoreList={allStoreList}
+        modelId={token}
+        isRender={isRender}
+      />
     </>
   );
 };

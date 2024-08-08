@@ -40,10 +40,17 @@ body{
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
-
             img {
-                width: 50%;
-                max-width: 300px;
+                // width: 50%;
+                width: 400px;
+                height: 400px;
+            }
+            div{
+                width: 400px;
+                height: 400px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
 
@@ -136,7 +143,7 @@ body{
                     .shadeColor {
                         min-width: 20px;
                         height: 70px;
-                        background-color: #7345b2;
+                        // background-color: #7345b2;
                     }
 
                     .shadeTitle {

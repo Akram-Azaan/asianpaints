@@ -152,7 +152,7 @@ export const WARDROBE_TYPE_WITH_DIMENSIONS = [
       { id: 16, doorType: HINGED_DOOR, tokenUrl: "8 x 5 ft", size: "8 x 5 ft", },
       { id: 17, doorType: HINGED_DOOR, tokenUrl: "8 x 6 ft", size: "8 x 6 ft", },
       { id: 18, doorType: HINGED_DOOR, tokenUrl: "8 x 7 ft", size: "8 x 7 ft", },
-      { id: 19, doorType: HINGED_DOOR, tokenUrl: "8 x 8 ft", size: "8 x 8 ft", },
+      { id: 19, doorType: HINGED_DOOR, tokenUrl: "801120dc-2eb5-34e1-849b-936e923bd2a3", size: "8 x 8 ft", },
     ],
   },
 ];

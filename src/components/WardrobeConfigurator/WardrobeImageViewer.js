@@ -11,7 +11,7 @@ import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
-import { createLeadInSalesforce } from "../../api/configuratorApi";
+import { createLeadInSalesforce, getScenesInPrototypeForPublic, getSceneViewBackgroundInfoPublic } from "../../api/configuratorApi";
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
@@ -31,9 +31,27 @@ import {
   adobeAnaSelectedTab,
   adobeAnaSelectedWoodFinish,
   adobeAnaWardrobeAction,
+  objectToFormData,
 } from "../../helpers/jsHelper";
+import Loader from "../../common/Loader";
+import CircularProgress from "../../common/CircularProgress.js";
+import { getSceneLabelOptions } from "../Configurator/utils/index.js";
+import { API_ROOT_URL } from "../../constants/apiConstant.js";
+import axios from "axios";
+import { errorToastV2 } from "../../helpers/toastHelper.js";
+let APIData = [];
 
-const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
+const WardrobeImageViewer = ({
+  isImageViewer = true,
+  doorPanelOptions,
+  setDoorPanelOptions,
+  loader,
+  setLoader,
+  selectedStoreLocal,
+  allStoreList,
+  modelId,
+  isRender,
+}) => {
   const [showDoorPanel, setShowDoorpanel] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(false);
   const [woodFinish, setWoodFinish] = useState(
@@ -60,6 +78,16 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
   const [price, setPrice] = useState(null);
   const [cameraAngle, setCameraAngle] = useState("front");
   const [downloading, setDownloading] = useState(false);
+  const [allScenes, setAllScenes] = useState([]);
+  const [outerLoader, setOuterLoader] = useState(true);
+  const [selectedStore, setSelectedStore] = useState();
+  const [colorFinish, setColorFinish] = useState([]);
+  const [allImages, setAllImages] = useState([]);
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [selectedTextures, setSelectedTextures] = useState([]);
+  const [threeSixtyImages, setThreeSixtyImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -160,14 +188,14 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData, "formDataformData");
+    // console.log(formData, "formDataformData");
     // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    const validationErrors = await validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      console.log(validationErrors);
-      return;
-    }
+    // const validationErrors = await validate();
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    //   // console.log(validationErrors);
+    //   return;
+    // }
 
     try {
       const updatedPrice = await getPrice();
@@ -177,17 +205,17 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
       setShowDetails(false);
       setLoadingScreen(true);
       // await delay(10000);
-      const response = await createLeadInSalesforce(formData, updatedPrice);
-      console.log("Lead created successfully:", response);
+      // const response = await createLeadInSalesforce(formData, updatedPrice);
+      // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
       setShowShades(true);
 
-      adobeAnaLeadFormSubmition(
-        formData.pincode,
-        response.CRMleadId,
-        response.returnCode
-      );
+      // adobeAnaLeadFormSubmition(
+      //   formData.pincode,
+      //   response.CRMleadId,
+      //   response.returnCode
+      // );
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -231,7 +259,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     //   door: door.label,
     // });
     const newDoor = door.label;
-    const firstDimension = WARDROBE_TYPE_WITH_DIMENSIONS.find(d => d.id === newDoor).dimensions[0].size;
+    const firstDimension = WARDROBE_TYPE_WITH_DIMENSIONS.find(
+      (d) => d.id === newDoor
+    ).dimensions[0].size;
     setDoorPanelOptions({
       door: newDoor,
       dimension: firstDimension,
@@ -294,7 +324,9 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
           ${logoIconHtml}
         </div>
         <div class="${styles.pdfBody}">
-          <h3>Dear ${formData?.firstname} ${formData?.lastname !== "NA" ? ` ${formData.lastname}` : ""}</h3>
+          <h3>Dear ${formData?.firstname} ${
+      formData?.lastname !== "NA" ? ` ${formData.lastname}` : ""
+    }</h3>
           <div class="${styles.pdfBodyDetails}">
             <div>
               <p>
@@ -540,6 +572,169 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
     return wardrobePrice;
   };
 
+  const sceneBackgroundInfo = async (paylaod) => {
+    const res = await getSceneViewBackgroundInfoPublic(paylaod);
+    // setSceneBackgroundInfoData(res);
+    return res;
+  };
+
+  useEffect(() => {
+    async function loadAndCheckStoreData() {
+      if (allStoreList?.length) {
+        setOuterLoader(true);
+        const scenes = await getScenesInPrototypeForPublic({
+          token: modelId,
+          is_render: isRender,
+        });
+        setAllScenes([...scenes]);
+        if (scenes?.length) {
+          const sceneId = scenes[0]?.id;
+          console.log(sceneId, "sceneIdsceneId");
+          // let filteredData = allStoreList?.filter(
+          //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
+          // );
+          // if (!filteredData?.length && selectedStoreLocal) {
+          //   filteredData = [selectedStoreLocal];
+          // }
+          // const sortedData = filteredData.sort(
+          //   (a, b) => new Date(b?.updated_at) - new Date(a?.updated_at)
+          // );
+          // sortedData?.length && setSelectedStore(sortedData[0]);
+
+          const labelData = await getSceneLabelOptions({
+            sceneId: sceneId,
+            token: modelId,
+            storeId: allStoreList[0]?.id,
+          });
+
+          const sceneViewsData = await sceneBackgroundInfo({
+            storeId: allStoreList[0]?.id,
+            token: modelId,
+            scene: sceneId,
+          });
+
+          console.log(sceneViewsData, "sceneViewsData");
+          
+          const panelFinishes = labelData
+            .filter((item) => item.name === "Panel Finish")
+          setColorFinish(panelFinishes);
+        }
+      }
+    }
+    loadAndCheckStoreData();
+  }, [selectedStoreLocal, allStoreList]);
+  console.log(colorFinish[0]?.textures,woodFinish);
+  
+  const handleFilterAllImage = () => {
+    return allImages || [];
+  };
+
+  function removeDuplicateImage(list) {
+    const uniqueSeqNos = {};
+    const uniqueArray = [];
+    list?.forEach((item) => {
+      if (!uniqueSeqNos[item?.seq_no]) {
+        uniqueSeqNos[item?.seq_no] = true;
+        uniqueArray.push(item);
+      }
+    });
+    return uniqueArray;
+  }
+
+  const getAllMergeData = async ({
+    mergeData,
+    textureIds,
+    resetFrame,
+    sceneView,
+    count,
+    total,
+  }) => {
+    const lastCall = +total === +count;
+    const allTextures = textureIds || selectedTextures;
+    const textures = allTextures?.map((val) => val?.id);
+    const renders = allTextures?.map((val) => val?.renderId);
+    const sceneTextureRender = allTextures?.map((val) => val?.sceneTextureId);
+    const data = {
+      textures: textures,
+      renders: renders,
+      is_render: true,
+      scenetexture_render: sceneTextureRender,
+      scene_view: sceneView,
+      scene: mergeData?.scene,
+      store: mergeData?.store,
+      ext: "png",
+    };
+    const formData = objectToFormData(data, { separateArrayItems: true });
+    if (!outerLoader) {
+      showLoader();
+    }
+    try {
+      let url =
+        API_ROOT_URL + "/configurator/api/v2/merge/v2/?token=" + modelId;
+      const response = await axios.post(url, formData);
+      const data = response?.data?.data;
+      APIData = [...APIData, ...removeDuplicateImage(data?.images)];
+      if (data && APIData.length > 0 && lastCall) {
+        let imagesToSet = JSON.parse(JSON.stringify(APIData));
+        setAllImages(imagesToSet);
+        if (!isImageViewer) {
+          const images = [];
+          APIData.forEach((image) => {
+            images.push(image.image || image.image_low);
+          });
+          setThreeSixtyImages(images);
+          if (!data?.images?.length) {
+            loadedImage();
+          }
+        } else {
+          loadedImage();
+        }
+        if (+currentFrame >= imagesToSet?.length || resetFrame) {
+          setCurrentFrame(0);
+        }
+      }
+      return response;
+    } catch (err) {
+      errorToastV2("Something went wrong. Please try again.");
+      loadedImage();
+    }
+  };
+  const showLoader = () => {
+    setIsLoading(true);
+  };
+
+  const hideLoader = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
+  };
+
+  const changeImage = (type) => {
+    if (isLoading || outerLoader) {
+      return;
+    }
+    let count = currentFrame;
+    if (type === "prev") {
+      if (count < 0) {
+        count = 0;
+      } else {
+        count = count === 0 ? handleFilterAllImage().length - 1 : count - 1;
+      }
+    } else {
+      if (count > handleFilterAllImage().length - 1) {
+        count = handleFilterAllImage().length - 1;
+      } else {
+        count = count === handleFilterAllImage().length - 1 ? 0 : count + 1;
+      }
+    }
+    setCurrentFrame(count);
+  };
+  
+  const loadedImage = (e) => {
+    hideLoader();
+    setOuterLoader(false);
+  };
+
   return (
     <>
       <div className={styles.wardrobeContainer}>
@@ -583,21 +778,53 @@ const WardrobeImageViewer = ({ doorPanelOptions, setDoorPanelOptions }) => {
                   </div>
                 </div>
                 <div className={styles.imageView}>
-                  <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />
+                  {loader && (
+                    <div>
+                      <CircularProgress />
+                    </div>
+                  )}
+                  {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
+                  {!loader && handleFilterAllImage()?.length && (
+                    <img
+                      src={handleFilterAllImage()[currentFrame]?.image_low}
+                    />
+                  )}
                 </div>
                 {showShades && (
                   <div className={styles.shadesBox}>
                     <h4>Available top {woodFinish} shades</h4>
-                    <div
-                      className={styles.shades}
-                      onClick={() => {
-                        adobeAnaSelectedShades(woodFinish, "Green");
-                      }}
-                    >
-                      <div className={styles.shadeItem}>
+                    <div className={styles.shades}>
+                      {/* <div className={styles.shadeItem}>
                         <div className={styles.shadeColor}></div>
                         <div className={styles.shadeTitle}>Green</div>
-                      </div>
+                      </div> */}
+                      {colorFinish[0]?.textures
+                        .filter((item) =>
+                          item.display_name.includes(woodFinish)
+                        )
+                        .map((item, index) => (
+                          <div
+                            className={styles.shadeItem}
+                            key={item?.id}
+                            onClick={() => {
+                              adobeAnaSelectedShades(
+                                woodFinish,
+                                item?.display_name
+                              );
+                            }}
+                          >
+                            <div
+                              className={styles.shadeColor}
+                              style={{
+                                backgroundColor: item?.colorCode,
+                                backgroundImage: `url(${item?.thumb})`,
+                              }}
+                            ></div>
+                            <div className={styles.shadeTitle}>
+                              {item?.display_name}
+                            </div>
+                          </div>
+                        ))}
                     </div>
                   </div>
                 )}
