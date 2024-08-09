@@ -148,6 +148,7 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   const envType = params.envType;
   const baseUrl = envType === "prod" ? API_ROOT_URL : API_ROOT_URL_DEV;
   const url = `${baseUrl}${IMAGINE_AP_SALESFORCE}`;
+  console.log("baseUrl:", baseUrl,"url:", url, "API_ROOT_URL:", API_ROOT_URL, "API_ROOT_URL_DEV:", API_ROOT_URL_DEV,);
   try {
     const headers = {
       "Content-Type": "application/json",
