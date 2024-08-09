@@ -21,6 +21,7 @@ import {
   WARDROBE_DATA,
   CAMERA_ANGLE_1,
   CAMERA_ANGLE_2,
+  FINISH_SHADES_LIST,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -76,7 +77,8 @@ const WardrobeImageViewer = ({
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
-  const [cameraAngle, setCameraAngle] = useState("front");
+  const [cameraAngles, setCameraAngles] = useState([]);
+  const [currentAngle, setCurrentAngle] = useState({});
   const [downloading, setDownloading] = useState(false);
   const [allScenes, setAllScenes] = useState([]);
   const [outerLoader, setOuterLoader] = useState(true);
@@ -269,8 +271,8 @@ const WardrobeImageViewer = ({
   };
 
   const handleCameraAngleClick = (angle) => {
-    adobeAnaSelectedTab(angle);
-    setCameraAngle(angle);
+    adobeAnaSelectedTab(angle?.name);
+    setCurrentAngle(angle);
   };
 
   useEffect(() => {
@@ -608,13 +610,14 @@ const WardrobeImageViewer = ({
           });
 
           const sceneViewsData = await sceneBackgroundInfo({
-            storeId: allStoreList[0]?.id,
+            storeId: allStoreList[1]?.id,
             token: modelId,
             scene: sceneId,
           });
 
           console.log(sceneViewsData, "sceneViewsData");
-          
+          setCameraAngles(sceneViewsData)
+          setCurrentAngle(cameraAngles[0]);
           const panelFinishes = labelData
             .filter((item) => item.name === "Panel Finish")
           setColorFinish(panelFinishes);
@@ -624,6 +627,19 @@ const WardrobeImageViewer = ({
     loadAndCheckStoreData();
   }, [selectedStoreLocal, allStoreList]);
   console.log(colorFinish[0]?.textures,woodFinish);
+
+  const getShadelist = () => {
+    const shades = FINISH_SHADES_LIST.filter((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.size === doorPanelOptions?.dimension &&
+        type.finishType === woodFinish
+      );
+    });
+    const selectedShadesList = shades ? shades : null;
+    return selectedShadesList;
+  }
+  console.log(getShadelist(),"getShadelist")
   
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -699,6 +715,7 @@ const WardrobeImageViewer = ({
       loadedImage();
     }
   };
+
   const showLoader = () => {
     setIsLoading(true);
   };
@@ -761,19 +778,19 @@ const WardrobeImageViewer = ({
                   <div className={styles.roundbox}>
                     <div
                       className={cx(styles.rounds, {
-                        [styles.bordered]: cameraAngle === "front",
+                        [styles.bordered]: currentAngle?.name === cameraAngles[0]?.name,
                       })}
-                      onClick={() => handleCameraAngleClick("front")}
+                      onClick={() => handleCameraAngleClick(cameraAngles[0])}
                     >
-                      <img src={CAMERA_ANGLE_1} alt={"front"} />
+                      <img src={CAMERA_ANGLE_1} alt={cameraAngles[0]?.name} />
                     </div>
                     <div
                       className={cx(styles.rounds, {
-                        [styles.bordered]: cameraAngle === "side",
+                        [styles.bordered]: currentAngle?.name === cameraAngles[1]?.name,
                       })}
-                      onClick={() => handleCameraAngleClick("side")}
+                      onClick={() => handleCameraAngleClick(cameraAngles[1])}
                     >
-                      <img src={CAMERA_ANGLE_2} alt={"side"} />
+                      <img src={CAMERA_ANGLE_2} alt={cameraAngles[1]?.name} />
                     </div>
                   </div>
                 </div>
@@ -794,37 +811,29 @@ const WardrobeImageViewer = ({
                   <div className={styles.shadesBox}>
                     <h4>Available top {woodFinish} shades</h4>
                     <div className={styles.shades}>
-                      {/* <div className={styles.shadeItem}>
-                        <div className={styles.shadeColor}></div>
-                        <div className={styles.shadeTitle}>Green</div>
-                      </div> */}
-                      {colorFinish[0]?.textures
-                        .filter((item) =>
-                          item.display_name.includes(woodFinish)
-                        )
-                        .map((item, index) => (
+                      {getShadelist().map((item, index) => (
+                        <div
+                          className={styles.shadeItem}
+                          key={item?.id}
+                          onClick={() => {
+                            adobeAnaSelectedShades(
+                              woodFinish,
+                              item?.display_name
+                            );
+                          }}
+                        >
                           <div
-                            className={styles.shadeItem}
-                            key={item?.id}
-                            onClick={() => {
-                              adobeAnaSelectedShades(
-                                woodFinish,
-                                item?.display_name
-                              );
+                            className={styles.shadeColor}
+                            style={{
+                              backgroundColor: item?.color_code,
+                              backgroundImage: `url(${item?.thumb})`,
                             }}
-                          >
-                            <div
-                              className={styles.shadeColor}
-                              style={{
-                                backgroundColor: item?.colorCode,
-                                backgroundImage: `url(${item?.thumb})`,
-                              }}
-                            ></div>
-                            <div className={styles.shadeTitle}>
-                              {item?.display_name}
-                            </div>
+                          ></div>
+                          <div className={styles.shadeTitle}>
+                            {item?.display_name}
                           </div>
-                        ))}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}

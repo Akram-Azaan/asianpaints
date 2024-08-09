@@ -34,12 +34,14 @@ body{
         }
 
         .imageView {
-            width: 100%;
+            // width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
+            width: 400px;
+            height: 400px;
             img {
                 // width: 50%;
                 width: 400px;
@@ -143,6 +145,7 @@ body{
                     .shadeColor {
                         min-width: 20px;
                         height: 70px;
+                        background-position: center;
                         // background-color: #7345b2;
                     }
 
