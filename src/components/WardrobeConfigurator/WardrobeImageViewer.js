@@ -92,7 +92,8 @@ const WardrobeImageViewer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [shadeList,setShadeList] = useState([]);
   const [selectedCurcass, setSelectedCurcass] = useState([]);
-
+  const [scene_id, setScene_id] = useState(null);
+  const [activeShade, setActiveShade] = useState({});
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -596,6 +597,7 @@ const WardrobeImageViewer = ({
         if (scenes?.length) {
           const sceneId = scenes[0]?.id;
           console.log(sceneId, "sceneIdsceneId");
+          setScene_id(sceneId);
           // let filteredData = allStoreList?.filter(
           //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
           // );
@@ -659,15 +661,26 @@ const WardrobeImageViewer = ({
   useEffect(()=>{
     const shades = getShadelist();
     setShadeList(shades);
+    setActiveShade(shadeList[0]);
     const curcass = getCurcassList();
     setSelectedCurcass(curcass)
   },[doorPanelOptions,woodFinish])
 
-  // console.log(getShadelist(),"getShadelist")
+  useEffect(() => {
+    const fetchTextures = async () => {
+      const imageTextures = await getDefaultTextures();
+      setSelectedTextures(imageTextures);
+    };
+    fetchTextures();
+  }, [doorPanelOptions, woodFinish, selectedCurcass, activeShade]);
   
   const handleFilterAllImage = () => {
     return allImages || [];
   };
+
+  // useEffect(()=>{
+  //   handleFilterAllImage()
+  // },[allImages])
 
   function removeDuplicateImage(list) {
     const uniqueSeqNos = {};
@@ -680,33 +693,61 @@ const WardrobeImageViewer = ({
     });
     return uniqueArray;
   }
-  
-  // useEffect(()=>{
-  //   getAllMergeData()
-  // },[selectedStoreLocal, allStoreList])
+
+  const getDefaultTextures = () => {
+    let defaultTextures = [];
+    defaultTextures.push(selectedCurcass[0]);
+    defaultTextures.push(activeShade);
+    return defaultTextures;
+    // console.log(defaultTextures,"defaultTextures")
+  }
+
+  useEffect(()=>{
+    async function loadAndCheckImages(){
+      console.log(allScenes,"allScenes")
+      const mergeData = {
+        scene: scene_id,
+        textures: selectedTextures,
+        is_render: true,
+        ext: "png",
+        store: allStoreList[1]?.id,
+      };
+      console.log(mergeData,"mergeData")
+      setLoader(true);
+      const res = await getAllMergeData({
+        mergeData,
+        textureIds: selectedTextures,
+        resetFrame: false,
+        sceneView: currentAngle?.id,
+        total: cameraAngles?.length,
+      });
+      console.log(res,"res")
+      setAllImages(res?.data?.data?.images);
+      setLoader(false);
+    }
+    loadAndCheckImages()
+  },[selectedTextures,allStoreList,currentAngle])
 
   const getAllMergeData = async ({
-    sceneId,
-    storeId,
+    mergeData,
     textureIds,
     resetFrame,
     sceneView,
-    count,
     total,
   }) => {
-    const lastCall = +total === +count;
+    const lastCall = +total;
     const allTextures = textureIds || selectedTextures;
     const textures = allTextures?.map((val) => val?.id);
-    const renders = allTextures?.map((val) => val?.renderId);
-    const sceneTextureRender = allTextures?.map((val) => val?.sceneTextureId);
+    const renders = allTextures?.map((val) => val?.render_id);
+    const sceneTextureRender = allTextures?.map((val) => val?.scenetexturerender_id);
     const data = {
       textures: textures,
       renders: renders,
       is_render: true,
       scenetexture_render: sceneTextureRender,
       scene_view: sceneView,
-      scene: sceneId,
-      store: storeId,
+      scene: mergeData?.scene,
+      store: mergeData?.store,
       ext: "png",
     };
     const formData = objectToFormData(data, { separateArrayItems: true });
@@ -753,27 +794,6 @@ const WardrobeImageViewer = ({
     setTimeout(() => {
       setIsLoading(false);
     }, 700);
-  };
-
-  const changeImage = (type) => {
-    if (isLoading || outerLoader) {
-      return;
-    }
-    let count = currentFrame;
-    if (type === "prev") {
-      if (count < 0) {
-        count = 0;
-      } else {
-        count = count === 0 ? handleFilterAllImage().length - 1 : count - 1;
-      }
-    } else {
-      if (count > handleFilterAllImage().length - 1) {
-        count = handleFilterAllImage().length - 1;
-      } else {
-        count = count === handleFilterAllImage().length - 1 ? 0 : count + 1;
-      }
-    }
-    setCurrentFrame(count);
   };
   
   const loadedImage = (e) => {
@@ -830,7 +850,7 @@ const WardrobeImageViewer = ({
                     </div>
                   )}
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
-                  {!loader && handleFilterAllImage()?.length && (
+                  {!loader && allImages?.length && (
                     <img
                       src={handleFilterAllImage()[currentFrame]?.image_low}
                     />
@@ -842,13 +862,16 @@ const WardrobeImageViewer = ({
                     <div className={styles.shades}>
                       {shadeList?.map((item, index) => (
                         <div
-                          className={styles.shadeItem}
+                        className={cx(styles.shadeItem, {
+                          [styles.bordered]: item?.id === activeShade?.id,
+                        })}
                           key={item?.id}
                           onClick={() => {
                             adobeAnaSelectedShades(
                               woodFinish,
                               item?.display_name
                             );
+                            setActiveShade(item)
                           }}
                         >
                           <div
