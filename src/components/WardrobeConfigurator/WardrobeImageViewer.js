@@ -11,7 +11,11 @@ import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
-import { createLeadInSalesforce, getScenesInPrototypeForPublic, getSceneViewBackgroundInfoPublic } from "../../api/configuratorApi";
+import {
+  createLeadInSalesforce,
+  getScenesInPrototypeForPublic,
+  getSceneViewBackgroundInfoPublic,
+} from "../../api/configuratorApi";
 import {
   DOOR_LIST,
   WOOD_FINISH_OPTIONS,
@@ -90,10 +94,236 @@ const WardrobeImageViewer = ({
   const [selectedTextures, setSelectedTextures] = useState([]);
   const [threeSixtyImages, setThreeSixtyImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [shadeList,setShadeList] = useState([]);
+  const [shadeList, setShadeList] = useState([]);
   const [selectedCurcass, setSelectedCurcass] = useState([]);
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
+
+  const sceneBackgroundInfo = async (paylaod) => {
+    const res = await getSceneViewBackgroundInfoPublic(paylaod);
+    // setSceneBackgroundInfoData(res);
+    return res;
+  };
+
+  useEffect(() => {
+    async function loadAndCheckStoreData() {
+      if (allStoreList?.length) {
+        setOuterLoader(true);
+        const scenes = await getScenesInPrototypeForPublic({
+          token: modelId,
+          is_render: isRender,
+        });
+        setAllScenes([...scenes]);
+        if (scenes?.length) {
+          const sceneId = scenes[0]?.id;
+          console.log(sceneId, "sceneIdsceneId");
+          setScene_id(sceneId);
+          // let filteredData = allStoreList?.filter(
+          //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
+          // );
+          // if (!filteredData?.length && selectedStoreLocal) {
+          //   filteredData = [selectedStoreLocal];
+          // }
+          // const sortedData = filteredData.sort(
+          //   (a, b) => new Date(b?.updated_at) - new Date(a?.updated_at)
+          // );
+          // sortedData?.length && setSelectedStore(sortedData[0]);
+
+          const labelData = await getSceneLabelOptions({
+            sceneId: sceneId,
+            token: modelId,
+            storeId: allStoreList[0]?.id,
+          });
+
+          const sceneViewsData = await sceneBackgroundInfo({
+            storeId: allStoreList[1]?.id,
+            token: modelId,
+            scene: sceneId,
+          });
+
+          console.log(sceneViewsData, "sceneViewsData");
+          setCameraAngles(sceneViewsData);
+          setCurrentAngle(cameraAngles[0]);
+          const panelFinishes = labelData.filter(
+            (item) => item.name === "Panel Finish"
+          );
+          setColorFinish(panelFinishes);
+        }
+      }
+    }
+    loadAndCheckStoreData();
+  }, [selectedStoreLocal, allStoreList]);
+  console.log(colorFinish[0]?.textures, woodFinish);
+
+  const getShadelist = () => {
+    const shades = FINISH_SHADES_LIST.filter((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.size === doorPanelOptions?.dimension &&
+        type.finishType === woodFinish
+      );
+    });
+    const selectedShadesList = shades ? shades : null;
+    return selectedShadesList;
+  };
+
+  const getCurcassList = () => {
+    const curcass = CARCUSS_FINISH.filter((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.size === doorPanelOptions?.dimension
+      );
+    });
+    const selectedCurcass = curcass ? curcass : null;
+    return selectedCurcass;
+  };
+  console.log(selectedCurcass, "getCurcassList");
+
+  useEffect(() => {
+    const shades = getShadelist();
+    setShadeList(shades);
+    setActiveShade(shadeList[0]);
+    const curcass = getCurcassList();
+    setSelectedCurcass(curcass);
+  }, [doorPanelOptions, woodFinish]);
+
+  useEffect(() => {
+    const fetchTextures = async () => {
+      const imageTextures = await getDefaultTextures();
+      setSelectedTextures(imageTextures);
+    };
+    fetchTextures();
+  }, [doorPanelOptions, woodFinish, selectedCurcass, activeShade]);
+
+  const handleFilterAllImage = () => {
+    return allImages || [];
+  };
+
+  // useEffect(()=>{
+  //   handleFilterAllImage()
+  // },[allImages])
+
+  function removeDuplicateImage(list) {
+    const uniqueSeqNos = {};
+    const uniqueArray = [];
+    list?.forEach((item) => {
+      if (!uniqueSeqNos[item?.seq_no]) {
+        uniqueSeqNos[item?.seq_no] = true;
+        uniqueArray.push(item);
+      }
+    });
+    return uniqueArray;
+  }
+
+  const getDefaultTextures = () => {
+    let defaultTextures = [];
+    defaultTextures.push(selectedCurcass[0]);
+    defaultTextures.push(activeShade);
+    return defaultTextures;
+    // console.log(defaultTextures,"defaultTextures")
+  };
+
+  useEffect(() => {
+    async function loadAndCheckImages() {
+      console.log(allScenes, "allScenes");
+      const mergeData = {
+        scene: scene_id,
+        textures: selectedTextures,
+        is_render: true,
+        ext: "png",
+        store: allStoreList[1]?.id,
+      };
+      console.log(mergeData, "mergeData");
+      setLoader(true);
+      const res = await getAllMergeData({
+        mergeData,
+        textureIds: selectedTextures,
+        resetFrame: false,
+        sceneView: currentAngle?.id,
+        total: cameraAngles?.length,
+      });
+      console.log(res, "res");
+      setAllImages(res?.data?.data?.images);
+      setLoader(false);
+    }
+    loadAndCheckImages();
+  }, [selectedTextures, allStoreList, currentAngle]);
+
+  const getAllMergeData = async ({
+    mergeData,
+    textureIds,
+    resetFrame,
+    sceneView,
+    total,
+  }) => {
+    const lastCall = +total;
+    const allTextures = textureIds || selectedTextures;
+    const textures = allTextures?.map((val) => val?.id);
+    const renders = allTextures?.map((val) => val?.render_id);
+    const sceneTextureRender = allTextures?.map(
+      (val) => val?.scenetexturerender_id
+    );
+    const data = {
+      textures: textures,
+      renders: renders,
+      is_render: true,
+      scenetexture_render: sceneTextureRender,
+      scene_view: sceneView,
+      scene: mergeData?.scene,
+      store: mergeData?.store,
+      ext: "png",
+    };
+    const formData = objectToFormData(data, { separateArrayItems: true });
+    if (!outerLoader) {
+      showLoader();
+    }
+    try {
+      let url =
+        API_ROOT_URL + "/configurator/api/v2/merge/v2/?token=" + modelId;
+      const response = await axios.post(url, formData);
+      const data = response?.data?.data;
+      APIData = [...APIData, ...removeDuplicateImage(data?.images)];
+      if (data && APIData.length > 0 && lastCall) {
+        let imagesToSet = JSON.parse(JSON.stringify(APIData));
+        setAllImages(imagesToSet);
+        if (!isImageViewer) {
+          const images = [];
+          APIData.forEach((image) => {
+            images.push(image.image || image.image_low);
+          });
+          setThreeSixtyImages(images);
+          if (!data?.images?.length) {
+            loadedImage();
+          }
+        } else {
+          loadedImage();
+        }
+        if (+currentFrame >= imagesToSet?.length || resetFrame) {
+          setCurrentFrame(0);
+        }
+      }
+      return response;
+    } catch (err) {
+      errorToastV2("Something went wrong. Please try again.");
+      loadedImage();
+    }
+  };
+
+  const showLoader = () => {
+    setIsLoading(true);
+  };
+
+  const hideLoader = () => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 700);
+  };
+
+  const loadedImage = (e) => {
+    hideLoader();
+    setOuterLoader(false);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -232,7 +462,6 @@ const WardrobeImageViewer = ({
     setShowWardrobe(false);
     setShowWoodFinish(true);
     setCurrentAngle(cameraAngles[0]);
-    // doorPanelOptions
   };
 
   const visualizeAgain = () => {
@@ -580,228 +809,6 @@ const WardrobeImageViewer = ({
     return wardrobePrice;
   };
 
-  const sceneBackgroundInfo = async (paylaod) => {
-    const res = await getSceneViewBackgroundInfoPublic(paylaod);
-    // setSceneBackgroundInfoData(res);
-    return res;
-  };
-
-  useEffect(() => {
-    async function loadAndCheckStoreData() {
-      if (allStoreList?.length) {
-        setOuterLoader(true);
-        const scenes = await getScenesInPrototypeForPublic({
-          token: modelId,
-          is_render: isRender,
-        });
-        setAllScenes([...scenes]);
-        if (scenes?.length) {
-          const sceneId = scenes[0]?.id;
-          console.log(sceneId, "sceneIdsceneId");
-          setScene_id(sceneId);
-          // let filteredData = allStoreList?.filter(
-          //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
-          // );
-          // if (!filteredData?.length && selectedStoreLocal) {
-          //   filteredData = [selectedStoreLocal];
-          // }
-          // const sortedData = filteredData.sort(
-          //   (a, b) => new Date(b?.updated_at) - new Date(a?.updated_at)
-          // );
-          // sortedData?.length && setSelectedStore(sortedData[0]);
-
-          const labelData = await getSceneLabelOptions({
-            sceneId: sceneId,
-            token: modelId,
-            storeId: allStoreList[0]?.id,
-          });
-
-          const sceneViewsData = await sceneBackgroundInfo({
-            storeId: allStoreList[1]?.id,
-            token: modelId,
-            scene: sceneId,
-          });
-
-          console.log(sceneViewsData, "sceneViewsData");
-          setCameraAngles(sceneViewsData)
-          setCurrentAngle(cameraAngles[0]);
-          const panelFinishes = labelData
-            .filter((item) => item.name === "Panel Finish")
-          setColorFinish(panelFinishes);
-        }
-      }
-    }
-    loadAndCheckStoreData();
-  }, [selectedStoreLocal, allStoreList]);
-  console.log(colorFinish[0]?.textures,woodFinish);
-
-  const getShadelist = () => {
-    const shades = FINISH_SHADES_LIST.filter((type) => {
-      return (
-        type.doorType === doorPanelOptions?.door &&
-        type.size === doorPanelOptions?.dimension &&
-        type.finishType === woodFinish
-      );
-    });
-    const selectedShadesList = shades ? shades : null;
-    return selectedShadesList;
-  }
-
-  const getCurcassList = () => {
-    const curcass = CARCUSS_FINISH.filter((type) => {
-      return (
-        type.doorType === doorPanelOptions?.door &&
-        type.size === doorPanelOptions?.dimension
-      );
-    });
-    const selectedCurcass = curcass ? curcass : null;
-    return selectedCurcass;
-  }
-  console.log(selectedCurcass,"getCurcassList")
-
-  useEffect(()=>{
-    const shades = getShadelist();
-    setShadeList(shades);
-    setActiveShade(shadeList[0]);
-    const curcass = getCurcassList();
-    setSelectedCurcass(curcass)
-  },[doorPanelOptions,woodFinish])
-
-  useEffect(() => {
-    const fetchTextures = async () => {
-      const imageTextures = await getDefaultTextures();
-      setSelectedTextures(imageTextures);
-    };
-    fetchTextures();
-  }, [doorPanelOptions, woodFinish, selectedCurcass, activeShade]);
-  
-  const handleFilterAllImage = () => {
-    return allImages || [];
-  };
-
-  // useEffect(()=>{
-  //   handleFilterAllImage()
-  // },[allImages])
-
-  function removeDuplicateImage(list) {
-    const uniqueSeqNos = {};
-    const uniqueArray = [];
-    list?.forEach((item) => {
-      if (!uniqueSeqNos[item?.seq_no]) {
-        uniqueSeqNos[item?.seq_no] = true;
-        uniqueArray.push(item);
-      }
-    });
-    return uniqueArray;
-  }
-
-  const getDefaultTextures = () => {
-    let defaultTextures = [];
-    defaultTextures.push(selectedCurcass[0]);
-    defaultTextures.push(activeShade);
-    return defaultTextures;
-    // console.log(defaultTextures,"defaultTextures")
-  }
-
-  useEffect(()=>{
-    async function loadAndCheckImages(){
-      console.log(allScenes,"allScenes")
-      const mergeData = {
-        scene: scene_id,
-        textures: selectedTextures,
-        is_render: true,
-        ext: "png",
-        store: allStoreList[1]?.id,
-      };
-      console.log(mergeData,"mergeData")
-      setLoader(true);
-      const res = await getAllMergeData({
-        mergeData,
-        textureIds: selectedTextures,
-        resetFrame: false,
-        sceneView: currentAngle?.id,
-        total: cameraAngles?.length,
-      });
-      console.log(res,"res")
-      setAllImages(res?.data?.data?.images);
-      setLoader(false);
-    }
-    loadAndCheckImages()
-  },[selectedTextures,allStoreList,currentAngle])
-
-  const getAllMergeData = async ({
-    mergeData,
-    textureIds,
-    resetFrame,
-    sceneView,
-    total,
-  }) => {
-    const lastCall = +total;
-    const allTextures = textureIds || selectedTextures;
-    const textures = allTextures?.map((val) => val?.id);
-    const renders = allTextures?.map((val) => val?.render_id);
-    const sceneTextureRender = allTextures?.map((val) => val?.scenetexturerender_id);
-    const data = {
-      textures: textures,
-      renders: renders,
-      is_render: true,
-      scenetexture_render: sceneTextureRender,
-      scene_view: sceneView,
-      scene: mergeData?.scene,
-      store: mergeData?.store,
-      ext: "png",
-    };
-    const formData = objectToFormData(data, { separateArrayItems: true });
-    if (!outerLoader) {
-      showLoader();
-    }
-    try {
-      let url =
-        API_ROOT_URL + "/configurator/api/v2/merge/v2/?token=" + modelId;
-      const response = await axios.post(url, formData);
-      const data = response?.data?.data;
-      APIData = [...APIData, ...removeDuplicateImage(data?.images)];
-      if (data && APIData.length > 0 && lastCall) {
-        let imagesToSet = JSON.parse(JSON.stringify(APIData));
-        setAllImages(imagesToSet);
-        if (!isImageViewer) {
-          const images = [];
-          APIData.forEach((image) => {
-            images.push(image.image || image.image_low);
-          });
-          setThreeSixtyImages(images);
-          if (!data?.images?.length) {
-            loadedImage();
-          }
-        } else {
-          loadedImage();
-        }
-        if (+currentFrame >= imagesToSet?.length || resetFrame) {
-          setCurrentFrame(0);
-        }
-      }
-      return response;
-    } catch (err) {
-      errorToastV2("Something went wrong. Please try again.");
-      loadedImage();
-    }
-  };
-
-  const showLoader = () => {
-    setIsLoading(true);
-  };
-
-  const hideLoader = () => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 700);
-  };
-  
-  const loadedImage = (e) => {
-    hideLoader();
-    setOuterLoader(false);
-  };
-
   return (
     <>
       <div className={styles.wardrobeContainer}>
@@ -828,7 +835,8 @@ const WardrobeImageViewer = ({
                   <div className={styles.roundbox}>
                     <div
                       className={cx(styles.rounds, {
-                        [styles.bordered]: currentAngle?.name === cameraAngles[0]?.name,
+                        [styles.bordered]:
+                          currentAngle?.name === cameraAngles[0]?.name,
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[0])}
                     >
@@ -836,7 +844,8 @@ const WardrobeImageViewer = ({
                     </div>
                     <div
                       className={cx(styles.rounds, {
-                        [styles.bordered]: currentAngle?.name === cameraAngles[1]?.name,
+                        [styles.bordered]:
+                          currentAngle?.name === cameraAngles[1]?.name,
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[1])}
                     >
@@ -863,16 +872,16 @@ const WardrobeImageViewer = ({
                     <div className={styles.shades}>
                       {shadeList?.map((item, index) => (
                         <div
-                        className={cx(styles.shadeItem, {
-                          [styles.bordered]: item?.id === activeShade?.id,
-                        })}
+                          className={cx(styles.shadeItem, {
+                            [styles.bordered]: item?.id === activeShade?.id,
+                          })}
                           key={item?.id}
                           onClick={() => {
                             adobeAnaSelectedShades(
                               woodFinish,
                               item?.display_name
                             );
-                            setActiveShade(item)
+                            setActiveShade(item);
                           }}
                         >
                           <div
