@@ -892,7 +892,7 @@ const WardrobeImageViewer = ({
                             }}
                           ></div>
                           <div className={styles.shadeTitle}>
-                            {item?.display_name}
+                            <h4>{item?.display_name}</h4>
                           </div>
                         </div>
                       ))}

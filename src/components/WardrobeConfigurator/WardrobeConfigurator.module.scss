@@ -39,17 +39,18 @@ body{
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
-            width: 400px;
-            height: 400px;
+            width: 440px;
+            height: 440px;
+            margin-bottom: 0;
             img {
-                // width: 50%;
-                width: 400px;
-                height: 400px;
+                width: auto;
+                height: 100%;
+                // width: 400px;
+                // height: 400px;
             }
             div{
-                width: 400px;
-                height: 400px;
+                width: auto;
+                height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -62,7 +63,7 @@ body{
             font-size: 30px;
             font-weight: 600;
             color: #1D1D1F;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .buttons {
@@ -150,10 +151,20 @@ body{
                     }
 
                     .shadeTitle {
-                        font-size: 12px;
-                        font-weight: 700;
-                        color: #202020;
-                        padding: 4px 0;
+                        height: 24px;
+                        h4{
+                            display: inline-block;
+                            font-size: 12px;
+                            font-weight: 700;
+                            color: #202020;
+                            padding: 4px 0;
+                            max-width: 100px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            margin-bottom: 4px;
+                        }
                     }
                 }
                 .bordered{
@@ -528,15 +539,25 @@ body{
             }
 
             .imageView {
-                margin: 20px;
-
+                margin: 0;
                 img {
-                    width: 70%;
+                    // width: 70%;
+                    height: 440px;
+                    width: auto;
                 }
             }
 
             .shadesBox {
                 margin-bottom: 20px;
+                .shades{
+                    .shadeItem{
+                        .shadeTitle{
+                            h4{
+                                max-width: 60px;
+                            }
+                        }
+                    }
+                }
             }
         }
 
