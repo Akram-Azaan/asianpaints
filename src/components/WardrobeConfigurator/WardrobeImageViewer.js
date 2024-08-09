@@ -231,6 +231,7 @@ const WardrobeImageViewer = ({
     adobeAnaDimensionNext(doorPanelOptions.dimension);
     setShowWardrobe(false);
     setShowWoodFinish(true);
+    setCurrentAngle(cameraAngles[0]);
     // doorPanelOptions
   };
 
