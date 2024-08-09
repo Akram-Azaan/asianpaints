@@ -22,6 +22,7 @@ import {
   CAMERA_ANGLE_1,
   CAMERA_ANGLE_2,
   FINISH_SHADES_LIST,
+  CARCUSS_FINISH,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -89,6 +90,8 @@ const WardrobeImageViewer = ({
   const [selectedTextures, setSelectedTextures] = useState([]);
   const [threeSixtyImages, setThreeSixtyImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [shadeList,setShadeList] = useState([]);
+  const [selectedCurcass, setSelectedCurcass] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -271,6 +274,7 @@ const WardrobeImageViewer = ({
   };
 
   const handleCameraAngleClick = (angle) => {
+    // console.log(angle)
     adobeAnaSelectedTab(angle?.name);
     setCurrentAngle(angle);
   };
@@ -639,7 +643,27 @@ const WardrobeImageViewer = ({
     const selectedShadesList = shades ? shades : null;
     return selectedShadesList;
   }
-  console.log(getShadelist(),"getShadelist")
+
+  const getCurcassList = () => {
+    const curcass = CARCUSS_FINISH.filter((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.size === doorPanelOptions?.dimension
+      );
+    });
+    const selectedCurcass = curcass ? curcass : null;
+    return selectedCurcass;
+  }
+  console.log(selectedCurcass,"getCurcassList")
+
+  useEffect(()=>{
+    const shades = getShadelist();
+    setShadeList(shades);
+    const curcass = getCurcassList();
+    setSelectedCurcass(curcass)
+  },[doorPanelOptions,woodFinish])
+
+  // console.log(getShadelist(),"getShadelist")
   
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -656,9 +680,14 @@ const WardrobeImageViewer = ({
     });
     return uniqueArray;
   }
+  
+  // useEffect(()=>{
+  //   getAllMergeData()
+  // },[selectedStoreLocal, allStoreList])
 
   const getAllMergeData = async ({
-    mergeData,
+    sceneId,
+    storeId,
     textureIds,
     resetFrame,
     sceneView,
@@ -676,8 +705,8 @@ const WardrobeImageViewer = ({
       is_render: true,
       scenetexture_render: sceneTextureRender,
       scene_view: sceneView,
-      scene: mergeData?.scene,
-      store: mergeData?.store,
+      scene: sceneId,
+      store: storeId,
       ext: "png",
     };
     const formData = objectToFormData(data, { separateArrayItems: true });
@@ -811,7 +840,7 @@ const WardrobeImageViewer = ({
                   <div className={styles.shadesBox}>
                     <h4>Available top {woodFinish} shades</h4>
                     <div className={styles.shades}>
-                      {getShadelist().map((item, index) => (
+                      {shadeList?.map((item, index) => (
                         <div
                           className={styles.shadeItem}
                           key={item?.id}

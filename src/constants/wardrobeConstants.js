@@ -578,3 +578,24 @@ export const FINISH_SHADES_LIST = [
     main_render_id: 766784,
   },
 ];
+
+export const CARCUSS_FINISH = [
+  {
+    id: 121329,
+    display_name: "White",
+    doorType: HINGED_DOOR,
+    size: "8 x 8 ft",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23403/50053/ae43df0c_50053.jpg?Expires=1723452385&Signature=qYM9iUYNwbH2vnLnPwD~mOlOn3USMi4mLAHs6evx4SDkHfR5zFWv4wN26-YxXJJDxTaJGZQ57EfbALqgH6ep1twF7rSVCGWJbxNVsdSgL52N12gNpFtA65po5YYBxL3wXxvvFsbOUqFWy0vd3L-crk6w-TbTpBhNv9sYODWd94bpcoDr~34NkHGAgEicT-HBL-QiF3Ks0eJbvAhz6T5l~la5j8voC-ooCum7PtHc-R2Ng5-uxKQ~Lu5eLt9yB8ezcYGq6d4VXUiiD~YD2TvFLaXu0JdIQZwF9sjHPJ5bB2Wv07bzSL06Ir4yCUyf3lCNnZQdkOX2f-jZ0Jo5ZOrZyg__&Key-Pair-Id=K3MIEF79PIHRTH",
+    is_enable: true,
+    is_base: false,
+    texture_type: "3",
+    color_code: "#FFFFFF",
+    seq_no: 1,
+    render_id: 779147,
+    scenetexturerender_id: 50053,
+    scenetexture: 121329,
+    scene: 3575,
+    main_render_id: 766751,
+  },
+];
