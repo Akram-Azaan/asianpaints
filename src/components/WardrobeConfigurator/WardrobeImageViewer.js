@@ -138,14 +138,13 @@ const WardrobeImageViewer = ({
             token: modelId,
             storeId: storeId,
           });
-
           const sceneViewsData = await sceneBackgroundInfo({
             storeId: storeId,
             token: modelId,
             scene: sceneId,
           });
 
-          // console.log(sceneViewsData,allStoreList, "sceneViewsData");
+          console.log(allStoreList, "allStoreList");
           setCameraAngles(sceneViewsData);
           const panelFinishes = labelData.filter(
             (item) => item.name === "Panel Finish"
@@ -156,7 +155,7 @@ const WardrobeImageViewer = ({
       }
     }
     loadAndCheckStoreData();
-  }, [doorPanelOptions, selectedStoreLocal, storeId]);
+  }, [selectedStoreLocal,storeId]);
   // console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
@@ -428,14 +427,14 @@ const WardrobeImageViewer = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData, "formDataformData");
+    console.log(formData, "formDataformData");
     // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    // const validationErrors = await validate();
-    // if (Object.keys(validationErrors).length > 0) {
-    //   setErrors(validationErrors);
-    //   // console.log(validationErrors);
-    //   return;
-    // }
+    const validationErrors = await validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      // console.log(validationErrors);
+      return;
+    }
 
     try {
       const updatedPrice = await getPrice();
@@ -445,17 +444,17 @@ const WardrobeImageViewer = ({
       setShowDetails(false);
       setLoadingScreen(true);
       // await delay(10000);
-      // const response = await createLeadInSalesforce(formData, updatedPrice);
+      const response = await createLeadInSalesforce(formData, updatedPrice);
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
       setShowShades(true);
 
-      // adobeAnaLeadFormSubmition(
-      //   formData.pincode,
-      //   response.CRMleadId,
-      //   response.returnCode
-      // );
+      adobeAnaLeadFormSubmition(
+        formData.pincode,
+        response.CRMleadId,
+        response.returnCode
+      );
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -538,53 +537,53 @@ const WardrobeImageViewer = ({
       existingDiv.remove();
     }
 
-    const createPdfShadesImages = async () => {
-      // console.log(selectedCurcass, "getCurcassList");
-      // console.log(shadeList, "shadeListshadeList");
+    // const createPdfShadesImages = async () => {
+    //   // console.log(selectedCurcass, "getCurcassList");
+    //   // console.log(shadeList, "shadeListshadeList");
     
-      let combinedResults = [];
+    //   let combinedResults = [];
     
-      const curcassTexture = selectedCurcass[0]; // Since there's only one item in selectedCurcass
+    //   const curcassTexture = selectedCurcass[0]; // Since there's only one item in selectedCurcass
     
-      for (let j = 0; j < shadeList.length; j++) {
-        let selectedPdfTextures = [];
+    //   for (let j = 0; j < shadeList.length; j++) {
+    //     let selectedPdfTextures = [];
     
-        // Combine the single selectedCurcass item with each shadeList[j]
-        const shadeTexture = shadeList[j];
+    //     // Combine the single selectedCurcass item with each shadeList[j]
+    //     const shadeTexture = shadeList[j];
     
-        // Create selectedPdfTextures for each shadeList item
-        selectedPdfTextures.push(curcassTexture);
-        selectedPdfTextures.push(shadeTexture);
+    //     // Create selectedPdfTextures for each shadeList item
+    //     selectedPdfTextures.push(curcassTexture);
+    //     selectedPdfTextures.push(shadeTexture);
     
-        const mergeData = {
-          scene: scene_id,
-          textures: selectedPdfTextures,
-          is_render: true,
-          ext: "png",
-          store: storeId,
-        };
+    //     const mergeData = {
+    //       scene: scene_id,
+    //       textures: selectedPdfTextures,
+    //       is_render: true,
+    //       ext: "png",
+    //       store: storeId,
+    //     };
     
-        // Call getAllMergeData for each combination
-        const res = await getAllMergeData({
-          mergeData,
-          textureIds: selectedPdfTextures,
-          resetFrame: false,
-          sceneView: cameraAngles[0]?.id,
-          total: cameraAngles?.length,
-        });
+    //     // Call getAllMergeData for each combination
+    //     const res = await getAllMergeData({
+    //       mergeData,
+    //       textureIds: selectedPdfTextures,
+    //       resetFrame: false,
+    //       sceneView: cameraAngles[0]?.id,
+    //       total: cameraAngles?.length,
+    //     });
     
-        // console.log(res, "res");
+    //     // console.log(res, "res");
     
-        // Push the result to combinedResults
-        combinedResults.push(res?.data?.data);
-      }
-      // console.log(combinedResults, "combinedResults");
-      // Update setPdfShadesImages with the combined results
-      setPdfShadesImages(combinedResults.flat());
-    };
+    //     // Push the result to combinedResults
+    //     combinedResults.push(res?.data?.data);
+    //   }
+    //   console.log(combinedResults, "combinedResults");
+    //   // Update setPdfShadesImages with the combined results
+    //   setPdfShadesImages(combinedResults.flat());
+    // };
     
     // Call the function
-    await createPdfShadesImages();
+    // await createPdfShadesImages();
     // console.log(pdfShadesImages, "pdfShadesImages");
 
     // console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
