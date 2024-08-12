@@ -136,7 +136,7 @@ body{
 
                 .shadeItem {
                     min-width: calc(16.66% - 4px);
-                    margin-right: 5px;
+                    margin-right: 4px;
                     border-top-right-radius: 20px;
                     overflow: hidden;
                     border: 1px solid #CCCCCC99;
@@ -752,13 +752,15 @@ body{
                 padding: 30px;
 
                 .imageBox {
-                    width: 200px;
+                    width: auto;
                     height: 250px;
                     margin: 0 auto 15px;
 
                     img {
                         max-height: 100%;
                         width: auto;
+                        margin: 0 auto;
+                        display: flex;
                     }
                 }
 

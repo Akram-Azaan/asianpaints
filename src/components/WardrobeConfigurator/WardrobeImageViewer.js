@@ -27,6 +27,7 @@ import {
   CAMERA_ANGLE_2,
   FINISH_SHADES_LIST,
   CARCUSS_FINISH,
+  PDF_IMAGES,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -98,6 +99,8 @@ const WardrobeImageViewer = ({
   const [selectedCurcass, setSelectedCurcass] = useState([]);
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
+  const [pdfShadesImages, setPdfShadesImages] = useState([]);
+  const [pdfRenderImages, setPdfRenderImages] = useState([]);
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -511,16 +514,80 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    pdfContent();
-  }, [doorPanelOptions, woodFinish, formData, price]);
+    // Define the async function inside the useEffect
+    const getPdfImages = async () => {
+      const matchingType = PDF_IMAGES.filter((type) => {
+        return (
+          type.doorType === doorPanelOptions?.door &&
+          type.size === doorPanelOptions?.dimension &&
+          type.finishType === woodFinish
+        );
+      });
+      // Update state after processing
+      setPdfRenderImages(matchingType);
+    };
+    // Call the async function
+    getPdfImages();
+  }, [doorPanelOptions, woodFinish]);  // Dependencies array
 
-  const pdfContent = () => {
+  const pdfContent = async (shadeImages) => {
     // Remove any existing hidden div to avoid duplications
     const existingDiv = document.getElementById("pdf-content");
     if (existingDiv) {
       existingDiv.remove();
     }
 
+    const createPdfShadesImages = async () => {
+      console.log(selectedCurcass, "getCurcassList");
+      console.log(shadeList, "shadeListshadeList");
+    
+      let combinedResults = [];
+    
+      const curcassTexture = selectedCurcass[0]; // Since there's only one item in selectedCurcass
+    
+      for (let j = 0; j < shadeList.length; j++) {
+        let selectedPdfTextures = [];
+    
+        // Combine the single selectedCurcass item with each shadeList[j]
+        const shadeTexture = shadeList[j];
+    
+        // Create selectedPdfTextures for each shadeList item
+        selectedPdfTextures.push(curcassTexture);
+        selectedPdfTextures.push(shadeTexture);
+    
+        const mergeData = {
+          scene: scene_id,
+          textures: selectedPdfTextures,
+          is_render: true,
+          ext: "png",
+          store: allStoreList[1]?.id,
+        };
+    
+        // Call getAllMergeData for each combination
+        const res = await getAllMergeData({
+          mergeData,
+          textureIds: selectedPdfTextures,
+          resetFrame: false,
+          sceneView: cameraAngles[0]?.id,
+          total: cameraAngles?.length,
+        });
+    
+        console.log(res, "res");
+    
+        // Push the result to combinedResults
+        combinedResults.push(res?.data?.data);
+      }
+      console.log(combinedResults, "combinedResults");
+      // Update setPdfShadesImages with the combined results
+      setPdfShadesImages(combinedResults.flat());
+    };
+    
+    // Call the function
+    await createPdfShadesImages();
+    console.log(pdfShadesImages, "pdfShadesImages");
+
+    console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
+    
     // Create a new hidden div
     const hiddenDiv = document.createElement("div");
     hiddenDiv.id = "pdf-content";
@@ -529,6 +596,19 @@ const WardrobeImageViewer = ({
     hiddenDiv.style.width = "100%";
     hiddenDiv.style.height = "100%";
     hiddenDiv.style.overflow = "visible";
+
+    const pdfImagesBoxHtml = shadeImages?.map((item,i) => {
+      return `
+        <div class="${styles.shadeBox}" key="${item?.id}">
+          <div class="${styles.imageBox}">
+            <img src="${item?.image_low}" alt="shade" />
+          </div>
+          <h4>${item?.name}</h4>
+        </div>
+      `;
+    }).join("");
+
+    console.log(pdfImagesBoxHtml,"pdfImagesBoxHtmlpdfImagesBoxHtml")
 
     const processBoxHtml = PDF_PROCESS.map((process) => {
       return `
@@ -593,7 +673,7 @@ const WardrobeImageViewer = ({
             </div>
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="wardrobe" />
+                <img src="${pdfRenderImages[0]?.image_low}" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
                 <div class="${styles.detailsBoxItem}">
@@ -632,42 +712,7 @@ const WardrobeImageViewer = ({
             Available top ${woodFinish} shades
           </h2>
           <div class="${styles.pdfWardrobeShades}">
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 1</h4>
-            </div>
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 2</h4>
-            </div>
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 3</h4>
-            </div>
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 4</h4>
-            </div>
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 5</h4>
-            </div>
-            <div class="${styles.shadeBox}">
-              <div class="${styles.imageBox}">
-                <img src="${WARDROBE_IMAGE}" alt="shade" />
-              </div>
-              <h4>Shade 6</h4>
-            </div>
+            ${pdfImagesBoxHtml}
           </div>
         </div>
       </div>
@@ -708,8 +753,9 @@ const WardrobeImageViewer = ({
   };
 
   const handleDownloadPdf = async () => {
-    adobeAnaWardrobeAction("download pdf", wardrobePackage);
     setDownloading(true);
+    await pdfContent(pdfRenderImages);
+    adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
@@ -1242,7 +1288,6 @@ const WardrobeImageViewer = ({
             )}
           </Col>
         </Row>
-        {/* <div ref={pdfContentRef}></div> */}
       </div>
     </>
   );
