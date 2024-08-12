@@ -119,7 +119,7 @@ const WardrobeImageViewer = ({
         setAllScenes([...scenes]);
         if (scenes?.length) {
           const sceneId = scenes[0]?.id;
-          console.log(sceneId, "sceneIdsceneId");
+          // console.log(sceneId, "sceneIdsceneId");
           setScene_id(sceneId);
           // let filteredData = allStoreList?.filter(
           //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
@@ -144,7 +144,7 @@ const WardrobeImageViewer = ({
             scene: sceneId,
           });
 
-          console.log(sceneViewsData, "sceneViewsData");
+          // console.log(sceneViewsData, "sceneViewsData");
           setCameraAngles(sceneViewsData);
           setCurrentAngle(cameraAngles[0]);
           const panelFinishes = labelData.filter(
@@ -156,7 +156,7 @@ const WardrobeImageViewer = ({
     }
     loadAndCheckStoreData();
   }, [doorPanelOptions, selectedStoreLocal, allStoreList]);
-  console.log(colorFinish[0]?.textures, woodFinish);
+  // console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
     const shades = FINISH_SHADES_LIST.filter((type) => {
@@ -180,7 +180,7 @@ const WardrobeImageViewer = ({
     const selectedCurcass = curcass ? curcass : null;
     return selectedCurcass;
   };
-  console.log(selectedCurcass, "getCurcassList");
+  // console.log(selectedCurcass, "getCurcassList");
 
   useEffect(() => {
     const shades = getShadelist();
@@ -228,7 +228,7 @@ const WardrobeImageViewer = ({
 
   useEffect(() => {
     async function loadAndCheckImages() {
-      console.log(allScenes, "allScenes");
+      // console.log(allScenes, "allScenes");
       const mergeData = {
         scene: scene_id,
         textures: selectedTextures,
@@ -236,7 +236,7 @@ const WardrobeImageViewer = ({
         ext: "png",
         store: allStoreList[1]?.id,
       };
-      console.log(mergeData, "mergeData");
+      // console.log(mergeData, "mergeData");
       setLoader(true);
       const res = await getAllMergeData({
         mergeData,
@@ -245,7 +245,7 @@ const WardrobeImageViewer = ({
         sceneView: currentAngle?.id,
         total: cameraAngles?.length,
       });
-      console.log(res, "res");
+      // console.log(res, "res");
       setAllImages(res?.data?.data?.images);
       setLoader(false);
     }
@@ -438,7 +438,7 @@ const WardrobeImageViewer = ({
 
     try {
       const updatedPrice = await getPrice();
-      console.log(updatedPrice, "updatedPrice");
+      // console.log(updatedPrice, "updatedPrice");
       const formattedPrice = formatIndianCurrency(updatedPrice);
       setPrice(formattedPrice);
       setShowDetails(false);
@@ -464,7 +464,7 @@ const WardrobeImageViewer = ({
     adobeAnaDimensionNext(doorPanelOptions.dimension);
     setShowWardrobe(false);
     setShowWoodFinish(true);
-    setCurrentAngle(cameraAngles[0]);
+    cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
   };
 
   const visualizeAgain = () => {
@@ -538,8 +538,8 @@ const WardrobeImageViewer = ({
     }
 
     const createPdfShadesImages = async () => {
-      console.log(selectedCurcass, "getCurcassList");
-      console.log(shadeList, "shadeListshadeList");
+      // console.log(selectedCurcass, "getCurcassList");
+      // console.log(shadeList, "shadeListshadeList");
     
       let combinedResults = [];
     
@@ -572,21 +572,21 @@ const WardrobeImageViewer = ({
           total: cameraAngles?.length,
         });
     
-        console.log(res, "res");
+        // console.log(res, "res");
     
         // Push the result to combinedResults
         combinedResults.push(res?.data?.data);
       }
-      console.log(combinedResults, "combinedResults");
+      // console.log(combinedResults, "combinedResults");
       // Update setPdfShadesImages with the combined results
       setPdfShadesImages(combinedResults.flat());
     };
     
     // Call the function
     await createPdfShadesImages();
-    console.log(pdfShadesImages, "pdfShadesImages");
+    // console.log(pdfShadesImages, "pdfShadesImages");
 
-    console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
+    // console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
     
     // Create a new hidden div
     const hiddenDiv = document.createElement("div");
@@ -608,7 +608,7 @@ const WardrobeImageViewer = ({
       `;
     }).join("");
 
-    console.log(pdfImagesBoxHtml,"pdfImagesBoxHtmlpdfImagesBoxHtml")
+    // console.log(pdfImagesBoxHtml,"pdfImagesBoxHtmlpdfImagesBoxHtml")
 
     const processBoxHtml = PDF_PROCESS.map((process) => {
       return `
@@ -762,7 +762,6 @@ const WardrobeImageViewer = ({
   
     const addPageToPdf = async (elementId, addNewPage = true) => {
       const input = document.getElementById(elementId);
-      console.log(input, "inputinput");
       if (!input) {
         console.error(`Element with ID ${elementId} not found`);
         return;
@@ -791,7 +790,6 @@ const WardrobeImageViewer = ({
           logging: true,
           useCORS: true // Enable cross-origin resource sharing
         });
-        console.log(canvas, "canvascanvas");
   
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
