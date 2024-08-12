@@ -155,7 +155,7 @@ const WardrobeImageViewer = ({
       }
     }
     loadAndCheckStoreData();
-  }, [selectedStoreLocal, allStoreList]);
+  }, [doorPanelOptions, selectedStoreLocal, allStoreList]);
   console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
@@ -188,7 +188,7 @@ const WardrobeImageViewer = ({
     setActiveShade(shadeList[0]);
     const curcass = getCurcassList();
     setSelectedCurcass(curcass);
-  }, [doorPanelOptions, woodFinish]);
+  }, [doorPanelOptions, woodFinish,showShades]);
 
   useEffect(() => {
     const fetchTextures = async () => {
@@ -196,7 +196,7 @@ const WardrobeImageViewer = ({
       setSelectedTextures(imageTextures);
     };
     fetchTextures();
-  }, [doorPanelOptions, woodFinish, selectedCurcass, activeShade]);
+  }, [doorPanelOptions, selectedCurcass, activeShade]);
 
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -250,7 +250,7 @@ const WardrobeImageViewer = ({
       setLoader(false);
     }
     loadAndCheckImages();
-  }, [selectedTextures, allStoreList, currentAngle]);
+  }, [showShades, selectedTextures, allStoreList, currentAngle]);
 
   const getAllMergeData = async ({
     mergeData,
