@@ -601,7 +601,7 @@ const WardrobeImageViewer = ({
       return `
         <div class="${styles.shadeBox}" key="${item?.id}">
           <div class="${styles.imageBox}">
-            <img src="${item?.image_low}" alt="shade" />
+            <img src="${item?.image}" alt="shade" />
           </div>
           <h4>${item?.name}</h4>
         </div>
@@ -673,7 +673,7 @@ const WardrobeImageViewer = ({
             </div>
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
-                <img src="${pdfRenderImages[0]?.image_low}" alt="wardrobe" />
+                <img src="${pdfRenderImages[0]?.image}" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
                 <div class="${styles.detailsBoxItem}">
