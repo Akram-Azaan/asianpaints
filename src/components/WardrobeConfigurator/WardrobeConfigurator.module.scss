@@ -45,6 +45,7 @@ body{
             img {
                 width: auto;
                 height: 100%;
+                scale: 1.2;
                 // width: 400px;
                 // height: 400px;
             }
@@ -758,6 +759,7 @@ body{
 
                     img {
                         max-height: 100%;
+                        scale: 1.3;
                         width: auto;
                         margin: 0 auto;
                         display: flex;
@@ -842,14 +844,16 @@ body{
                 padding: 10px;
 
                 .imageBox {
-                    height: 170px;
-                    margin-bottom: 12px;
+                    height: 180px;
+                    width: auto;
+                    // margin-bottom: 12px;
 
                     img {
                         display: flex;
                         max-height: 100%;
                         width: auto;
-                        margin: 0 auto;
+                        margin: 0;
+                        scale: 1.2;
                     }
                 }
 

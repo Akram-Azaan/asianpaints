@@ -759,34 +759,58 @@ const WardrobeImageViewer = ({
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
-
+  
     const addPageToPdf = async (elementId, addNewPage = true) => {
       const input = document.getElementById(elementId);
+      console.log(input, "inputinput");
       if (!input) {
         console.error(`Element with ID ${elementId} not found`);
         return;
       }
-
+  
       try {
-        const canvas = await html2canvas(input, { scale: 2 });
+        // Ensure images are fully loaded
+        // const images = input.querySelectorAll('img');
+        // let imageLoadPromises = [];
+  
+        // images.forEach((img) => {
+        //   if (!img.complete) {
+        //     const imgLoadPromise = new Promise((resolve) => {
+        //       img.onload = resolve;
+        //       img.onerror = resolve;
+        //     });
+        //     imageLoadPromises.push(imgLoadPromise);
+        //   }
+        // });
+  
+        // await Promise.all(imageLoadPromises);
+  
+        // Capture the canvas
+        const canvas = await html2canvas(input, {
+          scale: 2,
+          logging: true,
+          useCORS: true // Enable cross-origin resource sharing
+        });
+        console.log(canvas, "canvascanvas");
+  
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
         const imgWidth = imgProps.width;
         const imgHeight = imgProps.height;
         const ratio = imgWidth / pdfWidth;
         const pageHeight = pdfHeight * ratio;
-
+  
         const totalPages = Math.ceil(imgHeight / pageHeight);
-
+  
         for (let i = 0; i < totalPages; i++) {
           const srcY = i * pageHeight;
           const srcHeight = Math.min(pageHeight, imgHeight - srcY);
-
+  
           const canvasPage = document.createElement("canvas");
           canvasPage.width = imgWidth;
           canvasPage.height = srcHeight;
           const ctx = canvasPage.getContext("2d");
-
+  
           ctx.drawImage(
             canvas,
             0,
@@ -798,7 +822,7 @@ const WardrobeImageViewer = ({
             imgWidth,
             srcHeight
           );
-
+  
           const imgDataPage = canvasPage.toDataURL("image/png");
           if (i > 0 || addNewPage) pdf.addPage();
           pdf.addImage(
@@ -814,11 +838,11 @@ const WardrobeImageViewer = ({
         console.error(`Failed to capture element with ID ${elementId}`, error);
       }
     };
-
+  
     await addPageToPdf("page-1", false); // First page without adding a new page
     await addPageToPdf("page-2");
     await addPageToPdf("page-3");
-
+  
     pdf.save("wardrobeEstimate.pdf");
     setDownloading(false);
   };
