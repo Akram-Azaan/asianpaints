@@ -58,6 +58,7 @@ const WardrobeImageViewer = ({
   allStoreList,
   modelId,
   isRender,
+  storeId,
 }) => {
   const [showDoorPanel, setShowDoorpanel] = useState(true);
   const [showWardrobe, setShowWardrobe] = useState(false);
@@ -135,27 +136,27 @@ const WardrobeImageViewer = ({
           const labelData = await getSceneLabelOptions({
             sceneId: sceneId,
             token: modelId,
-            storeId: allStoreList[0]?.id,
+            storeId: storeId,
           });
 
           const sceneViewsData = await sceneBackgroundInfo({
-            storeId: allStoreList[1]?.id,
+            storeId: storeId,
             token: modelId,
             scene: sceneId,
           });
 
-          // console.log(sceneViewsData, "sceneViewsData");
+          // console.log(sceneViewsData,allStoreList, "sceneViewsData");
           setCameraAngles(sceneViewsData);
-          setCurrentAngle(cameraAngles[0]);
           const panelFinishes = labelData.filter(
             (item) => item.name === "Panel Finish"
           );
           setColorFinish(panelFinishes);
+          setCurrentAngle(cameraAngles[0]);
         }
       }
     }
     loadAndCheckStoreData();
-  }, [doorPanelOptions, selectedStoreLocal, allStoreList]);
+  }, [doorPanelOptions, selectedStoreLocal, storeId]);
   // console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
@@ -234,7 +235,7 @@ const WardrobeImageViewer = ({
         textures: selectedTextures,
         is_render: true,
         ext: "png",
-        store: allStoreList[1]?.id,
+        store: storeId,
       };
       // console.log(mergeData, "mergeData");
       setLoader(true);
@@ -250,7 +251,7 @@ const WardrobeImageViewer = ({
       setLoader(false);
     }
     loadAndCheckImages();
-  }, [showShades, selectedTextures, allStoreList, currentAngle]);
+  }, [showShades, selectedTextures, storeId, currentAngle]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -560,7 +561,7 @@ const WardrobeImageViewer = ({
           textures: selectedPdfTextures,
           is_render: true,
           ext: "png",
-          store: allStoreList[1]?.id,
+          store: storeId,
         };
     
         // Call getAllMergeData for each combination

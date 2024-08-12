@@ -22,6 +22,7 @@ const WardrobeConfigurator = () => {
     door: DOOR_LIST?.[0].label,
     dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].size,
   });
+  const [storeId, setStoreId] = useState(null);
 
   const getTokenUrl = (door, dimension) => {
     const doorType = WARDROBE_TYPE_WITH_DIMENSIONS.find(d => d.id === door);
@@ -70,6 +71,7 @@ const WardrobeConfigurator = () => {
       setAllStoreList(allData?.results);
       // setToken(rawData?.results?.[0]?.configurator?.token);
       setToken(localConfiguratorData?.tokenUrl)
+      setStoreId(localConfiguratorData?.storeId)
       setCurrentSelectedStore(allData?.results[0]);
     }
     setLoader(false);
@@ -90,6 +92,7 @@ const WardrobeConfigurator = () => {
         selectedStoreLocal={currentSelectedStore}
         allStoreList={allStoreList}
         modelId={token}
+        storeId={storeId}
         isRender={isRender}
       />
     </>
