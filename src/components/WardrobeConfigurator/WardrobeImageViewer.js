@@ -899,7 +899,9 @@ const WardrobeImageViewer = ({
             {!(showDetails && isMobile) && (!isMobile || !loadingScreen) && (
               <div className={styles.wardrobe}>
                 <h2 className={styles.title}>
-                  Build your wardrobe and get cost estimation
+                  {showShades
+                    ? "Your wardrobe cost estimation is ready!"
+                    : "Build your wardrobe and get cost estimation"}
                 </h2>
                 <div className={styles.buttons}>
                   <div className={styles.roundbox}>
@@ -952,7 +954,7 @@ const WardrobeImageViewer = ({
                               item?.display_name
                             );
                             setActiveShade(item);
-                            setCurrentShadeFrame(index)
+                            setCurrentShadeFrame(index);
                           }}
                         >
                           <div
