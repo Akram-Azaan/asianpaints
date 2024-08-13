@@ -248,25 +248,32 @@ const WardrobeImageViewer = ({
   useEffect(() => {
     async function loadAndCheckImages() {
       // console.log(allScenes, "allScenes");
-      const mergeData = {
-        scene: scene_id,
-        textures: selectedTextures,
-        is_render: true,
-        ext: "png",
-        store: storeId,
-      };
-      // console.log(mergeData, "mergeData");
-      setLoader(true);
-      const res = await getAllMergeData({
-        mergeData,
-        textureIds: selectedTextures,
-        resetFrame: false,
-        sceneView: currentAngle?.id,
-        total: cameraAngles?.length,
-      });
-      // console.log(res, "res");
-      setAllImages(res?.data?.data?.images);
-      setLoader(false);
+      try {
+        setLoader(true);
+
+        const mergeData = {
+          scene: scene_id,
+          textures: selectedTextures,
+          is_render: true,
+          ext: "png",
+          store: storeId,
+        };
+
+        if (modelId) {
+          const res = await getAllMergeData({
+            mergeData,
+            textureIds: selectedTextures,
+            resetFrame: false,
+            sceneView: currentAngle?.id,
+            total: cameraAngles?.length,
+          });
+          setAllImages(res?.data?.data?.images);
+        }
+      } catch (error) {
+        console.error("Error loading images:", error);
+      } finally {
+        setLoader(false);
+      }
     }
     loadAndCheckImages();
   }, [showShades, selectedTextures, storeId, currentAngle]);
@@ -945,14 +952,17 @@ const WardrobeImageViewer = ({
                   </div>
                 </div>
                 <div className={styles.imageView}>
-                  {(loader || allImages?.length === 0) && (
+                  {(loader || (allImages && allImages.length === 0)) && (
                     <div>
                       <CircularProgress />
                     </div>
                   )}
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
-                  {!loader && allImages?.length && (
-                    <img src={allImages[currentFrame]?.image_low} />
+                  {!loader && allImages?.length > 0 && (
+                    <img
+                      src={allImages[currentFrame]?.image_low}
+                      alt={`Wardrobe Frame ${currentFrame}`}
+                    />
                   )}
                 </div>
                 {showShades && (
@@ -1026,7 +1036,8 @@ const WardrobeImageViewer = ({
                       setShowDoorpanel(false);
                       setShowWardrobe(true);
                       adobeAnaSelectedDoorPanel(doorPanelOptions?.door);
-                      cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
+                      cameraAngles.length > 0 &&
+                        setCurrentAngle(cameraAngles[0]);
                     }}
                   >
                     Next
@@ -1101,7 +1112,8 @@ const WardrobeImageViewer = ({
                       onClick={() => {
                         setWoodFinish(finish.label);
                         setWardrobePackage(finish.subTitle);
-                        cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
+                        cameraAngles.length > 0 &&
+                          setCurrentAngle(cameraAngles[0]);
                       }}
                     >
                       <div className={styles.doorPanelImage}>
