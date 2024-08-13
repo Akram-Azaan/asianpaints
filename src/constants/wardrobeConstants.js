@@ -157,6 +157,12 @@ export const WARDROBE_TYPE_WITH_DIMENSIONS = [
   },
 ];
 
+export const CAMERA_ANGLES = [
+  // wardrobe hinged 8x8
+  { id: 6839, name: "Front  open", scene: 3575,},
+  { id: 6842, name: "Perspective Right", scene: 3575,},
+];
+
 export const WARDROBE_DATA = [
 
   {id: 1, doorType: SLIDING_DOOR, finishType: LAMINATE, size: "6.25 x 6 ft", price: 132288,},
@@ -231,7 +237,6 @@ export const WARDROBE_DATA = [
   {id: 53, doorType: HINGED_DOOR, finishType: ACRYLIC, size: "8 x 8 ft", price: 256448,},
   {id: 54, doorType: HINGED_DOOR, finishType: PU, size: "8 x 8 ft", price: 290880,},
 ];
-
 
 export const FINISH_SHADES_LIST = [
   // HINGED_DOOR 8 x 8 ft
@@ -764,30 +769,5 @@ export const PDF_IMAGES = [
     name: "PU Glossy Teal Dream",
     image:
       "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3575/7444aea5-bbef-3dba-897b-01039d32460d/54570/2dec9382_0.png?Expires=1723709780&Signature=eACzpMYyw26fz8By~fLqpKPV~dXTXI9zpP0E70RXjvdEyigbI1PtjHp7ryfOlUIykdfe3gBBi40NsEgCE5ZIZvIhOgnB4-92xmzjdsonSscK-~Wf2Pk73iBoQ6iCyeV00WZKFeYYhcsYx1uWDIHKaZD~0k84OBiG9HbbuWxotDiWVqG4h7M1ywtwMcNUuBdSSrIxlMsM1NnmDgXX3ipcQK8335NBmCh6E9YC-FWN8bZFjqvh731BthFhMz-ENDQHoLB0Gjp9QKskY4sLU1JTBrmRGclmPu9BvJ9klW9WDKyqz2X07RRx8bvNqmgQQz4SH2orXy~rZiHBm-oTnUVRXA__&Key-Pair-Id=K3MIEF79PIHRTH",
-  },
-];
-
-export const CAMERA_ANGLES = [
-  // wardrobe hinged 8x8
-  {
-    id: 6839,
-    name: "Front  open",
-    scene: 3575,
-  },
-  {
-    id: 6842,
-    name: "Perspective Right",
-    scene: 3575,
-  },
-
-  {
-    id: 6879,
-    name: "Front  open",
-    scene: 3579,
-  },
-  {
-    id: 6892,
-    name: "Perspective Right",
-    scene: 3579,
   },
 ];
