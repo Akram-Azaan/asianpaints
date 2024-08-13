@@ -100,6 +100,7 @@ const WardrobeImageViewer = ({
   const [selectedCurcass, setSelectedCurcass] = useState([]);
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
+  const [currentShadeFrame, setCurrentShadeFrame] = useState(0);
   const [pdfShadesImages, setPdfShadesImages] = useState([]);
   const [pdfRenderImages, setPdfRenderImages] = useState([]);
 
@@ -530,7 +531,7 @@ const WardrobeImageViewer = ({
     getPdfImages();
   }, [doorPanelOptions, woodFinish]);  // Dependencies array
 
-  const pdfContent = async (shadeImages) => {
+  const pdfContent = async (shadeImages,currentShadeFrame) => {
     // Remove any existing hidden div to avoid duplications
     const existingDiv = document.getElementById("pdf-content");
     if (existingDiv) {
@@ -673,7 +674,7 @@ const WardrobeImageViewer = ({
             </div>
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
-                <img src="${pdfRenderImages[0]?.image}" alt="wardrobe" />
+                <img src="${pdfRenderImages[currentShadeFrame]?.image}" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
                 <div class="${styles.detailsBoxItem}">
@@ -754,7 +755,8 @@ const WardrobeImageViewer = ({
 
   const handleDownloadPdf = async () => {
     setDownloading(true);
-    await pdfContent(pdfRenderImages);
+    // console.log(currentShadeFrame,"currentShadeFramecurrentShadeFrame")
+    await pdfContent(pdfRenderImages,currentShadeFrame);
     adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -950,6 +952,7 @@ const WardrobeImageViewer = ({
                               item?.display_name
                             );
                             setActiveShade(item);
+                            setCurrentShadeFrame(index)
                           }}
                         >
                           <div
