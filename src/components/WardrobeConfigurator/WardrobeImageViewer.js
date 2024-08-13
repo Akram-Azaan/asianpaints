@@ -113,7 +113,7 @@ const WardrobeImageViewer = ({
 
   const getCameraAngles = (id) => {
     const angles = CAMERA_ANGLES.filter((type) => {
-      return type.scene === id;
+      return type.storeId === id;
     });
     return angles;
   };
@@ -152,17 +152,18 @@ const WardrobeImageViewer = ({
           //   token: modelId,
           //   scene: sceneId,
           // });
-
-          const angles = await getCameraAngles(sceneId)
+          setLoader(true)
+          const angles = await getCameraAngles(storeId)
           // console.log(angles,"anglesanglesangles")
 
           // console.log(allStoreList, "allStoreList");
           setCameraAngles(angles);
+          setLoader(false)
           const panelFinishes = labelData.filter(
             (item) => item.name === "Panel Finish"
           );
           setColorFinish(panelFinishes);
-          setCurrentAngle(cameraAngles[0]);
+          cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
         }
       }
     }
@@ -203,12 +204,18 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    const shades = getShadelist();
-    setShadeList(shades);
-    setActiveShade(shadeList[0]);
-    const curcass = getCurcassList();
-    setSelectedCurcass(curcass);
-  }, [doorPanelOptions, woodFinish,showShades]);
+    const fetchShades = async () => {
+      const shades = await getShadelist();
+      setShadeList(shades);
+      setActiveShade(shades[0]);
+  
+      const curcass = await getCurcassList();  // If getCurcassList is asynchronous, await it as well
+      setSelectedCurcass(curcass);
+    };
+  
+    fetchShades();
+  }, [doorPanelOptions, woodFinish]);
+  
 
   useEffect(() => {
     const fetchTextures = async () => {
@@ -216,7 +223,7 @@ const WardrobeImageViewer = ({
       setSelectedTextures(imageTextures);
     };
     fetchTextures();
-  }, [doorPanelOptions, selectedCurcass, activeShade,woodFinish]);
+  }, [doorPanelOptions, selectedCurcass, activeShade]);
 
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -929,7 +936,7 @@ const WardrobeImageViewer = ({
                     <div
                       className={cx(styles.rounds, {
                         [styles.bordered]:
-                          currentAngle?.name === cameraAngles[1]?.name,
+                          currentAngle?.name !== cameraAngles[0]?.name,
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[1])}
                     >
@@ -938,16 +945,14 @@ const WardrobeImageViewer = ({
                   </div>
                 </div>
                 <div className={styles.imageView}>
-                  {loader && (
+                  {(loader || allImages?.length === 0) && (
                     <div>
                       <CircularProgress />
                     </div>
                   )}
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
                   {!loader && allImages?.length && (
-                    <img
-                      src={handleFilterAllImage()[currentFrame]?.image_low}
-                    />
+                    <img src={allImages[currentFrame]?.image_low} />
                   )}
                 </div>
                 {showShades && (
@@ -1021,6 +1026,7 @@ const WardrobeImageViewer = ({
                       setShowDoorpanel(false);
                       setShowWardrobe(true);
                       adobeAnaSelectedDoorPanel(doorPanelOptions?.door);
+                      cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
                     }}
                   >
                     Next
@@ -1095,6 +1101,7 @@ const WardrobeImageViewer = ({
                       onClick={() => {
                         setWoodFinish(finish.label);
                         setWardrobePackage(finish.subTitle);
+                        cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
                       }}
                     >
                       <div className={styles.doorPanelImage}>

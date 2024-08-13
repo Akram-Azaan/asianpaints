@@ -159,8 +159,8 @@ export const WARDROBE_TYPE_WITH_DIMENSIONS = [
 
 export const CAMERA_ANGLES = [
   // wardrobe hinged 8x8
-  { id: 6839, name: "Front  open", scene: 3575,},
-  { id: 6842, name: "Perspective Right", scene: 3575,},
+  { id: 6839, name: "Front  open", storeId: 2167,},
+  { id: 6842, name: "Perspective Right", storeId: 2167,},
 ];
 
 export const WARDROBE_DATA = [
