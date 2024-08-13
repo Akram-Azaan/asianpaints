@@ -85,7 +85,7 @@ const WardrobeImageViewer = ({
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
   const [cameraAngles, setCameraAngles] = useState([]);
-  const [currentAngle, setCurrentAngle] = useState({});
+  const [currentAngle, setCurrentAngle] = useState(cameraAngles[0] || {});
   const [downloading, setDownloading] = useState(false);
   const [allScenes, setAllScenes] = useState([]);
   const [outerLoader, setOuterLoader] = useState(true);
@@ -183,6 +183,14 @@ const WardrobeImageViewer = ({
   };
   // console.log(selectedCurcass, "getCurcassList");
 
+  const getDefaultTextures = () => {
+    let defaultTextures = [];
+    defaultTextures.push(selectedCurcass[0]);
+    defaultTextures.push(activeShade);
+    return defaultTextures;
+    // console.log(defaultTextures,"defaultTextures")
+  };
+
   useEffect(() => {
     const shades = getShadelist();
     setShadeList(shades);
@@ -197,7 +205,7 @@ const WardrobeImageViewer = ({
       setSelectedTextures(imageTextures);
     };
     fetchTextures();
-  }, [doorPanelOptions, selectedCurcass, activeShade]);
+  }, [doorPanelOptions, selectedCurcass, activeShade,woodFinish]);
 
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -218,14 +226,6 @@ const WardrobeImageViewer = ({
     });
     return uniqueArray;
   }
-
-  const getDefaultTextures = () => {
-    let defaultTextures = [];
-    defaultTextures.push(selectedCurcass[0]);
-    defaultTextures.push(activeShade);
-    return defaultTextures;
-    // console.log(defaultTextures,"defaultTextures")
-  };
 
   useEffect(() => {
     async function loadAndCheckImages() {
