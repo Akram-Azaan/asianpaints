@@ -28,6 +28,7 @@ import {
   FINISH_SHADES_LIST,
   CARCUSS_FINISH,
   PDF_IMAGES,
+  CAMERA_ANGLES,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -110,6 +111,13 @@ const WardrobeImageViewer = ({
     return res;
   };
 
+  const getCameraAngles = (id) => {
+    const angles = CAMERA_ANGLES.filter((type) => {
+      return type.scene === id;
+    });
+    return angles;
+  };
+
   useEffect(() => {
     async function loadAndCheckStoreData() {
       if (allStoreList?.length) {
@@ -139,14 +147,17 @@ const WardrobeImageViewer = ({
             token: modelId,
             storeId: storeId,
           });
-          const sceneViewsData = await sceneBackgroundInfo({
-            storeId: storeId,
-            token: modelId,
-            scene: sceneId,
-          });
+          // const sceneViewsData = await sceneBackgroundInfo({
+          //   storeId: storeId,
+          //   token: modelId,
+          //   scene: sceneId,
+          // });
 
-          console.log(allStoreList, "allStoreList");
-          setCameraAngles(sceneViewsData);
+          const angles = await getCameraAngles(sceneId)
+          // console.log(angles,"anglesanglesangles")
+
+          // console.log(allStoreList, "allStoreList");
+          setCameraAngles(angles);
           const panelFinishes = labelData.filter(
             (item) => item.name === "Panel Finish"
           );
@@ -350,6 +361,7 @@ const WardrobeImageViewer = ({
       ...doorPanelOptions,
       dimension: e.target.value,
     });
+    cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
   };
 
   const validate = () => {
