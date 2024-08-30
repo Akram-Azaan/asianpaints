@@ -12,6 +12,7 @@ import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
 import {
+  createLeadInApDatabase,
   createLeadInSalesforce,
   getScenesInPrototypeForPublic,
   getSceneViewBackgroundInfoPublic,
@@ -472,6 +473,8 @@ const WardrobeImageViewer = ({
       setLoadingScreen(true);
       // await delay(10000);
       const response = await createLeadInSalesforce(formData, updatedPrice);
+      // const result = await createLeadInApDatabase(formData, response.CRMleadId)
+      // console.log("result for database lead for Asian paint",result)
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);

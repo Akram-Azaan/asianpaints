@@ -9,6 +9,7 @@ import {
   GET_SCENE_VIEW_BG_INFO_PUBLIC_API,
   API_ROOT_URL_DEV,
   IMAGINE_AP_SALESFORCE,
+  IMAGINE_AP_DATABASE,
 } from "../constants/apiConstant";
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
@@ -163,6 +164,37 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
         C_EstimatedValue: estimatedPrice,
         C_CampaignId: "WARDROBE_DECORE_IMAGINE",
         C_IntegrationSource: "Wardrobe_Calculator_Imagine",
+      },
+    };
+
+    const response = await axios.post(url, body, { headers });
+    console.log(response, "response");
+    return response.data;
+  } catch (error) {
+    console.error("Error creating lead in Salesforce", error);
+    throw error;
+  }
+};
+
+export const createLeadInApDatabase = async (leadData,crmID) => {
+  const params = getQueryParams();
+  const envType = params.envType;
+  const baseUrl = envType === "prod" ? API_ROOT_URL : API_ROOT_URL_DEV;
+  const url = `${baseUrl}${IMAGINE_AP_DATABASE}`;
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+
+    const body = {
+      req: {
+        pincode: leadData.pincode,
+        mobile: leadData.mobile,
+        fname: leadData.firstname,
+        lname: leadData.lastname,
+        email: leadData.email,
+        remarks: "Wardrobe_Calculator_Imagine",
+        crm_id: crmID,
       },
     };
 
