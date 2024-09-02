@@ -219,7 +219,7 @@ export const WARDROBE_TYPE_WITH_DIMENSIONS = [
   {
     id: HINGED_DOOR,
     dimensions: [
-      { id: 11, doorType: HINGED_DOOR, storeId: 1111, tokenUrl:"6.25 x 6 ft", size: "6.25 x 6 ft", },
+      { id: 11, doorType: HINGED_DOOR, storeId: 2232, tokenUrl: "0ccda0ce-f835-3aac-9d64-ad0f2951a035", size: "6.25 x 6 ft", },
       { id: 12, doorType: HINGED_DOOR, storeId: 2234, tokenUrl: "51acf9cc-d7bd-3b16-9bd3-a6082788797f", size: "7 x 5 ft", },
       { id: 13, doorType: HINGED_DOOR, storeId: 2235, tokenUrl: "38ae40ba-f4de-3598-8ac5-8b6ace999c50", size: "7 x 6 ft", },
       { id: 14, doorType: HINGED_DOOR, storeId: 2295, tokenUrl: "b1484300-9886-325c-b327-c770acc9be91", size: "7 x 7 ft", },
@@ -257,6 +257,9 @@ export const CAMERA_ANGLES = [
   // wardrobe hinged 7x5
   { id: 6958, name: "Front  open ap", storeId: 2234 },
   { id: 6959, name: "Perspective right ap", storeId: 2234 },
+  // wardrobe hinged 6.25 x 6 ft
+  { id: 6950, name: "Front  open ap", storeId: 2232 },
+  { id: 6951, name: "Perspective right ap", storeId: 2232 },
 ];
 
 export const CARCUSS_FINISH = [
@@ -381,6 +384,21 @@ export const CARCUSS_FINISH = [
     main_render_id: 785952,
   },
   //#endregion wardrobe hinged 7x5
+  //#region hinged 6.25 x 6 ft
+  {
+    id: 121273,
+    display_name: "Brazilian Horizontal Walnut",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23403/55293/1b1d5c62_55293.jpg?Expires=1725531458&Signature=R6mldxfMEfV37gTi~ybiSvygGE8pbA64lZotpGaOOP89YbUOpR64IM4swwJCgzY~vsbtz5GutVu1Ck9P2OjfEzu9nBT9BoKIGyQxm5Zl0AF3MQ80vzKVVGy3Um9w2FKCT6EIgHpwE6Dswwy5~4UmaSjdFuYbc-YhiHNa-2Q2KUzOhuiyTF8PNqIIGOlxw5zHpls6ekKkXPQA3pTLxEJGsk-P~ZAES8dbCR0Y6HoVCAmU-WcHG6VHdsaZW49jFzp3~nerPOFBHrkHuSBO71ONCC3jNFv769ZEeFMlGkruP18ngZ6P~p3984A6ZuOpGlKH2RLtZsPA1tqoJ-Z0d6eFsw__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    render_id: 798277,
+    scenetexturerender_id: 55293,
+    scenetexture: 121273,
+    scene: 3627,
+    main_render_id: 785954,
+  },
+  //#endregion hinged 6.25 x 6 ft
 ];
 
 export const FINISH_SHADES_LIST = [
@@ -2419,6 +2437,260 @@ export const FINISH_SHADES_LIST = [
     main_render_id: 773311,
   },
   //#endregion wardrobe hinged 7x5
+  //#region hinged 6.25 x 6 ft
+  {
+    id: 121126,
+    display_name: "Acrylic Avorio",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54066/95ea190e_54066.jpg?Expires=1725531459&Signature=Jyh5Bkuv8lqBaJ1O9KdH29rHkgE8x71oI6V~~qB9UzkPLHcIRqJGsA4F0B2lk4alQ2TvN2bFfcNB4LwkG8eesM598Z4MwdvDUQDHIZdmdCkztLlvOAUOovGf9irrcifl7CMLCzP99eZy79oUJ4NC~Aayuq7s9HOTeWUZSSxR3~Eiwr8g5fS7YVt7VMVPAIYyyBidaYl0yqMu2NLBiCmiKy9GLR-omCy5231do3N7WlCH916y27AJUobHBk2n8xC61AvCZ3gWK5Is0eyGLvA-h9XQUgv-sw3VFfRS1XoQPnoeCot3cKEzB3blqH4hOpQ7SuCBrEMO7PyNnTJs0ut3fw__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785614,
+    scenetexturerender_id: 54066,
+    scenetexture: 121126,
+    scene: 3627,
+    main_render_id: 773253,
+  },
+  {
+    id: 121128,
+    display_name: "Acrylic Bianco",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54067/b7b67d72_54067.jpg?Expires=1725531459&Signature=j6UaFFlgP8nROuvuOSkSvZJ~yP74Qci4Wx~Kz-Fn-XIlWUXbTK85KWIeJDcEirWn6ysO0oycFOGTNip5V4WqBKGMZ0a6e6sYoDwKn6ALaH~ZfUw8JjQE41Uu~ek6fRncey-4qTawClSpzYXu~tPuwqEWhirLfS81GR5ouUwmWinttWFC0RYbOu-B2Dw-E-sbsMhz-6Xpet4qql7H07fC5A5k2BhBuz8UeM18Lg5KNLV4tz6QyQ1xAcJwKxNywdmWk1wq32UY7mxZzoMHpOCLhY9bDPsvV4Jx5CtXiKHY5zvOvnCXNx-WNlrW5eXae9lmlGfx0Wa-S~81tSbjfsUndg__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785615,
+    scenetexturerender_id: 54067,
+    scenetexture: 121128,
+    scene: 3627,
+    main_render_id: 773254,
+  },
+  {
+    id: 121129,
+    display_name: "Acrylic Revival Green",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54068/a084ecd9_54068.jpg?Expires=1725531459&Signature=t-B7wa6kRs20zMdX6lzp0~bQYoOoWsFb-Lf7X4e~1Tcu33S6rbi2nXyXVWor77H0hFmBrVieuEAF0hNzOkcN97uEVIcqRO7dT1Qz4bL275OqsJbAd6LDKGILHv2cyCsMXxLlTIGyGxTnnyVOXNHeFe~NKLfF9Wr-aK~dSvReEw4Q4ANibyuG18HMww4MsGtsAwX3197abQPfcCS3udXB0UaluYIIh~Ys7kVL~PNpPeFT8o3YCPzHX4HyRooM3~W10d8IYshR7FOTxeNCcggHXT0Z2LaWexSnpg0IhIqfG-sE74AFuHDhfYcPIKHumC8t2dc5FdOz9HenQsURZPJ~fw__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785616,
+    scenetexturerender_id: 54068,
+    scenetexture: 121129,
+    scene: 3627,
+    main_render_id: 773255,
+  },
+  {
+    id: 121133,
+    display_name: "Acrylic Feather Blue",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54069/482b1b5d_54069.jpg?Expires=1725531459&Signature=LpEFwB1a8vy8NygFn2DX6Q7cVXjBViJrCHOS1POcdcz9CRVNugJBfK7sT0EU464oxwpHzG~5nJGpK6WhxQHjGwV6Ls4Fb~X9362ZNUU~PvFYMn0JQull7cEqpM00gEToPvhA55UYEqVsJKmyXk-gvqnzYlG~ur0QnWb76zhw3o7MW0633y0~1ML8ukUIDsQ2euLjipd-ISZQqVIjCBB42Rwu1WijUptY9VdcJ4mTik-23ZSEPUDzTFmv~RGWJnAWYzCv~VJuNWvLtSHUEOA4Ki8LvMqQnsK3N2hRT7cYmOnk0puKrMQg7dnWXXwspdWLiQBVtLX8~z62dguV3D1gZA__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785617,
+    scenetexturerender_id: 54069,
+    scenetexture: 121133,
+    scene: 3627,
+    main_render_id: 773256,
+  },
+  {
+    id: 121135,
+    display_name: "Acrylic Grigio Met 86",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54070/e31eee99_54070.jpg?Expires=1725531459&Signature=C7~IENFKUJEgJXusqyFPB-eZQiIp1K7-w5cKJ4PYItL9Nw8tc0EdjTeB0jfuoY9CxapnumhQcbgCZn9XDpU70L5a5O0qeZ-VMGrxUNvLCy9JjSsDQ4F9MkoCSGOWgvQqK5noeQGQhfsl1-X2YUIcUHLtFh1fIH9rAMlx09SYSe2IFa2cjn8Z6aOi1HlJtZwsVI4QgdLpxZ~aCHExVHKMKJ57D1A5z4rpRB6~Ck94yBSolUIoH9fGA7Ll-knPliCwqapYez9TKB8WDx20mBCBn~mD9p5XvG3rLCDG2J5AVcHTB8LprneevYNSJsqUFf5FKaqX4T5m--3bsxY1CT6dgA__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785618,
+    scenetexturerender_id: 54070,
+    scenetexture: 121135,
+    scene: 3627,
+    main_render_id: 773257,
+  },
+  {
+    id: 121130,
+    display_name: "Acrylic Beige Met",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54071/c6df1dd0_54071.jpg?Expires=1725531459&Signature=5PTlXG28jHdFK4Ebmrg3DAyAZTj52CvrE1HgBoqlNFvSF9I9t7Oov0MT8u~IAQL2Qnww6nqEvBi2s1ey9XFvxmW-eA6~sQxDVPMXHDjn8rxu2L0UO1stktlhEYNuzjuZP~GWzTt0samlfzF5FoP6sXVqMYaJ~22a45azFalxewzm8vAYzFG0Bh~lYwU75mRufNXfrOxk7cSG852JAW87ZaHXKNP2Bwj4Kjhq6hO76Ll-rNiY~pp1eiDmFxzWVUM3XRv4YSVf0lJvO2ZchyKy4R8G-0obCss0c-fIXpuI6TVMKAvK6Gs0MMKYx5~0Xc0MIsFCxvxV326JxCaxEOlu3A__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    render_id: 785619,
+    scenetexturerender_id: 54071,
+    scenetexture: 121130,
+    scene: 3627,
+    main_render_id: 773258,
+  },
+  {
+    id: 121270,
+    display_name: "Matt Laminate Helsinki Oak",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54072/2d68117f_54072.jpg?Expires=1725531459&Signature=2nraYFVy6l7Mqi~lKa4ffMzlwwX1DlJjDKbEzsM8Dk1X7uYE2~Xh3BCNIeHGEMo7wPcc65eEkW2pFhqgtr82yp8SHoi8HQh9BcdWrnS~aVYOnbYcQccyGMJMVAueRUAjLlc0tVBMmWtR34Kg0mtUhRm3hNzCCNhrbtkY2GJ1OnFXmbbDatP2e~O~Tnmzd0lgsHL6W~l9BMitFxMtfTZBn4~RpFuSHHwfhKIJiAGeiitrv7ofd3WGb69H-t9fNpGeUoEgnPTNwwnRlO~ajd2WF0KjNMalP-83qLYa3gJwen5vu-RGPAG~vilv~TgctPppnjF3D9Wp5OcdqMg-7vxo0Q__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785620,
+    scenetexturerender_id: 54072,
+    scenetexture: 121270,
+    scene: 3627,
+    main_render_id: 773259,
+  },
+  {
+    id: 121271,
+    display_name: "Matt Laminate Refresh Oak",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54073/dc33d75e_54073.jpg?Expires=1725531459&Signature=nrGV5Wuvw7-scGMNHlu5H0R8vWDq4c6-mjXeRJDAn~vThUCzMrET9~CfIj-noq87d5JEcNmwsGOPFz4PvLlQW7ohw0bpowsCTRSNbUrwTou5Cej5r6~QvSqBwcxwLZtSXjIki3~ek5KweuY3zd63G-AepPen1EnCc1tx62oYsEdX-xSQGzfWlRNlRtqTKS3vwXD0d7AnWCvu5yDfi5B1Ciu59k~xBCRDimL5feH81Rpcvu5WrjtMqnYaRpt9jrtCy2nH8~YYWjXr0OXJXWcFotX15ZFheOvKx54O~jhhWqv9bhwuWtqEnx9beRAPBh0H8yV3wHGHLiTaKzRNT~OxSg__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785621,
+    scenetexturerender_id: 54073,
+    scenetexture: 121271,
+    scene: 3627,
+    main_render_id: 773260,
+  },
+  {
+    id: 121277,
+    display_name: "Glossy Laminate Brown",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54074/a3b01942_54074.jpg?Expires=1725531459&Signature=Mx5B4miRG1KuoEi5k3QGX3UAXhXtIAHf2P0j1j91b~MUj4OuKyUGoJOzj47IF-cqZn~PpP1EqPxuzEYXQfm6lvhseHYcQIfY5FkZQq584VBnlkzS13ZI6rU8kbegFCfy6wCrM9GV~xGk7daT~JCON3ST8g4fAIByf9sQ51nKJZ29-o2X5twnq0qIEOuLwjRt1703bNN5f6mkcbloKvr3o7av9EY80H7kXNF7kd3GSwK4FIXx15XKhCykMBvRM0oTVCJcQjglXmpy3DVEyurJHAGl2NAXIO1DVvMpTp5nk4rzD~IcBHxLuMu5rQt~KxDBEx~N2mXoTMfP0z8TaZFLrA__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785622,
+    scenetexturerender_id: 54074,
+    scenetexture: 121277,
+    scene: 3627,
+    main_render_id: 773261,
+  },
+  {
+    id: 121275,
+    display_name: "Glossy Laminate Shore",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54075/dc8a2933_54075.jpg?Expires=1725531459&Signature=IipDvExua07uKmVjcA2C2bcWxI4NrS5jFGdffLoaT-G37u5vq~0jnuSacQ1uqFdx6bbD0wcLlGieMrcx3q2mWJ1OZmKVxgiyJ2DHnBtAygjDGvbns3EWHTTbtE~wKEksXGBRpyBhd7NA8r8m3HcKaH1GAqQGLajO~r2wE28PMBs4MOUFExvRHBF3D5~aTdS34kGWJOO0OoBe6Fij5adJv-zB846REk~Hv~spu4u1XYYZczGEzD0ThjJt10COizbJNdWR8NSiDxtxufAhGm0pFJBzHeXSGISETgcuzNTNP0q4rir0pW1h3xNdI~BcXZnsWN1n2kndllVtv1b4b3uU~g__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785623,
+    scenetexturerender_id: 54075,
+    scenetexture: 121275,
+    scene: 3627,
+    main_render_id: 773262,
+  },
+  {
+    id: 121276,
+    display_name: "Glossy Laminate Blue Galaxy",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54076/132b7391_54076.jpg?Expires=1725531459&Signature=lHrXUzuhRBP1PFthvnny95KS~umckrf9b8Yuld1JUNzsTjBpRAI5A6F0C77cNAXKrIkEbHB98ZR4EyL5JepSM9caanmV4wt7NgEAB4VAJ9wRXiR2Y~FPkm1RkErVJNLApN3qIP7JmmN8GUELWh8zT7c9hu74v3BXrZFy3HPforNXQJq~U9t6ocWaJZJO3AK9lVdlGSGBBOWkHuoFIqx3XVEd5Noim1FKqrYT2RCFZaCI3hpeO7kIEODHaoYyj-YpUuye~ePJPn9ZZktcO-LuOqF6vLMtgQPkPxKKj~QL5EZTgat6e~PGjdegplv697pytTBrTFi~cOCKlJL45yHLxQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785624,
+    scenetexturerender_id: 54076,
+    scenetexture: 121276,
+    scene: 3627,
+    main_render_id: 773263,
+  },
+  {
+    id: 121298,
+    display_name: "Matt Laminate Tan",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54077/5473b0fb_54077.jpg?Expires=1725531459&Signature=LHAPYjZKKq0MpehKRo34nRP52VGd9gzxuZlXOaWuBCECL6FZ8CgI-3EhpFdfzvEiyttKhL3uS4lmOt~dr2SO7AdHnv-wOhT8FrBpQIH4fexiCXGU520JMJm0kGDRNFy3EDY6pA3h4WbvHkSzjFBzk11eUoUr~N7S9GbgJ67~-motnlchwcXsTwgTEmjCcWiixe245YQ20n~g3~OEuPD6X1osmhjsTjFQ-4e0XTX~IZrnU0dzWt6uX4IJjkrjq0F3clhCliMU~ZMd0ALRhlXUBqwxYU~~W6MJTepxfeHkhmMZdwAFzLp0NYvVu8PHhg6oEcxdvLoiyileQ35cyVQU7g__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    render_id: 785625,
+    scenetexturerender_id: 54077,
+    scenetexture: 121298,
+    scene: 3627,
+    main_render_id: 773264,
+  },
+  {
+    id: 121426,
+    display_name: "PU Glossy Pearl White",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54078/c58d5f42_54078.jpg?Expires=1725531459&Signature=aO0h7WejfFTYOaQe4KKClpsG7RLFqPmiwC7TXWtVB-kkgXSQdsM9VTS~wYG2buXm3w9kSUhgxw9MeyQyT9s2jXCxnM2Qu0WJPm1W3vVdbA-~w~Bqev82aho-tKD~H5dgp9~fbrPw1UaRaD-~kehvp1uuUR8jsh5W2V4VbxzWiavE96amqbZH-72oB~OMKkiN-zabzheom2UVdZsGGK4SRpYx3gJkBchaUNGaY5CBdY36~a2OzLoU94cNZUvQptKDRgIHWaQFHQx76edXgaU3mcpeprErP5BYKL6PZnKHh~Owj45eSNqn91kEEbyQrqq~O80PNME7p12yNIqJ7~4gdQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785626,
+    scenetexturerender_id: 54078,
+    scenetexture: 121426,
+    scene: 3627,
+    main_render_id: 773265,
+  },
+  {
+    id: 121427,
+    display_name: "PU Glossy Mangroove Green",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54079/d6dbb8f7_54079.jpg?Expires=1725531459&Signature=3zio3TBcQ~MQ~0sV~B-j2juef5HOYKfP48pNJ~GHMGxAKUHKr33Wa-QsR2nAdI3ZRqTfsOF-NIOWa5kOxM92kc-8FokRYf28osl1wB-wshDCwKoJzww6aUpd75m0S2~t91WJTjimEwg7BK2shXuMKVs-0SojU-I8~2xdc49pXB3pJo~xsuq~9RTgPGTrrXoEp~JE0cRRxHb21XvePlhVoaytzZzxR7gAp33QWf11MuDagMgWcIG6dRs1i~dA~fvQaZSq6g17Fqo402P9EUlWCcR3sSmjnZmeFsepwJJCcoUMroE8~2M6ycMdPF7GSJiU4~484da~4Ot6UESP2wFj2g__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785627,
+    scenetexturerender_id: 54079,
+    scenetexture: 121427,
+    scene: 3627,
+    main_render_id: 773266,
+  },
+  {
+    id: 121428,
+    display_name: "PU Glossy Steel Mesh",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54080/a886db20_54080.jpg?Expires=1725531459&Signature=dyhqhhH76YqJWsJ4paDVRp5f3fyq3KdQCUd6OqvunoCQxgaVRpuaY-ug~TJ51fQkgffWNp28rLejVodnvhjAUKH-NTThKcyWQbSdbtlk~XfYgblk6TUTSCsGP~4AnyLmBYZJbZs6mbjwYsvtsxaINEGa2q4M16cFar6Y4omNlxwLiopKQzbpmwUimjEycJZ9e7WyDj6epN~1znNQDdlg0-~-NytY030GvXseZK7C4XNeDjcRv-m3unHtqGh0Uh6ha2x8Cag7VJwLNnsumTUXLtRX7doqOfiB9YNGzYZxXiR3~Q5qpr3Q3mK7XYV4LmVMqL0hIMEjJwhIAtsFqQhihQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785628,
+    scenetexturerender_id: 54080,
+    scenetexture: 121428,
+    scene: 3627,
+    main_render_id: 773267,
+  },
+  {
+    id: 121429,
+    display_name: "PU Glossy Hidden Value",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54081/d465337e_54081.jpg?Expires=1725531459&Signature=FKt0QhLfouSExL5kOjOzs5rZTmjSKdMXrsmp71pntxMMVerHuKGwF4juLmcLzkhwIjsFXfAHhI4uMXT~95DYNIanxqMX1KLF-vWTsu474XUvjXVmd27J-zje3Qh6rxx~azefrCWfVxTcujC2LQBTAOfI95kYNj5HzspImK4lMPiwSCWbXIdc0mRMMRNFZw5ddArmn-bjkIkJjsNqTbABSz2W9QIEEsBmXRwjbBYi5StLDkuMhGth~vbcIMStdYllYTkvfbtbD8LJVeP3pG5z3OkJ0Vv12pStQsbhKW3Q~aknVSskgw1PJE4FHJRDRP9ECIczrsPaSKdUtnpTO-eTjA__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785629,
+    scenetexturerender_id: 54081,
+    scenetexture: 121429,
+    scene: 3627,
+    main_render_id: 773268,
+  },
+  {
+    id: 121437,
+    display_name: "PU Glossy Bottled Grape",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54082/45a9f595_54082.jpg?Expires=1725531459&Signature=26y8witrAJpjF6WR~1~F3InRzoJi3nc7Ai3FOvt4xoV2y48WkshHkqYromMiR8Ssc6RPeL-HHM5vPSnP0LrnZraptcmjsXS0i71HtZNvR6EvR0G2rSqt~7lf07yNocSeRMYoMDpu73hS5~1TN0JVM4z~1UBKHCvE7NFk9CkhkRO~nZu4YYMHs1ZvM2c4CsjEylvuhx3cNH8Ks1wnYzyoh7wPbAMtZcDcKHVjDLoIXrYU9~uI3kL9mooBdMQA2HbVyKpA1~eaoL3ukXb~mp0lugk4n3a3LNFU4TdqtdbdYqjzGtxPI3MmLQY3NLIuN07dyFFKftWvI~QUEig3ausurQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785630,
+    scenetexturerender_id: 54082,
+    scenetexture: 121437,
+    scene: 3627,
+    main_render_id: 773269,
+  },
+  {
+    id: 121458,
+    display_name: "PU Glossy Teal Dream",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23404/54083/40e2c86a_54083.jpg?Expires=1725531459&Signature=oOa~x-lYJr7COI9rp7EZvPYhCPs8OVxLGDkhJSXKSp4aXRTyivWIzM8CPbVxvlBqvQAoMxfCek~3PycENkfR1XIPmR~wXJFQCvsTLHbS9kDDqDdMC0~ZnNE-TKarNVMdGSz9Gzdctza7tD9Wj4cfknHsdwOesnvm4nu7ACuoDzZgJILG0NFLux8L5~r6NMIRzTCrqp80HEaWOm2HBmBrioG8q5r2KLI3bAoZiorZUSnCwpnWK3Z8fnnTkfw10cZw98vdKwOIULjqcZV3ohLVPk0cJU1FSIiqYLDT-6SeuxQnxAvHpsGWCJy8IRLoV1UgjLtZA~6FlHOD~Cfc5ZpcJQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    render_id: 785631,
+    scenetexturerender_id: 54083,
+    scenetexture: 121458,
+    scene: 3627,
+    main_render_id: 773270,
+  },
+  //#endregion hinged 6.25 x 6 ft
 ];
 
 export const PDF_IMAGES = [
@@ -3572,7 +3844,7 @@ export const PDF_IMAGES = [
       "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3630/cabcaf88-bb55-3deb-b4a7-52880edac9d4/64813/d151c799_0.png?Expires=1725522720&Signature=t~7VZgL~R~~ov5oxqoX1g60C9XHYvwp3dKnB5iJU57HQ9PRHotqwAOBFUqp01O4pwSYjOD-DMHklonZfTeMgQ5Gm6eX8OMjN97J4rrvulPP0SWhXYP4ZSIN-xkwM3-wBHdAYMC8e0SJMxu1Yq8m2VR8eRVOIeR7HPl05U8l7lmOUIMLZxNSQzCn-jleULGHJlDb-Rs7zVjPpRjMJhhDT~Lb5T6JVD8XesnbBzdZroG8Aqu4pUnXyueCtvahdBxVcuMedKimZ3fDtiWinNyzqzcSJjaLtmb9lsKFebW1xdPWqZa-J291SseBsLGoRH7OOqOnxn9rr57o78819LYxEIA__&Key-Pair-Id=K3MIEF79PIHRTH",
   },
   //#endregion wardrobe hinged 7x6
-  //region wardrobe hinged 7x5
+  //#region wardrobe hinged 7x5
   {
     id: 715975,
     doorType: HINGED_DOOR,
@@ -3736,4 +4008,168 @@ export const PDF_IMAGES = [
       "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3629/01810e25-cfef-3977-8707-0d5584ca75af/64848/81c6739f_0.png?Expires=1725524383&Signature=19oM3L8NyOvh-jfdLqdeVjAfeNjyznQL2RN9s2rAm3b5R8zVpQy33vHsWWiYJAxZrV2xqNVfpuK~ILHgkifqcgbLrnqbw5-5L04CGfVZHmiaEzwvQMRdPTpuWeQ6NKTaeNwEWg24T5jxVNqvQdy6ZzM7RZOFp1llnZU1l~GlbMce~ABQxZuP2eDIJFYgiDfDxqRa2IFghc2ybz46v6U~M0yFl2HEp0xljFJhbiFC0lMOSDns2XrXGqfQGj6GFy~ssfxA3xYCI4Dw8hEtSEVUfjUkwtwAfuZOGbgZ5ecSNVRULT~4Hq-Y6gpKJNDqdef~rmptHFAZh4zPPSvrhHTJ-w__&Key-Pair-Id=K3MIEF79PIHRTH",
   },
   //#endregion wardrobe hinged 7x5
+  //#region hinged 6.25 x 6 ft
+  {
+    id: 715971,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Avorio",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/fe152afd-d341-3a99-9e8f-abaeb96a3156/62393/6145036d_0.png?Expires=1725532295&Signature=gZ-f1Fx~iGXt9jNL7vmdJzDaMOb6nXuawIyw-AHyYRCuJUeOI~pMnRruLQT1kv7vwsijyZ4MasNr~A9A-AQvLCwB~3~W88X4iJ9siQRjtfhCq6k8XLEbuebosTOLFj8jfMDSdFq3xHrMl1K-bTUf6fr7cAtg7mp-cbBQirSXqLjI6fQDYj~F2AQiiR9HRIUBIFwuNCyDpceHoAQHJFmVRZgIAJLIiUJYwH2Xd1vm7iOvSDZQ6waTjAF7V6IOSdr8I~3qwKcCXKUJFzxtTEoObp3Y-kh-Dx5JsOyVFa8ReE9KihKGUxJFIy1VrNv4B-jNnsCqYPDWbJ8UtrgMYhiWqQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749850,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Bianco",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/c3d3d1de-c592-350f-b5ef-19e4410bbc45/64865/29c79af4_0.png?Expires=1725532324&Signature=4X20cQrn3WWdIWx9xltXch9HO2s3yiGpEJZoPC-gMBVPIvrM-5sDmBRPaQDSZWtv~k7WpnjPwxdF8v7qjEOorhTLZ4u1TicYKdcFwO-iDvi4abdhdRVHkNSo1ZAqc3OEX~ldBDw8xR9r4GSg818x9JPQNB7EhZfIeUCp02UpNYfbMLgUg~B2~NlQIX-itanIIFaIi~105m1l3donc7edQMHUsuZ32xIAW1WWdxbP6EMP~t1uu2CxS38vwZHHqK0Est-FFB-tJkLD78EfHGjDUvz-ua-HzqxNPy~4IOTic5di2GGY7J5tjPikdGfQqfEmLWTELgdquiGeqtgk2xX1ag__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749851,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Revival Green",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/25fcec24-2e77-307f-a2bc-8ed9ec6749b1/64867/f8eaf66f_0.png?Expires=1725532336&Signature=Y7l~1m~nk2tW31tatN9dXYtvvkJRvmaCP5BLXZseh0PdD35zFbtXbEBOXh5Mz-D5mg2aFLT-0Ud0EnmG6KAQ3vNTAz4Ag8DWCIq1m7DbzNZ8iRMLxe17NSQpqJc3pEc0TVYrQ-Vnx5G17pYiF3t7c9jAPWKZ2x-tNVsASAICZv8Fx8xnOwkveCLeg0jcD1zP2kT3byrO0NhXfy4NKKv1jcQsFch1WktAUg4yykn7P8lJEYBrlBwOlZzcAxZlne4FjqQT~DPDPr05fQJlXLvSQGIKBBLRj-sPbJQ6hTBX2TGuiRXApqeObd5WyvB25jQ7U0r8xa9-6B-DdMNm6l1F5Q__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749853,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Feather Blue",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/4e38ce00-88b9-3eed-baa2-78d9d2591c42/64869/733838d4_0.png?Expires=1725532347&Signature=HzN-qheIQ1ljwZVytYzz1RmxbfE~tvS-SKl5A~VqQqcTtAFlr~CwWWBddnnEKrk38hDquh0iv8tasLO8nBitUmb3dK7tTbYVFDraSw9suXsNb7FQndzT1zpkXhpEwpopbVJ73UGB5s2UvNgJ8wQVUIxvi-zheE4AjmG4pBOI5QAJqqmVtK8UFEU1HD0p9dG1MZwy1yzFT3lUWZoS-3n7wFVKAahPAQxr5ztrcNwvVbBy~ykX8wClg~cQR9-H3OHoMCD1yRH-0WhmmkM2pG5q8Z~TMIanoIZsWFfKAPu4PAb~zE~2D9B0tTVBYdyyIcUJCDYJElZq6bLhQP0LpC6gfw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749856,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Grigio Met 86",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/e13089d1-1e8d-38da-838e-976c02a9be91/64871/322e57bb_0.png?Expires=1725532358&Signature=Db06OgPsaAsKtNytxqMgvjmqIApa9~xwmuf8F5RGSwGxErZmrEk4rHRC-vOWr1LmPWvq6v7M1CcJWV576YVZZxevsOxP6kDZIk-DDGRhzGkC8GEst9Z0LlHZXIlSXe4lg1P6xhZyxnpySG30CLrL4hzyY0df9B7ySem35Bdkj5Xh0oBQ1JJ96572F-2ZrgluzgYYaJInZK45-luA9k27Q9dd2q2ogYU6pOS2FleZviLT8kJRglzH-UAZRrMOjCOGBU6bB0-Uy3KOH-SlsuZvd9q54809CCcAags-xwQKD8CLIiY5R2jgf49KuotL~tQeYW7clyAtMeDK5CFvZPL2FA__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749857,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: ACRYLIC,
+    name: "Acrylic Beige Met",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/6f0c8c13-d5a9-35a3-b9d4-5223aca10078/64874/c69f032a_0.png?Expires=1725532368&Signature=348BjvArBTU3uhVXSGE~4x~C0PJtxMAv6HIeAyL2fOuKCF5vxWDif4A-pUWQwN~qoMgfr964bUfjiSsRB0hT9UPPrqcnQyqUU9DNwjMEOPuXwkcZ9YLNH3wkkR7ecALLIiYJMDLo~UVKPvy1RtXAatgzFL606uHpsi~osti2BOfZvKxuTkQWbjPu0F1tIU6kkFHakzHsdBrn7u-GDjCIxFraWstWSZW7~R4vRsN4jRDBK2V-B-aqs2NencDXMOpUE~quwIESupoSDYMXHKIM4zzKyWVdqxhuPKH69xPuXRW5gNy0fDpO0RZDVZAS8Qtisq99GzUdFfN1qjN0PXaIcw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749859,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Matt Laminate Helsinki Oak",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/807d6b8e-ee13-37e9-8abf-f149f5736163/64875/bc64d898_0.png?Expires=1725532386&Signature=bdYNGnP6lMnI2VMVp2L04pMUKG-4lhUN-PtG7gpJA~X997jHW5NC1oNSNsf4SX1RcX09Y7hhypHQ0DP-rqLHe~PEIYNiwusmnZIJXJbyHp9TV4h6OKxqsrB2aKcn-GVfORJ9~Mg1zUdH~zS1Ypz470-h6FkRkl-ofNLgFSZ0-MXOwMNGyiXxTNTdr2skzdma0Se6FGCJuBXR6uFCvv0kKra0hQDG1-YddivPFx5W6toi-WWoEt0fAQba1LnOKOFePUi7-cjrtcLFBICpt5gTVDJTeUUpUlaVqz2XmRrIRGnX58ePRhtR-pEF7X5jXiqP~Vwk7f76mVZ0zAeL-VNrwQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749861,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Matt Laminate Refresh Oak",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/4036d16d-be08-3094-89c1-a328e9d79e0b/64878/37f1edc2_0.png?Expires=1725532402&Signature=kSSt-ZNgOKs2aPLAL1eqZMg~BOJox4o7n5dZnFqTnQRTUy5aWa8VQxedIdB~eTYIFz9PzZeqLrddkyn5Mq0xVYZ9oxtfcpfgMDyL5xFUHBY41RmBfzbQ-pYcEHuRW08etRM4-jeXa1-PXZWCMmY4ECJg-UQ9uKUmKk3sFnrCrOcoIXH61~qTM-bKC2lg-MoWQRq6gyfKSj5lktnm9peICWXZFb63ZLBllrffophszJUrhF-5JMtTytumb5v3PiW4bFQojGs6jW6kR8yCwlXbAgIK3fIv8cPBlxZIFS9-dOictUWldqYn2fl0hq9OhiiQP8cTFQ9KshWwg-T8pBf0Jw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749864,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Glossy Laminate Brown",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/56f82921-0e38-3dbb-a1b0-b8ff5ee3b79b/64879/436304d1_0.png?Expires=1725532411&Signature=zKqn1AEWYI-Fm~wQO2r8SRcgycnIE1-oCpGknehH0YTJA201gCjH8BCv9zOY~36M9grw428nUYyWbKKWkB3OkKI2HPqMfwwk-uxdbg1Zq4Bl6Qnp-k5OzFEXTAKHDxSDuy4~Qm-0oGVzeTuwwCWzpXfbLqpFbcrmg-SethxkqstAs-qx1XYuu86ogAmaIoaNFnkLKStS~eurGj5YTqe0j~jw8GRp8uGXDqG3wyKKuxPQgrPvbMbsI-nCf8hQMIsChHUGZMe-Y7mcc~YU~9TwJ~kt0xropy0dhK0OTi2fS-hnYWm5p4pS1u0FduPmo7BEkHPd-aT1byJzEYhN1FqRcw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749866,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Glossy Laminate Shore",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/cb4c6c51-046d-3524-9806-2983194db1ac/64882/1ab08a40_0.png?Expires=1725532420&Signature=up3y9KYpPHnbx0DTUeY0RgwXgIQ1sIJ2ideEEz7Wze4cavhpSyJO-ejcoel0Yg4nAJ3dtt9sdZZFNDm0aryuQ32TigW4WtVqVx3V1WBxPl6V9AitlrhMbnzgoR0oonDexm8Y-ZG~ZdW3-c-HgrbxwqCR735hnEzJ-by1PH3njUakUhLzoF9fD1wf37G2NUZGn-HFb-CD4YZYpmAmlZwEjVIRahUZq1rtxEIAUsc5-zn0Pt7Tv62IYx9yFUtV40tOeWwD6klYTp9QKprtYUIs8QtInkQgQD1qlsrmFyBSx4Nz4MBA04JT0I64SpMi6cI~g8zcxCKO-uypsMCNNpBD7g__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749868,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Glossy Laminate Blue Galaxy",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/02332c7f-ee79-35d2-b56a-98c8195859e7/64884/9a66bad2_0.png?Expires=1725532430&Signature=bC5APjcJxEBB40IMiJofQgEucqd9agjcMx4XyivPQK~N3NTn8zibpSqjTTJkURGAa-6lXtfnOWcIsNI-rLIW8TLPDL-b4ke1~3ZtRh~DJyFnxp3CdlZKcsXI8Bo200~yA~3MBwK4Qg6D9VcesS-0~gDsMxsf3gPPYpii0nwAs38a7R0n0NUecvpv8rJuHR4tY1Y-PkHFLqKSz3xIlje0e9i6fP79OmroxOc8oAbyeqMLDPsnPv5SMBfhN5CEFbzr3eHK9JlYnlh5OGxw0XktZQV3tUl-qk6BlpvYvkJhRlLWwDmFYWTvaITKwDXT5ydt0bY5PnjYWFahZC9YnDhd8Q__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749869,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: LAMINATE,
+    name: "Matt Laminate Tan",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/68ff9160-f077-35a6-b68b-81543bbb2527/64885/cfb22c57_0.png?Expires=1725532441&Signature=nmoaGBAtjQQ9MQxZ6Sxo3l-36aN7EEIJMINuBabmFgC3CctcsjXOAdJDRcqhPXIGnnF7ow~ul6fEh0tqkHsDryqadxX16dKy~TwIAUhUezTpJCmL52dUQ3BsiSjZzus22n53qElzcqUVbwDhqKKT6DpYWAEKSZbg5Id7svOSObNXyCsJllDgdzU3gcruQd-uCVwcaZuGke0ASbsVAlkvvFvJH61us5F9tQrAt9sq-DeMMQ0oNSQNFKAXzR46xFxsl99VMarQCLko3n1N0JxhkUpruH8qKwXG5t2pTnzfW5gOCAGkU~-oWiK7hVKEHShgyKPkaUN1nvr-U~mO9QikHg__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749871,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Pearl White",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/a25dd777-d825-3b36-9fae-48ac8e8ae357/64888/9c457bfd_0.png?Expires=1725532456&Signature=nMNldfcHX3UqBEUlF6teIzz3bfo9jWVsA7q0CcpbH1wF~PsCFB9JDiYjrSei9R6TbOqo1zoFe5Shn0cB0auwg3IzrF~RfcBOMMAWy~rjDF9A0QxtIfrlTFCVjppkG4STFvXSKDN1jwN8j4ulZYsODhs~Dea-C4lVGe6hq3YIAcvloutFWCTfmVOLU5IMc2zqkA9fJNQG12sOmb3~8PkKKO4r7UqI381o69VR-mQQzcEYpMl2iuWCHxXi6GyGfhQBi7HYLHX6SHp5we3LAXVGb~rQtAdBKFyQ21lCn9XXlEqXkLDVI9T6CZQlde6Fyv9iLDSMVugswBmMLS67dLErJw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749874,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Mangroove Green",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/d1c18966-8d33-38a6-b8fa-e642e41310a9/64890/2e038d92_0.png?Expires=1725532467&Signature=zkpEy2odTr9kNYQE0diYVE-7fFGYBaZ3VNAsUHsBWzV9~pYJBDRMLmmTnKrXOB3oyuAN~yNq-N~3XnAfQWkOp4FAyw7odD0takPeE8VfmWlK8pPacFukPES-JUhI4sSCahc~nVI1h46IBgfnh1~U54dPBA5dg-d4brDCKwuA9zsRsy26v7OVMrYAxb7LdJBYxVdvTdkugE~swp7ncvvZd87BxrYH6qXR2h6kJV2ssfYeoBN4Frc5wzMoIik87gd3~MvbDi1XZW9yQmzY5tNRmIc1Tqp4d1RQbyTInPrBo~oQyTJdflPTftvidKjRPplXeIDB9vy3sZMxteVO0G8IDw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749876,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Steel Mesh",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/cf0d80cb-b55d-30f6-b6f8-49fbf0b568b9/64892/a7539b36_0.png?Expires=1725532475&Signature=S-~8JNHZaHxeJCYNyken9jxYtZ-1LaMAasQQXGrOyvb8NG-Kd~llOEvLTfHUZARNEvHKuVYj6V9xIghL1zQze-CuDKkjjmeqdir1UaHuK2LOSJp0f83dMZhrrZHo28trzJEi2YA-ckVtXpmsZgHWYSe7lc8AXmmwJu0TKE~V81Ao9NMbkelXcKCoOgxobYTwQDXRynEliBO0nJ34EO7m117IbXIZt6~GrnAhdENd739lknuj0EzgRlGjgTzY6IkE6uh7joQyAo~niun~V8Fh1lHkZuluOABmkDGi9msZoG-b5Sj3sVlZWxVN01d67l746CNU1hMrUdkD1VnfhZU4kQ__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749878,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Hidden Value",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/ea8a110b-f8c9-3b87-aaf1-f53bd09cb0f3/64894/ae806c00_0.png?Expires=1725532483&Signature=F9CmbKTZTllfb2-srkLL2VTOcRpIK8O6Fjzu2fo26OUZZArlujcyHYCZZqCJOCHnZpOnOFfW94Isv-WclHw2H89M1OVy6~ZQsPuuQzCbFumdhPLi9ZGdIKXvfDhvkhO8KN3lfiqk3wSJqxEsPJ9pOqstm6jYAIMUtAxJXgHUt3gpQFiG6DS7i8SG-44rYqLKDgOyZkvaX8RSlHuZjuppunCKhvVJfXKz7klXfhD0pnzMju9E3iD1ZTV0G2YedikzLgxZkox6EznvCKgsT6WQHjSQ5f-FZM9UXZU-hdpAZl6IpgCFsUyQ9K4EQMT7uNxRNKti9tJohJYittaf344H7w__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749879,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Bottled Grape",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/f38c4bac-eeae-3d6b-bd68-0e273c9afd98/64895/2d6f3ced_0.png?Expires=1725532492&Signature=qAMofwq5FJaIysP167KIdCTF~9mzOLih8skWdS4Giz0r0tqbmf~LN0IhLnh6bvCe8XkmzWreJZj8sUzRK-LwcjIazXjCjIUrfxkjSVm2wxDgwuXKcSGkTCKVE8bYbq0imJ6ES0Z~rfGfnXWkBqlT7vOhVUknGN5ymRKZBmeLdaEU61D3-vQJb~zH4jhluD12kr7RDMiU6Q1ZR5ia9Yv0RLlQJP4YYiBw9qy69ZCfHYqNshBIFXJn6bucTQJp3LhzMBJxG5fE1~2KrRbNT1LZgaAHH57Z-S8S9kbT7hy4PBP01ARhpmMTbXZbHB0RjJaEodkFGWNIYU1xJrhysqIeDA__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  {
+    id: 749881,
+    doorType: HINGED_DOOR,
+    size: "6.25 x 6 ft",
+    finishType: PU,
+    name: "PU Glossy Teal Dream",
+    image:
+      "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/4c385a91-6c50-31ea-ba57-d39dd6a8da12/64897/3e7097e0_0.png?Expires=1725532504&Signature=0RWHv6dzpo0QtSC1SgsUQ0R~afV8r9jKFB8xi68qspAplc~~-dUCvWJLnY8rDxYwq8gosZAafANpcPbbNHbaQh2V22L6upCsdzFbNHZYIcCf2Udm8hVzAjsV9LnTnZoSWUzwaPK9Y6qZkDfutixGbgLizKZa3aUeAtBzGpMeVxwuk1V1F0O1O2m36-r7Gul-Om3dHJH4yvmjuv1eNkfaSqLUe5cKeHmYAPQoYttvduXwq77IDJMhnPmRoHLU~0rnArjIEPVbHFpX63mLLYRQiX3MDeMpywqq5HJdCAxm~jE~gfLI5OItGzogF7AGe2xeGYzaEV-KTkRKcK4qxNxRHw__&Key-Pair-Id=K3MIEF79PIHRTH",
+  },
+  //#endregion hinged 6.25 x 6 ft
 ];
