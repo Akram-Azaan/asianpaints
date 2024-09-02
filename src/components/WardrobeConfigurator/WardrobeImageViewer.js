@@ -473,8 +473,8 @@ const WardrobeImageViewer = ({
       setLoadingScreen(true);
       // await delay(10000);
       const response = await createLeadInSalesforce(formData, updatedPrice);
-      // const result = await createLeadInApDatabase(formData, response.CRMleadId)
-      // console.log("result for database lead for Asian paint",result)
+      const result = await createLeadInApDatabase(formData, response.CRMleadId)
+      console.log("result for database lead for Asian paint",result)
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
