@@ -129,47 +129,24 @@ const WardrobeImageViewer = ({
         });
         setAllScenes([...scenes]);
         if (scenes?.length) {
-          const sceneId = scenes[0]?.id;
-          // console.log(sceneId, "sceneIdsceneId");
-          setScene_id(sceneId);
-          // let filteredData = allStoreList?.filter(
-          //   (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
-          // );
-          // if (!filteredData?.length && selectedStoreLocal) {
-          //   filteredData = [selectedStoreLocal];
-          // }
-          // const sortedData = filteredData.sort(
-          //   (a, b) => new Date(b?.updated_at) - new Date(a?.updated_at)
-          // );
-          // sortedData?.length && setSelectedStore(sortedData[0]);
-
-          const labelData = await getSceneLabelOptions({
-            sceneId: sceneId,
-            token: modelId,
-            storeId: storeId,
-          });
-          // const sceneViewsData = await sceneBackgroundInfo({
-          //   storeId: storeId,
-          //   token: modelId,
-          //   scene: sceneId,
-          // });
           setLoader(true)
+          const sceneId = scenes[0]?.id;
+          setScene_id(sceneId);
           const angles = await getCameraAngles(storeId)
-          // console.log(angles,"anglesanglesangles")
-
-          // console.log(allStoreList, "allStoreList");
           setCameraAngles(angles);
-          setLoader(false)
-          const panelFinishes = labelData.filter(
-            (item) => item.name === "Panel Finish"
-          );
-          setColorFinish(panelFinishes);
           cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
+          setLoader(false)
         }
       }
     }
     loadAndCheckStoreData();
-  }, [selectedStoreLocal,storeId]);
+    
+  }, [modelId,storeId]);
+
+  useEffect(()=>{
+    handleCameraAngleClick(cameraAngles[0])
+  },[cameraAngles])
+
   // console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
@@ -260,7 +237,7 @@ const WardrobeImageViewer = ({
           store: storeId,
         };
 
-        if (modelId) {
+        if (modelId && scene_id) {
           const res = await getAllMergeData({
             mergeData,
             textureIds: selectedTextures,

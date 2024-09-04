@@ -72,7 +72,7 @@ const WardrobeConfigurator = () => {
       // setToken(rawData?.results?.[0]?.configurator?.token);
       setToken(localConfiguratorData?.tokenUrl)
       setStoreId(localConfiguratorData?.storeId)
-      setCurrentSelectedStore(allData?.results[0]);
+      // setCurrentSelectedStore(allData?.results[0]);
     }
     setLoader(false);
   };
@@ -89,7 +89,7 @@ const WardrobeConfigurator = () => {
         setDoorPanelOptions={setDoorPanelOptions}
         loader={loader}
         setLoader={setLoader}
-        selectedStoreLocal={currentSelectedStore}
+        // selectedStoreLocal={currentSelectedStore}
         allStoreList={allStoreList}
         modelId={token}
         storeId={storeId}
