@@ -162,7 +162,7 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
         C_LastName: leadData.lastname,
         C_Email: leadData.email,
         C_EstimatedValue: estimatedPrice,
-        C_CampaignId: "WARDROBE_DECORE_IMAGINE",
+        C_CampaignId: "BH_Stores_Bh.com_ORG",
         C_IntegrationSource: "Wardrobe_Calculator_Imagine",
       },
     };
@@ -210,7 +210,7 @@ export const createLeadInApDatabase = async (leadData,crmID) => {
           state: "",
           pincode: leadData.pincode,
           remarks: "Wardrobe_Calculator_Imagine",
-          camp_id: "",
+          camp_id: "BH_Stores_Bh.com_ORG",
           process_type: "",
           camp_name: "",
           send_to_crm: "",
