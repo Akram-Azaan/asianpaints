@@ -187,7 +187,7 @@ const WardrobeImageViewer = ({
       setShadeList(shades);
       setActiveShade(shades[0]);
   
-      const curcass = await getCurcassList();  // If getCurcassList is asynchronous, await it as well
+      const curcass = await getCurcassList();
       setSelectedCurcass(curcass);
     };
   
@@ -254,7 +254,7 @@ const WardrobeImageViewer = ({
       }
     }
     loadAndCheckImages();
-  }, [showShades, selectedTextures, storeId, currentAngle]);
+  }, [showShades, selectedTextures, currentAngle]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -293,18 +293,18 @@ const WardrobeImageViewer = ({
       if (data && APIData.length > 0 && lastCall) {
         let imagesToSet = JSON.parse(JSON.stringify(APIData));
         setAllImages(imagesToSet);
-        if (!isImageViewer) {
-          const images = [];
-          APIData.forEach((image) => {
-            images.push(image.image || image.image_low);
-          });
-          setThreeSixtyImages(images);
-          if (!data?.images?.length) {
-            loadedImage();
-          }
-        } else {
-          loadedImage();
-        }
+        // if (!isImageViewer) {
+        //   const images = [];
+        //   APIData.forEach((image) => {
+        //     images.push(image.image || image.image_low);
+        //   });
+        //   setThreeSixtyImages(images);
+        //   if (!data?.images?.length) {
+        //     loadedImage();
+        //   }
+        // } else {
+        //   loadedImage();
+        // }
         if (+currentFrame >= imagesToSet?.length || resetFrame) {
           setCurrentFrame(0);
         }
@@ -312,7 +312,7 @@ const WardrobeImageViewer = ({
       return response;
     } catch (err) {
       errorToastV2("Something went wrong. Please try again.");
-      loadedImage();
+      // loadedImage();
     }
   };
 
@@ -326,10 +326,10 @@ const WardrobeImageViewer = ({
     }, 700);
   };
 
-  const loadedImage = (e) => {
-    hideLoader();
-    setOuterLoader(false);
-  };
+  // const loadedImage = (e) => {
+  //   hideLoader();
+  //   setOuterLoader(false);
+  // };
 
   useEffect(() => {
     const handleResize = () => {
@@ -495,6 +495,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0])
     // window.location.reload();
   };
 
@@ -521,7 +522,6 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    // Define the async function inside the useEffect
     const getPdfImages = async () => {
       const matchingType = PDF_IMAGES.filter((type) => {
         return (
@@ -530,12 +530,10 @@ const WardrobeImageViewer = ({
           type.finishType === woodFinish
         );
       });
-      // Update state after processing
       setPdfRenderImages(matchingType);
     };
-    // Call the async function
     getPdfImages();
-  }, [doorPanelOptions, woodFinish]);  // Dependencies array
+  }, [doorPanelOptions, woodFinish]);
 
   const pdfContent = async (shadeImages,currentShadeFrame) => {
     // Remove any existing hidden div to avoid duplications
@@ -640,7 +638,6 @@ const WardrobeImageViewer = ({
     // Add the hidden div to the body
     document.body.appendChild(hiddenDiv);
 
-    // Insert your HTML content into the hidden div
     hiddenDiv.innerHTML = `
       <div id="page-1" class="${styles.pdfContainer}">
         <div class="${styles.pdfHeader}">
