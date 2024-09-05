@@ -187,12 +187,20 @@ const WardrobeImageViewer = ({
       setShadeList(shades);
       setActiveShade(shades[0]);
   
-      const curcass = await getCurcassList();
-      setSelectedCurcass(curcass);
+      // const curcass = await getCurcassList();
+      // setSelectedCurcass(curcass);
     };
   
     fetchShades();
   }, [doorPanelOptions, woodFinish]);
+
+  useEffect(()=>{
+    const fetchCurcass = async () => {
+      const curcass = await getCurcassList();
+      setSelectedCurcass(curcass);
+    };
+    fetchCurcass();
+  },[doorPanelOptions])
   
 
   useEffect(() => {
@@ -201,7 +209,7 @@ const WardrobeImageViewer = ({
       setSelectedTextures(imageTextures);
     };
     fetchTextures();
-  }, [doorPanelOptions, selectedCurcass, activeShade]);
+  }, [selectedCurcass, activeShade]);
 
   const handleFilterAllImage = () => {
     return allImages || [];
