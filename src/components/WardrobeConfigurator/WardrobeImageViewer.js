@@ -924,9 +924,11 @@ const WardrobeImageViewer = ({
             {!(showDetails && isMobile) && (!isMobile || !loadingScreen) && (
               <div className={styles.wardrobe}>
                 <h2 className={styles.title}>
-                  {showShades
-                    ? "Your wardrobe cost estimation is ready!"
-                    : "Build your wardrobe and get cost estimation"}
+                  {!isMobile
+                    ? showShades
+                      ? "Your wardrobe cost estimation is ready!"
+                      : "Build your wardrobe and get cost estimation"
+                    : "Build your custom wardrobe and get an instant cost estimate"}
                 </h2>
                 <div className={styles.buttons}>
                   <div className={styles.roundbox}>
