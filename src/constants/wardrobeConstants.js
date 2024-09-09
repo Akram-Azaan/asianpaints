@@ -1,5 +1,7 @@
-import SLIDING_THUMB from "../assets/images/sliding.png";
-import HINGED_THUMB from "../assets/images/hinged.png";
+// import SLIDING_THUMB from "../assets/images/sliding.png";
+// import HINGED_THUMB from "../assets/images/hinged.png";
+import SLIDING_THUMB from "../assets/images/slide_open_door.png";
+import HINGED_THUMB from "../assets/images/hinge_open_door.png";
 import LAMINATE_THUMB from "../assets/images/laminate.png";
 import ACRYLIC_THUMB from "../assets/images/acrylic.png";
 import PU_THUMB from "../assets/images/pu.png";
@@ -14,12 +16,21 @@ import ReasonsIcon3 from "../assets/images/ReasonsIcon3.png";
 import ReasonsIcon4 from "../assets/images/ReasonsIcon4.png";
 import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
 import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
+import SLIDING_OPEN_CAMERA from "../assets/images/slide_open_camera.png";
+import SLIDING_CLOSE_CAMERA from "../assets/images/slide_close_camera.png";
+import HINGED_OPEN_CAMERA from "../assets/images/hinge_open_camera.png";
+import HINGED_CLOSE_CAMERA from "../assets/images/hinge_close_camera.png";
 
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
 
-export const CAMERA_ANGLE_1 = SLIDING_THUMB;
-export const CAMERA_ANGLE_2 = SLIDING_THUMB;
+// export const CAMERA_ANGLE_1 = SLIDING_THUMB;
+// export const CAMERA_ANGLE_2 = SLIDING_THUMB;
+
+export const SLIDING_ANGLE_1 = SLIDING_OPEN_CAMERA;
+export const SLIDING_ANGLE_2 = SLIDING_CLOSE_CAMERA;
+export const HINGED_ANGLE_1 = HINGED_OPEN_CAMERA;
+export const HINGED_ANGLE_2 = HINGED_CLOSE_CAMERA;
 
 export const DOOR_LIST = [
   {
@@ -234,60 +245,60 @@ export const WARDROBE_TYPE_WITH_DIMENSIONS = [
 
 export const CAMERA_ANGLES = [
   // wardrobe sliding 8 x 7.25 ft
-  { id: 7357, name: "Front  open ap 1", storeId: 2304 },
-  { id: 7358, name: "Perspective right ap", storeId: 2304 },
+  { id: 7766, name: "Front  open ap 1", storeId: 2304 },
+  { id: 7767, name: "Perspective right ap", storeId: 2304 },
   // wardrobe sliding 8 x 6.5 ft
-  { id: 7347, name: "Front  open ap 1", storeId: 2302 },
-  { id: 7348, name: "Perspective right ap", storeId: 2302 },
+  { id: 7788, name: "Front  open ap 1", storeId: 2302 },
+  { id: 7789, name: "Perspective right ap", storeId: 2302 },
   // wardrobe sliding 8 x 6 ft
-  { id: 7030, name: "Front  open ap 1", storeId: 2243 },
-  { id: 6999, name: "Perspective right ap", storeId: 2243 },
+  { id: 7787, name: "Front  open ap 1", storeId: 2243 },
+  { id: 7786, name: "Perspective right ap", storeId: 2243 },
   // wardrobe sliding 7 x 7.25 ft
-  { id: 7342, name: "Front  open ap 1", storeId: 2301 },
-  { id: 7343, name: "Perspective right ap", storeId: 2301 },
+  { id: 7760, name: "Front  open ap 1", storeId: 2301 },
+  { id: 7761, name: "Perspective right ap", storeId: 2301 },
   // wardrobe sliding 7 x 6.5 ft
-  { id: 7337, name: "Front  open ap 1", storeId: 2300 },
-  { id: 7338, name: "Perspective right ap", storeId: 2300 },
+  { id: 7758, name: "Front  open ap 1", storeId: 2300 },
+  { id: 7759, name: "Perspective right ap", storeId: 2300 },
  // wardrobe sliding 7 x 6 ft
- { id: 7034, name: "Front  open ap 1", storeId: 2237 },
- { id: 6971, name: "Perspective right ap", storeId: 2237 },
+ { id: 7746, name: "Front  open ap 1", storeId: 2237 },
+ { id: 7747, name: "Perspective right ap", storeId: 2237 },
  // wardrobe sliding 6.25 x 7.25 ft
- { id: 7352, name: "Front  open ap 1", storeId: 2303 },
- { id: 7353, name: "Perspective right ap", storeId: 2303 },
+ { id: 7764, name: "Front  open ap 1", storeId: 2303 },
+ { id: 7765, name: "Perspective right ap", storeId: 2303 },
  // wardrobe sliding 6.25 x 6.5 ft
- { id: 7362, name: "Front  open ap 1", storeId: 2305 },
- { id: 7363, name: "Perspective right ap", storeId: 2305 },
+ { id: 7768, name: "Front  open ap 1", storeId: 2305 },
+ { id: 7769, name: "Perspective right ap", storeId: 2305 },
  // wardrobe sliding 6.25 x 6 ft
- { id: 7031, name: "Front  open ap 1", storeId: 2239 },
- { id: 6983, name: "Perspective right ap", storeId: 2239 },
+ { id: 7748, name: "Front  open ap 1", storeId: 2239 },
+ { id: 7749, name: "Perspective right ap", storeId: 2239 },
 
   // wardrobe hinged 8 x 8 ft
-  { id: 6926, name: "Front  open ap", storeId: 2187 },
-  { id: 6929, name: "Perspective right ap", storeId: 2187 },
+  { id: 7740, name: "Front  open ap", storeId: 2187 },
+  { id: 7741, name: "Perspective right ap", storeId: 2187 },
   // wardrobe hinged 8 x 7 ft
-  { id: 7014, name: "Front  open ap", storeId: 2247 },
-  { id: 7015, name: "Perspective right ap", storeId: 2247 },
+  { id: 7795, name: "Front  open ap", storeId: 2247 },
+  { id: 7757, name: "Perspective right ap", storeId: 2247 },
   // wardrobe hinged 8 x 6 ft
-  { id: 6994, name: "Front  open ap", storeId: 2242 },
-  { id: 6995, name: "Perspective right ap", storeId: 2242 },
+  { id: 7722, name: "Front  open ap", storeId: 2242 },
+  { id: 7736, name: "Perspective right ap", storeId: 2242 },
   // wardrobe hinged 8 x 5 ft
-  { id: 6990, name: "Front  open ap", storeId: 2241 },
-  { id: 6991, name: "Perspective right ap", storeId: 2241 },
+  { id: 7794, name: "Front  open ap", storeId: 2241 },
+  { id: 7753, name: "Perspective right ap", storeId: 2241 },
   // wardrobe hinged 7 x 8 ft
-  { id: 6986, name: "Front  open ap", storeId: 2240 },
-  { id: 6987, name: "Perspective right ap", storeId: 2240 },
+  { id: 7750, name: "Front  open ap", storeId: 2240 },
+  { id: 7751, name: "Perspective right ap", storeId: 2240 },
   // wardrobe hinged 7 x 7 ft
-  { id: 7235, name: "Front  open ap", storeId: 2295 },
-  { id: 7236, name: "Perspective right ap", storeId: 2295 },
+  { id: 7792, name: "Front  open ap", storeId: 2295 },
+  { id: 7791, name: "Perspective right ap", storeId: 2295 },
   // wardrobe hinged 7 x 6 ft
-  { id: 6962, name: "Front  open ap", storeId: 2235 },
-  { id: 6963, name: "Perspective right ap", storeId: 2235 },
+  { id: 7743, name: "Front  open ap", storeId: 2235 },
+  { id: 7742, name: "Perspective right ap", storeId: 2235 },
   // wardrobe hinged 7 x 5 ft
-  { id: 6958, name: "Front  open ap", storeId: 2234 },
-  { id: 6959, name: "Perspective right ap", storeId: 2234 },
+  { id: 7738, name: "Front  open ap", storeId: 2234 },
+  { id: 7739, name: "Perspective right ap", storeId: 2234 },
   // wardrobe hinged 6.25 x 6 ft
-  { id: 6950, name: "Front  open ap", storeId: 2232 },
-  { id: 6951, name: "Perspective right ap", storeId: 2232 },
+  { id: 7744, name: "Front  open ap", storeId: 2232 },
+  { id: 7745, name: "Perspective right ap", storeId: 2232 },
 ];
 
 export const CARCUSS_FINISH = [
@@ -8106,4 +8117,19 @@ export const PDF_IMAGES = [
       "https://media.imagine.io/media/public/image_configurator_viewer/merge_renders/v2/low_res/3627/4c385a91-6c50-31ea-ba57-d39dd6a8da12/64897/3e7097e0_0.png?Expires=1725532504&Signature=0RWHv6dzpo0QtSC1SgsUQ0R~afV8r9jKFB8xi68qspAplc~~-dUCvWJLnY8rDxYwq8gosZAafANpcPbbNHbaQh2V22L6upCsdzFbNHZYIcCf2Udm8hVzAjsV9LnTnZoSWUzwaPK9Y6qZkDfutixGbgLizKZa3aUeAtBzGpMeVxwuk1V1F0O1O2m36-r7Gul-Om3dHJH4yvmjuv1eNkfaSqLUe5cKeHmYAPQoYttvduXwq77IDJMhnPmRoHLU~0rnArjIEPVbHFpX63mLLYRQiX3MDeMpywqq5HJdCAxm~jE~gfLI5OItGzogF7AGe2xeGYzaEV-KTkRKcK4qxNxRHw__&Key-Pair-Id=K3MIEF79PIHRTH",
   },
   //#endregion wardrobe hinged 6.25 x 6 ft
+];
+
+export const BACK_LABEL = [
+  {
+    id: 131500,
+    display_name: "back",
+    thumb:
+      "https://media.imagine.io/media/public/cfg/render_texture_thumbnail/2297/5539/1888/23713/56511/f3c1cbac_56511.jpg?Expires=1726139431&Signature=2pkQ1xedZ-nEZIj2NMeUngxTSwgPGOOxAZQPHPji3QsCp1pCR~mi2KBM6tOaOAwdxRC4XnIELsUw2JlE89K1Wa19EMS2SoZonDzMTOrVvd~UgciNdtvSjNyaHCUsVxDz35eR9Yyi1RpdGdwdt8tA32ir1LBNV3J5mgzs7cG3VqGnIsvaatjRhJoPMIARCQyrdtHTFsJwIsRHFyElilfc6swpLKDXvH3EKztepoNMZT75qYQOiTJzR3OZQD~J6WH1E~sJ0bXj-U-h~6ZPHVUskNUN7T3Na8YFL8iaY6LvoBZTvdG5gMDrlYA0ToawgxLcG94lILfPtIrwfcSW7UAG6w__&Key-Pair-Id=K3MIEF79PIHRTH",
+
+    render_id: 810631,
+    scenetexturerender_id: 56511,
+    scenetexture: 131500,
+    scene: 3804,
+    main_render_id: 798652,
+  },
 ];

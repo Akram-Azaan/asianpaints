@@ -30,6 +30,11 @@ import {
   CARCUSS_FINISH,
   PDF_IMAGES,
   CAMERA_ANGLES,
+  SLIDING_ANGLE_2,
+  HINGED_ANGLE_1,
+  HINGED_ANGLE_2,
+  SLIDING_ANGLE_1,
+  BACK_LABEL,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -132,7 +137,12 @@ const WardrobeImageViewer = ({
           setLoader(true)
           const sceneId = scenes[0]?.id;
           setScene_id(sceneId);
-          const angles = await getCameraAngles(storeId)
+          // const angles = await getCameraAngles(storeId)
+          const angles = await sceneBackgroundInfo({
+            storeId: storeId,
+            token: modelId,
+            scene: sceneId,
+          });
           setCameraAngles(angles);
           cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
           setLoader(false)
@@ -177,6 +187,10 @@ const WardrobeImageViewer = ({
     let defaultTextures = [];
     defaultTextures.push(selectedCurcass[0]);
     defaultTextures.push(activeShade);
+    if(doorPanelOptions.dimension === '7 x 7 ft'){
+      defaultTextures.push(BACK_LABEL[0]);
+    }
+    console.log(doorPanelOptions?.dimension)
     return defaultTextures;
     // console.log(defaultTextures,"defaultTextures")
   };
@@ -300,7 +314,7 @@ const WardrobeImageViewer = ({
       APIData = [...APIData, ...removeDuplicateImage(data?.images)];
       if (data && APIData.length > 0 && lastCall) {
         let imagesToSet = JSON.parse(JSON.stringify(APIData));
-        setAllImages(imagesToSet);
+        // setAllImages(imagesToSet);
         // if (!isImageViewer) {
         //   const images = [];
         //   APIData.forEach((image) => {
@@ -923,7 +937,14 @@ const WardrobeImageViewer = ({
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[0])}
                     >
-                      <img src={CAMERA_ANGLE_1} alt={cameraAngles[0]?.name} />
+                      <img
+                        src={
+                          doorPanelOptions?.door === "Sliding door"
+                            ? SLIDING_ANGLE_1
+                            : HINGED_ANGLE_1
+                        }
+                        alt={cameraAngles[0]?.name}
+                      />
                     </div>
                     <div
                       className={cx(styles.rounds, {
@@ -932,7 +953,14 @@ const WardrobeImageViewer = ({
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[1])}
                     >
-                      <img src={CAMERA_ANGLE_2} alt={cameraAngles[1]?.name} />
+                      <img
+                        src={
+                          doorPanelOptions?.door === "Sliding door"
+                            ? SLIDING_ANGLE_2
+                            : HINGED_ANGLE_2
+                        }
+                        alt={cameraAngles[1]?.name}
+                      />
                     </div>
                   </div>
                 </div>
