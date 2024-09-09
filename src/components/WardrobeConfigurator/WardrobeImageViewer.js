@@ -484,6 +484,7 @@ const WardrobeImageViewer = ({
         response.CRMleadId,
         response.returnCode
       );
+    handleCameraAngleClick(cameraAngles[1])
     } catch (error) {
       console.error("Error creating lead:", error);
     }

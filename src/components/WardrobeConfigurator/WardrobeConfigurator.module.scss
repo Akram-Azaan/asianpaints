@@ -100,7 +100,7 @@ body{
 
                     &.bordered {
                         opacity: 1;
-                        border: 1px solid #7345b2;
+                        border: 1px solid #7345B2;
                         background-color: #F1EDF8;
                     }
 
@@ -148,7 +148,7 @@ body{
                         min-width: 20px;
                         height: 70px;
                         background-position: center;
-                        // background-color: #7345b2;
+                        // background-color: #7345B2;
                     }
 
                     .shadeTitle {
@@ -189,7 +189,7 @@ body{
             font-weight: 700;
             cursor: pointer;
             border-radius: 80px;
-            border: 1px solid #7345b2;
+            border: 1px solid #7345B2;
             background-color: transparent;
             white-space: nowrap;
         }
@@ -236,7 +236,7 @@ body{
 
                 &.bordered {
                     opacity: 1;
-                    border: 1px solid #7345b2;
+                    border: 1px solid #7345B2;
                     background-color: #F1EDF8;
                 }
 
@@ -293,13 +293,13 @@ body{
 
             &:has(.input:checked),
             &:hover {
-                border: 1px solid #7345b2;
-                background-color: rgb(115 69 178 / 10%);
+                border: 1px solid #7345B2;
+                background-color: #F1EDF8;
             }
 
             .input {
                 margin-right: 15px;
-                accent-color: #7345b2;
+                accent-color: #7345B2;
             }
         }
 
