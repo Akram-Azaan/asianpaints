@@ -108,8 +108,8 @@ const WardrobeImageViewer = ({
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
   const [currentShadeFrame, setCurrentShadeFrame] = useState(0);
-  const [pdfShadesImages, setPdfShadesImages] = useState([]);
-  const [pdfRenderImages, setPdfRenderImages] = useState([]);
+  // const [pdfShadesImages, setPdfShadesImages] = useState([]);
+  // const [pdfRenderImages, setPdfRenderImages] = useState([]);
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -543,19 +543,73 @@ const WardrobeImageViewer = ({
     setCurrentAngle(angle);
   };
 
-  useEffect(() => {
-    const getPdfImages = async () => {
-      const matchingType = PDF_IMAGES.filter((type) => {
-        return (
-          type.doorType === doorPanelOptions?.door &&
-          type.size === doorPanelOptions?.dimension &&
-          type.finishType === woodFinish
-        );
+  // useEffect(() => {
+  //   const getPdfImages = async () => {
+  //     const matchingType = PDF_IMAGES.filter((type) => {
+  //       return (
+  //         type.doorType === doorPanelOptions?.door &&
+  //         type.size === doorPanelOptions?.dimension &&
+  //         type.finishType === woodFinish
+  //       );
+  //     });
+  //     setPdfRenderImages(matchingType);
+  //   };
+  //   getPdfImages();
+  // }, [doorPanelOptions, woodFinish]);
+
+  const createPdfShadesImages = async () => {
+    // console.log(selectedCurcass, "getCurcassList");
+    // console.log(shadeList, "shadeListshadeList");
+  
+    let combinedResults = [];
+  
+    const curcassTexture = selectedCurcass[0];
+  
+    for (let j = 0; j < shadeList.length; j++) {
+      let selectedPdfTextures = [];
+  
+      // Combine the single selectedCurcass item with each shadeList[j]
+      const shadeTexture = shadeList[j];
+  
+      // Create selectedPdfTextures for each shadeList item
+      selectedPdfTextures.push(curcassTexture);
+      selectedPdfTextures.push(shadeTexture);
+      if(doorPanelOptions.dimension === '7 x 7 ft'){
+        selectedPdfTextures.push(BACK_LABEL[0]);
+      }
+  
+      const mergeData = {
+        scene: scene_id,
+        textures: selectedPdfTextures,
+        is_render: true,
+        ext: "png",
+        store: storeId,
+      };
+  
+      // Call getAllMergeData for each combination
+      const res = await getAllMergeData({
+        mergeData,
+        textureIds: selectedPdfTextures,
+        resetFrame: false,
+        sceneView: cameraAngles[0]?.id,
+        total: cameraAngles?.length,
       });
-      setPdfRenderImages(matchingType);
-    };
-    getPdfImages();
-  }, [doorPanelOptions, woodFinish]);
+  
+      if (res?.data?.data && typeof res.data.data === 'object') {
+        const resultWithDisplayName = {
+          ...res.data.data,
+          display_name: shadeTexture.display_name
+        };
+  
+        combinedResults.push(resultWithDisplayName);
+      } else {
+        console.warn("Unexpected Error:");
+      }
+    }
+    // console.log(combinedResults, "combinedResults");
+    // setPdfShadesImages(combinedResults);
+    return combinedResults;
+  };
 
   const pdfContent = async (shadeImages,currentShadeFrame) => {
     // Remove any existing hidden div to avoid duplications
@@ -563,57 +617,11 @@ const WardrobeImageViewer = ({
     if (existingDiv) {
       existingDiv.remove();
     }
-
-    // const createPdfShadesImages = async () => {
-    //   // console.log(selectedCurcass, "getCurcassList");
-    //   // console.log(shadeList, "shadeListshadeList");
     
-    //   let combinedResults = [];
-    
-    //   const curcassTexture = selectedCurcass[0]; // Since there's only one item in selectedCurcass
-    
-    //   for (let j = 0; j < shadeList.length; j++) {
-    //     let selectedPdfTextures = [];
-    
-    //     // Combine the single selectedCurcass item with each shadeList[j]
-    //     const shadeTexture = shadeList[j];
-    
-    //     // Create selectedPdfTextures for each shadeList item
-    //     selectedPdfTextures.push(curcassTexture);
-    //     selectedPdfTextures.push(shadeTexture);
-    
-    //     const mergeData = {
-    //       scene: scene_id,
-    //       textures: selectedPdfTextures,
-    //       is_render: true,
-    //       ext: "png",
-    //       store: storeId,
-    //     };
-    
-    //     // Call getAllMergeData for each combination
-    //     const res = await getAllMergeData({
-    //       mergeData,
-    //       textureIds: selectedPdfTextures,
-    //       resetFrame: false,
-    //       sceneView: cameraAngles[0]?.id,
-    //       total: cameraAngles?.length,
-    //     });
-    
-    //     // console.log(res, "res");
-    
-    //     // Push the result to combinedResults
-    //     combinedResults.push(res?.data?.data);
-    //   }
-    //   console.log(combinedResults, "combinedResults");
-    //   // Update setPdfShadesImages with the combined results
-    //   setPdfShadesImages(combinedResults.flat());
-    // };
-    
-    // Call the function
-    // await createPdfShadesImages();
     // console.log(pdfShadesImages, "pdfShadesImages");
 
     // console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
+    // console.log(pdfShadesImages[currentShadeFrame]?.images[0]?.image_low, pdfShadesImages[currentShadeFrame]?.display_name)
     
     // Create a new hidden div
     const hiddenDiv = document.createElement("div");
@@ -628,9 +636,9 @@ const WardrobeImageViewer = ({
       return `
         <div class="${styles.shadeBox}" key="${item?.id}">
           <div class="${styles.imageBox}">
-            <img src="${item?.image}" alt="shade" />
-          </div>
-          <h4>${item?.name}</h4>
+            <img src="${item?.images[0]?.image_low}" alt="shade" />
+            </div>
+          <h4>${item?.display_name}</h4>
         </div>
       `;
     }).join("");
@@ -699,7 +707,7 @@ const WardrobeImageViewer = ({
             </div>
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
-                <img src="${pdfRenderImages[currentShadeFrame]?.image}" alt="wardrobe" />
+                <img src="${shadeImages[currentShadeFrame]?.images[0]?.image_low}" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
                 <div class="${styles.detailsBoxItem}">
@@ -781,7 +789,8 @@ const WardrobeImageViewer = ({
   const handleDownloadPdf = async () => {
     setDownloading(true);
     // console.log(currentShadeFrame,"currentShadeFramecurrentShadeFrame")
-    await pdfContent(pdfRenderImages,currentShadeFrame);
+    const pdfMergeImages = await createPdfShadesImages();
+    await pdfContent(pdfMergeImages,currentShadeFrame);
     adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
