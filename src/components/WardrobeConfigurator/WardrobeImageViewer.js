@@ -6,9 +6,7 @@ import jsPDF from "jspdf";
 import styles from "./WardrobeConfigurator.module.scss";
 import cx from "classnames";
 import FinishPopup from "./FinishPopup";
-import WARDROBE_IMAGE from "../../assets/images/wardrobe.png";
 import LOADING_GIF from "../../assets/images/loadingGif.gif";
-import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
 import {
@@ -24,12 +22,8 @@ import {
   PDF_REASONS,
   WARDROBE_TYPE_WITH_DIMENSIONS,
   WARDROBE_DATA,
-  CAMERA_ANGLE_1,
-  CAMERA_ANGLE_2,
   FINISH_SHADES_LIST,
   CARCUSS_FINISH,
-  PDF_IMAGES,
-  CAMERA_ANGLES,
   SLIDING_ANGLE_2,
   HINGED_ANGLE_1,
   HINGED_ANGLE_2,
@@ -108,20 +102,11 @@ const WardrobeImageViewer = ({
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
   const [currentShadeFrame, setCurrentShadeFrame] = useState(0);
-  // const [pdfShadesImages, setPdfShadesImages] = useState([]);
-  // const [pdfRenderImages, setPdfRenderImages] = useState([]);
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
     // setSceneBackgroundInfoData(res);
     return res;
-  };
-
-  const getCameraAngles = (id) => {
-    const angles = CAMERA_ANGLES.filter((type) => {
-      return type.storeId === id;
-    });
-    return angles;
   };
 
   useEffect(() => {
@@ -200,9 +185,6 @@ const WardrobeImageViewer = ({
       const shades = await getShadelist();
       setShadeList(shades);
       setActiveShade(shades[0]);
-  
-      // const curcass = await getCurcassList();
-      // setSelectedCurcass(curcass);
     };
   
     fetchShades();
@@ -228,10 +210,6 @@ const WardrobeImageViewer = ({
   const handleFilterAllImage = () => {
     return allImages || [];
   };
-
-  // useEffect(()=>{
-  //   handleFilterAllImage()
-  // },[allImages])
 
   function removeDuplicateImage(list) {
     const uniqueSeqNos = {};
@@ -347,11 +325,6 @@ const WardrobeImageViewer = ({
       setIsLoading(false);
     }, 700);
   };
-
-  // const loadedImage = (e) => {
-  //   hideLoader();
-  //   setOuterLoader(false);
-  // };
 
   useEffect(() => {
     const handleResize = () => {
@@ -473,7 +446,7 @@ const WardrobeImageViewer = ({
       // await delay(10000);
       const response = await createLeadInSalesforce(formData, updatedPrice);
       const result = await createLeadInApDatabase(formData, response.CRMleadId)
-      console.log("result for database lead for Asian paint",result)
+      // console.log("result for database lead for Asian paint",result)
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
@@ -543,20 +516,6 @@ const WardrobeImageViewer = ({
     adobeAnaSelectedTab(angle?.name);
     setCurrentAngle(angle);
   };
-
-  // useEffect(() => {
-  //   const getPdfImages = async () => {
-  //     const matchingType = PDF_IMAGES.filter((type) => {
-  //       return (
-  //         type.doorType === doorPanelOptions?.door &&
-  //         type.size === doorPanelOptions?.dimension &&
-  //         type.finishType === woodFinish
-  //       );
-  //     });
-  //     setPdfRenderImages(matchingType);
-  //   };
-  //   getPdfImages();
-  // }, [doorPanelOptions, woodFinish]);
 
   const createPdfShadesImages = async () => {
     // console.log(selectedCurcass, "getCurcassList");
@@ -805,21 +764,6 @@ const WardrobeImageViewer = ({
       }
   
       try {
-        // Ensure images are fully loaded
-        // const images = input.querySelectorAll('img');
-        // let imageLoadPromises = [];
-  
-        // images.forEach((img) => {
-        //   if (!img.complete) {
-        //     const imgLoadPromise = new Promise((resolve) => {
-        //       img.onload = resolve;
-        //       img.onerror = resolve;
-        //     });
-        //     imageLoadPromises.push(imgLoadPromise);
-        //   }
-        // });
-  
-        // await Promise.all(imageLoadPromises);
   
         // Capture the canvas
         const canvas = await html2canvas(input, {
