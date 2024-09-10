@@ -111,6 +111,7 @@ const WardrobeImageViewer = ({
   const [scene_id, setScene_id] = useState(null);
   const [activeShade, setActiveShade] = useState({});
   const [currentShadeFrame, setCurrentShadeFrame] = useState(0);
+  const [isFormValid, setIsFormValid] = useState(false);
   // const [pdfShadesImages, setPdfShadesImages] = useState([]);
   // const [pdfRenderImages, setPdfRenderImages] = useState([]);
 
@@ -419,6 +420,16 @@ const WardrobeImageViewer = ({
 
     return newErrors;
   };
+
+  useEffect(() => {
+    const { firstname, lastname, pincode, mobile, email } = formData;
+    
+    if (firstname && lastname && pincode.length === 6 && mobile.length === 10 && email) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [formData]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -1297,7 +1308,7 @@ const WardrobeImageViewer = ({
                     >
                       Back
                     </button>
-                    <button type="submit" className={styles.button3}>
+                    <button type="submit" className={styles.button3} disabled={!isFormValid}>
                       Submit
                     </button>
                   </div>

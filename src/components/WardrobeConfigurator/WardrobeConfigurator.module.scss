@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BioRhyme:wght@200..800&display=swap');
+
 * {
     font-family: Lato;
 }
@@ -96,7 +99,7 @@ body{
                     align-items: center;
                     cursor: pointer;
                     opacity: .6;
-                    transition: all .4s ease-in-out;
+                    transition: all .6s ease-in-out;
 
                     &.bordered {
                         opacity: 1;
@@ -201,6 +204,11 @@ body{
         .button3 {
             background-color: #7345B2;
             color: #fff;
+            &:disabled{
+                cursor: not-allowed;    /* Show the "not-allowed" cursor */
+                pointer-events: none;   /* Disable all interactions */
+                opacity: 0.6;  
+            }
         }
     }
 
@@ -419,6 +427,7 @@ body{
 
         .packagePrice {
             font-size: 42px;
+            font-family: BioRhyme;
             font-weight: 700;
             color: #000;
             margin-bottom: 30px;
