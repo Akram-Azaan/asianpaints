@@ -272,7 +272,10 @@ body{
                 }
             }
         }
-
+        .dimensionBox{
+            width: 85%;
+            margin: 0 auto;
+        }
         .label {
             cursor: pointer;
             width: 140px;
@@ -596,6 +599,9 @@ body{
 
             h4 {
                 font-size: 14px;
+            }
+            .dimensionBox{
+                width: 100%;
             }
 
             .doorPanel {

@@ -1087,7 +1087,7 @@ const WardrobeImageViewer = ({
             {showWardrobe && (
               <div className={styles.rightBox}>
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
-                <div>
+                <div className={styles.dimensionBox}>
                   <Row className={`h-100 justify-content-start g-4`}>
                     {filteredDimensions.map((dimension) => (
                       <Col
