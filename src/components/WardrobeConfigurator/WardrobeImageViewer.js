@@ -11,6 +11,9 @@ import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
+import ACRYLIC_BG from '../../assets/images/premium.png'
+import LAMINATE_BG from '../../assets/images/economy.png'
+import PU_BG from '../../assets/images/luxury.png'
 import {
   createLeadInApDatabase,
   createLeadInSalesforce,
@@ -620,6 +623,13 @@ const WardrobeImageViewer = ({
     }
     
     // console.log(pdfShadesImages, "pdfShadesImages");
+    console.log(woodFinish,"woodFinish");
+
+    const backgroundImage = (woodFinish === 'Laminate')
+    ? `url(${LAMINATE_BG})`
+    : (woodFinish === 'Acrylic')
+    ? `url(${ACRYLIC_BG})`
+    : `url(${PU_BG})`; // Default or third condition
 
     // console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
     // console.log(pdfShadesImages[currentShadeFrame]?.images[0]?.image_low, pdfShadesImages[currentShadeFrame]?.display_name)
@@ -664,6 +674,19 @@ const WardrobeImageViewer = ({
       `;
     }).join("");
 
+    const wardrobeDetailsHeaderHtml = `
+      <div class="${styles.pdfWardrobeDetailsHeader}" style="background-image: ${backgroundImage}; background-size: cover;">
+        <span class="${styles.firstBox}">
+          <p>Package :</p>
+          <h3>${wardrobePackage || "N/A"}</h3>
+        </span>
+        <span class="${styles.secondBox}">
+          <p>Estimated cost: </p>
+          <h3>${price}</h3>
+        </span>
+      </div>
+    `;
+
     const logoIconHtml = ReactDOMServer.renderToString(<LogoIcon />);
 
     // Add the hidden div to the body
@@ -696,16 +719,7 @@ const WardrobeImageViewer = ({
             </div>
           </div>
           <div class="${styles.pdfWardrobeDetails}">
-            <div class="${styles.pdfWardrobeDetailsHeader}">
-              <span class="${styles.firstBox}">
-                <p>Package :</p>
-                <h3>${wardrobePackage || "N/A"}</h3>
-              </span>
-              <span class="${styles.secondBox}">
-                <p>Estimated cost: </p>
-                <h3>${price}</h3>
-              </span>
-            </div>
+            ${wardrobeDetailsHeaderHtml}
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
                 <img src="${shadeImages[currentShadeFrame]?.images[0]?.image_low}" alt="wardrobe" />
