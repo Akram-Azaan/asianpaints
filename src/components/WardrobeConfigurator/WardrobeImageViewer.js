@@ -11,9 +11,9 @@ import LOADING_GIF from "../../assets/images/loadingGif.gif";
 import BeautifullHomesLogo from "../../assets/images/BeautifulHomesLogo.png";
 import PhoneIcon from "../../assets/images/phone.png";
 import { LogoIcon } from "../../assets/images/LogoIcon.js";
-import ACRYLIC_BG from '../../assets/images/premium.png'
-import LAMINATE_BG from '../../assets/images/economy.png'
-import PU_BG from '../../assets/images/luxury.png'
+import ACRYLIC_BG from "../../assets/images/premium.png";
+import LAMINATE_BG from "../../assets/images/economy.png";
+import PU_BG from "../../assets/images/luxury.png";
 import {
   createLeadInApDatabase,
   createLeadInSalesforce,
@@ -138,7 +138,7 @@ const WardrobeImageViewer = ({
         });
         setAllScenes([...scenes]);
         if (scenes?.length) {
-          setLoader(true)
+          setLoader(true);
           const sceneId = scenes[0]?.id;
           setScene_id(sceneId);
           // const angles = await getCameraAngles(storeId)
@@ -149,17 +149,16 @@ const WardrobeImageViewer = ({
           });
           setCameraAngles(angles);
           cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
-          setLoader(false)
+          setLoader(false);
         }
       }
     }
     loadAndCheckStoreData();
-    
-  }, [modelId,storeId]);
+  }, [modelId, storeId]);
 
-  useEffect(()=>{
-    handleCameraAngleClick(cameraAngles[0])
-  },[cameraAngles])
+  useEffect(() => {
+    handleCameraAngleClick(cameraAngles[0]);
+  }, [cameraAngles]);
 
   // console.log(colorFinish[0]?.textures, woodFinish);
 
@@ -191,10 +190,10 @@ const WardrobeImageViewer = ({
     let defaultTextures = [];
     defaultTextures.push(selectedCurcass[0]);
     defaultTextures.push(activeShade);
-    if(doorPanelOptions.dimension === '7 x 7 ft'){
+    if (doorPanelOptions.dimension === "7 x 7 ft") {
       defaultTextures.push(BACK_LABEL[0]);
     }
-    console.log(doorPanelOptions?.dimension)
+    console.log(doorPanelOptions?.dimension);
     return defaultTextures;
     // console.log(defaultTextures,"defaultTextures")
   };
@@ -204,22 +203,21 @@ const WardrobeImageViewer = ({
       const shades = await getShadelist();
       setShadeList(shades);
       setActiveShade(shades[0]);
-  
+
       // const curcass = await getCurcassList();
       // setSelectedCurcass(curcass);
     };
-  
+
     fetchShades();
   }, [doorPanelOptions, woodFinish]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchCurcass = async () => {
       const curcass = await getCurcassList();
       setSelectedCurcass(curcass);
     };
     fetchCurcass();
-  },[doorPanelOptions])
-  
+  }, [doorPanelOptions]);
 
   useEffect(() => {
     const fetchTextures = async () => {
@@ -423,8 +421,14 @@ const WardrobeImageViewer = ({
 
   useEffect(() => {
     const { firstname, lastname, pincode, mobile, email } = formData;
-    
-    if (firstname && lastname && pincode.length === 6 && mobile.length === 10 && email) {
+
+    if (
+      firstname &&
+      lastname &&
+      pincode.length === 6 &&
+      mobile.length === 10 &&
+      email
+    ) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -486,8 +490,8 @@ const WardrobeImageViewer = ({
       setLoadingScreen(true);
       // await delay(10000);
       const response = await createLeadInSalesforce(formData, updatedPrice);
-      const result = await createLeadInApDatabase(formData, response.CRMleadId)
-      console.log("result for database lead for Asian paint",result)
+      const result = await createLeadInApDatabase(formData, response.CRMleadId);
+      console.log("result for database lead for Asian paint", result);
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
@@ -498,7 +502,7 @@ const WardrobeImageViewer = ({
         response.CRMleadId,
         response.returnCode
       );
-    handleCameraAngleClick(cameraAngles[1])
+      handleCameraAngleClick(cameraAngles[1]);
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -532,7 +536,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
-    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0])
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0]);
     // window.location.reload();
   };
 
@@ -575,24 +579,24 @@ const WardrobeImageViewer = ({
   const createPdfShadesImages = async () => {
     // console.log(selectedCurcass, "getCurcassList");
     // console.log(shadeList, "shadeListshadeList");
-  
+
     let combinedResults = [];
-  
+
     const curcassTexture = selectedCurcass[0];
-  
+
     for (let j = 0; j < shadeList.length; j++) {
       let selectedPdfTextures = [];
-  
+
       // Combine the single selectedCurcass item with each shadeList[j]
       const shadeTexture = shadeList[j];
-  
+
       // Create selectedPdfTextures for each shadeList item
       selectedPdfTextures.push(curcassTexture);
       selectedPdfTextures.push(shadeTexture);
-      if(doorPanelOptions.dimension === '7 x 7 ft'){
+      if (doorPanelOptions.dimension === "7 x 7 ft") {
         selectedPdfTextures.push(BACK_LABEL[0]);
       }
-  
+
       const mergeData = {
         scene: scene_id,
         textures: selectedPdfTextures,
@@ -600,7 +604,7 @@ const WardrobeImageViewer = ({
         ext: "png",
         store: storeId,
       };
-  
+
       // Call getAllMergeData for each combination
       const res = await getAllMergeData({
         mergeData,
@@ -609,13 +613,13 @@ const WardrobeImageViewer = ({
         sceneView: cameraAngles[0]?.id,
         total: cameraAngles?.length,
       });
-  
-      if (res?.data?.data && typeof res.data.data === 'object') {
+
+      if (res?.data?.data && typeof res.data.data === "object") {
         const resultWithDisplayName = {
           ...res.data.data,
-          display_name: shadeTexture.display_name
+          display_name: shadeTexture.display_name,
         };
-  
+
         combinedResults.push(resultWithDisplayName);
       } else {
         console.warn("Unexpected Error:");
@@ -626,25 +630,26 @@ const WardrobeImageViewer = ({
     return combinedResults;
   };
 
-  const pdfContent = async (shadeImages,currentShadeFrame) => {
+  const pdfContent = async (shadeImages, currentShadeFrame) => {
     // Remove any existing hidden div to avoid duplications
     const existingDiv = document.getElementById("pdf-content");
     if (existingDiv) {
       existingDiv.remove();
     }
-    
-    // console.log(pdfShadesImages, "pdfShadesImages");
-    console.log(woodFinish,"woodFinish");
 
-    const backgroundImage = (woodFinish === 'Laminate')
-    ? `url(${LAMINATE_BG})`
-    : (woodFinish === 'Acrylic')
-    ? `url(${ACRYLIC_BG})`
-    : `url(${PU_BG})`; // Default or third condition
+    // console.log(pdfShadesImages, "pdfShadesImages");
+    console.log(woodFinish, "woodFinish");
+
+    const backgroundImage =
+      woodFinish === "Laminate"
+        ? `url(${LAMINATE_BG})`
+        : woodFinish === "Acrylic"
+        ? `url(${ACRYLIC_BG})`
+        : `url(${PU_BG})`; // Default or third condition
 
     // console.log(pdfShadesImages[0]?.images[0]?.image_low, "pdfShadesImages");
     // console.log(pdfShadesImages[currentShadeFrame]?.images[0]?.image_low, pdfShadesImages[currentShadeFrame]?.display_name)
-    
+
     // Create a new hidden div
     const hiddenDiv = document.createElement("div");
     hiddenDiv.id = "pdf-content";
@@ -654,8 +659,9 @@ const WardrobeImageViewer = ({
     hiddenDiv.style.height = "100%";
     hiddenDiv.style.overflow = "visible";
 
-    const pdfImagesBoxHtml = shadeImages?.map((item,i) => {
-      return `
+    const pdfImagesBoxHtml = shadeImages
+      ?.map((item, i) => {
+        return `
         <div class="${styles.shadeBox}" key="${item?.id}">
           <div class="${styles.imageBox}">
             <img src="${item?.images[0]?.image_low}" alt="shade" />
@@ -663,7 +669,8 @@ const WardrobeImageViewer = ({
           <h4>${item?.display_name}</h4>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
 
     // console.log(pdfImagesBoxHtml,"pdfImagesBoxHtmlpdfImagesBoxHtml")
 
@@ -686,7 +693,9 @@ const WardrobeImageViewer = ({
     }).join("");
 
     const wardrobeDetailsHeaderHtml = `
-      <div class="${styles.pdfWardrobeDetailsHeader}" style="background-image: ${backgroundImage}; background-size: cover;">
+      <div class="${
+        styles.pdfWardrobeDetailsHeader
+      }" style="background-image: ${backgroundImage};">
         <span class="${styles.firstBox}">
           <p>Package :</p>
           <h3>${wardrobePackage || "N/A"}</h3>
@@ -733,7 +742,9 @@ const WardrobeImageViewer = ({
             ${wardrobeDetailsHeaderHtml}
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
-                <img src="${shadeImages[currentShadeFrame]?.images[0]?.image_low}" alt="wardrobe" />
+                <img src="${
+                  shadeImages[currentShadeFrame]?.images[0]?.image_low
+                }" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
                 <div class="${styles.detailsBoxItem}">
@@ -816,24 +827,24 @@ const WardrobeImageViewer = ({
     setDownloading(true);
     // console.log(currentShadeFrame,"currentShadeFramecurrentShadeFrame")
     const pdfMergeImages = await createPdfShadesImages();
-    await pdfContent(pdfMergeImages,currentShadeFrame);
+    await pdfContent(pdfMergeImages, currentShadeFrame);
     adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = pdf.internal.pageSize.getHeight();
-  
+
     const addPageToPdf = async (elementId, addNewPage = true) => {
       const input = document.getElementById(elementId);
       if (!input) {
         console.error(`Element with ID ${elementId} not found`);
         return;
       }
-  
+
       try {
         // Ensure images are fully loaded
         // const images = input.querySelectorAll('img');
         // let imageLoadPromises = [];
-  
+
         // images.forEach((img) => {
         //   if (!img.complete) {
         //     const imgLoadPromise = new Promise((resolve) => {
@@ -843,34 +854,34 @@ const WardrobeImageViewer = ({
         //     imageLoadPromises.push(imgLoadPromise);
         //   }
         // });
-  
+
         // await Promise.all(imageLoadPromises);
-  
+
         // Capture the canvas
         const canvas = await html2canvas(input, {
           scale: 2,
           logging: true,
-          useCORS: true // Enable cross-origin resource sharing
+          useCORS: true, // Enable cross-origin resource sharing
         });
-  
+
         const imgData = canvas.toDataURL("image/png");
         const imgProps = pdf.getImageProperties(imgData);
         const imgWidth = imgProps.width;
         const imgHeight = imgProps.height;
         const ratio = imgWidth / pdfWidth;
         const pageHeight = pdfHeight * ratio;
-  
+
         const totalPages = Math.ceil(imgHeight / pageHeight);
-  
+
         for (let i = 0; i < totalPages; i++) {
           const srcY = i * pageHeight;
           const srcHeight = Math.min(pageHeight, imgHeight - srcY);
-  
+
           const canvasPage = document.createElement("canvas");
           canvasPage.width = imgWidth;
           canvasPage.height = srcHeight;
           const ctx = canvasPage.getContext("2d");
-  
+
           ctx.drawImage(
             canvas,
             0,
@@ -882,7 +893,7 @@ const WardrobeImageViewer = ({
             imgWidth,
             srcHeight
           );
-  
+
           const imgDataPage = canvasPage.toDataURL("image/png");
           if (i > 0 || addNewPage) pdf.addPage();
           pdf.addImage(
@@ -898,11 +909,11 @@ const WardrobeImageViewer = ({
         console.error(`Failed to capture element with ID ${elementId}`, error);
       }
     };
-  
+
     await addPageToPdf("page-1", false); // First page without adding a new page
     await addPageToPdf("page-2");
     await addPageToPdf("page-3");
-  
+
     pdf.save("wardrobeEstimate.pdf");
     setDownloading(false);
   };
@@ -1308,7 +1319,11 @@ const WardrobeImageViewer = ({
                     >
                       Back
                     </button>
-                    <button type="submit" className={styles.button3} disabled={!isFormValid}>
+                    <button
+                      type="submit"
+                      className={styles.button3}
+                      disabled={!isFormValid}
+                    >
                       Submit
                     </button>
                   </div>
