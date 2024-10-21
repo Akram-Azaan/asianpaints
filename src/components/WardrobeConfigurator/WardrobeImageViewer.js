@@ -1070,11 +1070,12 @@ const WardrobeImageViewer = ({
             md={5}
             sm={12}
             xs={12}
+            style={{padding: 0}}
             className={`d-flex align-items-center justify-content-center text-center`}
           >
             {showDoorPanel && (
               <div className={styles.rightBox}>
-                <h4 className="mb-0">1. Select a door panel</h4>
+                <h4 className="mb-0 display-flex justify-content-start" style={{marginLeft: '80px'}}>1. Select a door panel</h4>
                 <div className={styles.doorPanel}>
                   {DOOR_LIST.map((door, index) => (
                     <div

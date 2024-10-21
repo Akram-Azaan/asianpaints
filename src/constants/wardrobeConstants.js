@@ -1,7 +1,7 @@
 // import SLIDING_THUMB from "../assets/images/sliding.png";
 // import HINGED_THUMB from "../assets/images/hinged.png";
-import SLIDING_THUMB from "../assets/images/slide_open_door.png";
-import HINGED_THUMB from "../assets/images/hinge_open_door.png";
+import SLIDING_THUMB from "../assets/images/SlidingIcon.png";
+import HINGED_THUMB from "../assets/images/HingedIcon.png";
 import LAMINATE_THUMB from "../assets/images/laminate.png";
 import ACRYLIC_THUMB from "../assets/images/acrylic.png";
 import PU_THUMB from "../assets/images/pu.png";
