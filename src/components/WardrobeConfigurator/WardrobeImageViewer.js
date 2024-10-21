@@ -953,8 +953,10 @@ const WardrobeImageViewer = ({
   return (
     <>
       <div className={styles.wardrobeContainer}>
-        <Row className={`h-100 justify-content-between align-items-center`}>
-          <Col lg={6} md={6} sm={12} xs={12}>
+      {/* className={`h-100 justify-content-between align-items-center`} */}
+        <Row style={{height: '100%', width: '100%'}}>
+        {/* lg={6} md={6} sm={12} xs={12} */}
+          <Col lg={7} md={7} sm={12} xs={12} style={{padding: 0}}>
             {isMobile && showPackage && (
               <div className={styles.packageRightBox}>
                 <h4 className={styles.packageTitle}>
@@ -1065,7 +1067,7 @@ const WardrobeImageViewer = ({
           </Col>
           <Col
             lg={5}
-            md={6}
+            md={5}
             sm={12}
             xs={12}
             className={`d-flex align-items-center justify-content-center text-center`}
