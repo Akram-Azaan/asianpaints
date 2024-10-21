@@ -114,6 +114,10 @@ const WardrobeImageViewer = ({
   const [isFormValid, setIsFormValid] = useState(false);
   // const [pdfShadesImages, setPdfShadesImages] = useState([]);
   // const [pdfRenderImages, setPdfRenderImages] = useState([]);
+  const [showNameLabel, setShowNameLabel] = useState(false);
+  const [showCodeLabel, setShowCodeLabel] = useState(false);
+  const [showEmailLabel, setShowEmailLabel] = useState(false);
+  const [showNumberLabel, setShowNumberLabel] = useState(false)
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -780,7 +784,7 @@ const WardrobeImageViewer = ({
       <div id="page-2" class="${styles.pdfContainer}">
         <div class="${styles.pdfBody}">
           <h2 class="${styles.headingCenter}">
-            Available top ${woodFinish} shades
+            Visualize our top ${woodFinish} color shades
           </h2>
           <div class="${styles.pdfWardrobeShades}">
             ${pdfImagesBoxHtml}
@@ -956,7 +960,7 @@ const WardrobeImageViewer = ({
       {/* className={`h-100 justify-content-between align-items-center`} */}
         <Row style={{height: '100%', width: '100%'}}>
         {/* lg={6} md={6} sm={12} xs={12} */}
-          <Col lg={7} md={7} sm={12} xs={12} style={{padding: 0}}>
+          <Col lg={6} md={6} sm={12} xs={12} style={{padding: 0}}>
             {isMobile && showPackage && (
               <div className={styles.packageRightBox}>
                 <h4 className={styles.packageTitle}>
@@ -1030,7 +1034,8 @@ const WardrobeImageViewer = ({
                 </div>
                 {showShades && (
                   <div className={styles.shadesBox}>
-                    <h4>Available top {woodFinish} shades</h4>
+                    <div style={{position: 'relative'}}>
+                    <h4>Visualize our top {woodFinish} color shades</h4>
                     <div className={styles.shades}>
                       {shadeList?.map((item, index) => (
                         <div
@@ -1060,24 +1065,26 @@ const WardrobeImageViewer = ({
                         </div>
                       ))}
                     </div>
+                    </div>
                   </div>
                 )}
               </div>
             )}
           </Col>
           <Col
-            lg={5}
-            md={5}
+            lg={6}
+            md={6}
             sm={12}
             xs={12}
             style={{padding: 0}}
             className={`d-flex align-items-center justify-content-center text-center`}
           >
             {showDoorPanel && (
-              <div className={styles.rightBox}>
-                <h4 className="mb-0 display-flex justify-content-start" style={{marginLeft: '80px'}}>1. Select a door panel</h4>
+              <div className={styles.rightBox} style={{width: '72%'}}>
                 <div className={styles.doorPanel}>
-                  {DOOR_LIST.map((door, index) => (
+                <h4 className="mb-0">1. Select a door panel</h4>
+                <div className={styles.flexContent}>
+                {DOOR_LIST.map((door, index) => (
                     <div
                       key={index}
                       className={cx(styles.doorPanelItem, {
@@ -1093,7 +1100,9 @@ const WardrobeImageViewer = ({
                     </div>
                   ))}
                 </div>
-                <div className={styles.buttonContainer}>
+                 
+                </div>
+                <div className={styles.buttonContainer} style={{justifyContent: 'flex-end'}}>
                   <button
                     className={styles.button1}
                     onClick={() => {
@@ -1110,7 +1119,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showWardrobe && (
-              <div className={styles.rightBox}>
+              <div className={styles.rightBox} style={{width: '72%'}}>
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
                 <div className={styles.dimensionBox}>
                   <Row className={`h-100 justify-content-start g-4`}>
@@ -1140,9 +1149,10 @@ const WardrobeImageViewer = ({
                   </Row>
                 </div>
 
-                <div className={styles.buttonContainer}>
+                <div className={styles.buttonContainer} style={{justifyContent: 'space-between'}}>
                   <button
                     className={styles.button2}
+                    style={{padding: 0}}
                     onClick={() => {
                       setShowDoorpanel(true);
                       setShowWardrobe(false);
@@ -1158,19 +1168,20 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showWoodFinish && (
-              <div className={styles.rightBox}>
+              <div className={styles.rightBox} style={{width: '80%'}}>
                 <div
-                  className={`d-flex align-items-center justify-content-center text-center`}
+                  className={`d-flex align-items-center justify-content-start`}
                 >
                   <h4 className="mb-0 me-3">3. Select a wood finish</h4>
                   <FinishPopup />
                 </div>
                 <div className={styles.doorPanel}>
+                  <div className={styles.flexContent}>
                   {WOOD_FINISH_OPTIONS.map((finish) => (
                     <div
                       key={finish.id}
                       className={cx(
-                        styles.doorPanelItem,
+                        styles.doorPanelItemList,
                         finish.label === woodFinish ? styles.bordered : ""
                       )}
                       onClick={() => {
@@ -1180,19 +1191,23 @@ const WardrobeImageViewer = ({
                           setCurrentAngle(cameraAngles[0]);
                       }}
                     >
-                      <div className={styles.doorPanelImage}>
-                        <img src={finish.thumb} alt={finish.label} />
+                      <div className={styles.doorPanelImage} style={{margin: 0, height: '135px'}}>
+                        <img src={finish.thumb} alt={finish.label} style={{width: '100%', height: '135px'}}/>
                       </div>
+                      <div style={{padding: '12px'}}>
                       <div className={styles.doorPanelTitle}>
                         {finish.label}
                       </div>
                       <p className="mb-0">({finish.subTitle})</p>
+                      </div>
                     </div>
                   ))}
+                  </div>
                 </div>
-                <div className={styles.buttonContainer}>
+                <div className={styles.buttonContainer} style={{justifyContent: 'space-between'}}>
                   <button
                     className={styles.button2}
+                    style={{padding: 0}}
                     onClick={() => {
                       setShowWardrobe(true);
                       setShowWoodFinish(false);
@@ -1215,7 +1230,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showDetails && (
-              <div className={styles.rightBox}>
+              <div className={styles.rightBox} style={{width: '80%'}}>
                 <h4 className="mb-0">
                   Your free quote is just a few details away!
                 </h4>
@@ -1223,7 +1238,7 @@ const WardrobeImageViewer = ({
                   <Row className="h-100 justify-content-center g-4">
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        <label className={styles.inputLabel}>Name</label>
+                        {showNameLabel && <label className={styles.inputLabel}>Name</label>}
                         <input
                           type="text"
                           name="name"
@@ -1232,6 +1247,8 @@ const WardrobeImageViewer = ({
                           value={formData.name}
                           onChange={handleChange}
                           className={styles.input}
+                          onFocus={() => setShowNameLabel(true)}
+                          onBlur={() => setShowNameLabel(false)}
                         />
                       </div>
                       {errors.name && (
@@ -1240,7 +1257,7 @@ const WardrobeImageViewer = ({
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        <label className={styles.inputLabel}>Pincode</label>
+                        {showCodeLabel && <label className={styles.inputLabel}>Pincode</label>}
                         <input
                           type="number"
                           name="pincode"
@@ -1249,6 +1266,8 @@ const WardrobeImageViewer = ({
                           value={formData.pincode}
                           onChange={handleChange}
                           className={styles.input}
+                          onFocus={() => setShowCodeLabel(true)}
+                          onBlur={() => setShowCodeLabel(false)}
                         />
                       </div>
                       {errors.pincode && (
@@ -1257,9 +1276,9 @@ const WardrobeImageViewer = ({
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        <label className={styles.inputLabel}>
+                        {showNumberLabel && <label className={styles.inputLabel}>
                           Mobile number
-                        </label>
+                        </label>}
                         <input
                           type="number"
                           name="mobile"
@@ -1268,6 +1287,8 @@ const WardrobeImageViewer = ({
                           value={formData.mobile}
                           onChange={handleChange}
                           className={styles.inputCountry}
+                          onFocus={() => setShowNumberLabel(true)}
+                          onBlur={() => setShowNumberLabel(false)}
                         />
                         <span className={styles.countryCode}>+91</span>
                       </div>
@@ -1277,7 +1298,7 @@ const WardrobeImageViewer = ({
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        <label className={styles.inputLabel}>Email</label>
+                        {showEmailLabel && <label className={styles.inputLabel}>Email</label>}
                         <input
                           type="text"
                           name="email"
@@ -1286,6 +1307,8 @@ const WardrobeImageViewer = ({
                           value={formData.email}
                           onChange={handleChange}
                           className={styles.input}
+                          onFocus={() => setShowEmailLabel(true)}
+                          onBlur={() => setShowEmailLabel(false)}
                         />
                       </div>
                       {errors.email && (
@@ -1311,9 +1334,10 @@ const WardrobeImageViewer = ({
                     calls, sms, or e-mail.
                   </h5>
 
-                  <div className={styles.buttonContainer}>
+                  <div className={styles.buttonContainer} style={{justifyContent: 'space-between'}}>
                     <button
                       className={styles.button2}
+                      style={{padding: 0}}
                       onClick={() => {
                         setShowWoodFinish(true);
                         setShowDetails(false);
@@ -1346,7 +1370,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showPackage && (
-              <div className={styles.packageRightBox}>
+              <div className={styles.packageRightBox} style={{width: '80%'}}>
                 {!isMobile && (
                   <>
                     <h4 className={styles.packageTitle}>

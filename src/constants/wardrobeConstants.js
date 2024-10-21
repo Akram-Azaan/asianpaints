@@ -2,9 +2,9 @@
 // import HINGED_THUMB from "../assets/images/hinged.png";
 import SLIDING_THUMB from "../assets/images/SlidingIcon.png";
 import HINGED_THUMB from "../assets/images/HingedIcon.png";
-import LAMINATE_THUMB from "../assets/images/laminate.png";
-import ACRYLIC_THUMB from "../assets/images/acrylic.png";
-import PU_THUMB from "../assets/images/pu.png";
+import LAMINATE_THUMB from "../assets/images/Laminate_new.png";
+import ACRYLIC_THUMB from "../assets/images/Acrylic_new.png";
+import PU_THUMB from "../assets/images/PU_new.png";
 import ProcessIcon1 from "../assets/images/ProcessIcon1.png";
 import ProcessIcon2 from "../assets/images/ProcessIcon2.png";
 import ProcessIcon3 from "../assets/images/ProcessIcon3.png";
