@@ -90,7 +90,7 @@ const WardrobeImageViewer = ({
     pincode: "",
     mobile: "",
     email: "",
-    receiveUpdates: true,
+    receiveUpdates: false,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
@@ -154,7 +154,7 @@ const WardrobeImageViewer = ({
           });
           setCameraAngles(angles);
           cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
-          setLoader(false);
+          // setLoader(false);
         }
       }
     }
@@ -306,7 +306,7 @@ const WardrobeImageViewer = ({
           store: storeId,
         };
 
-        if (modelId && scene_id) {
+        if (modelId && scene_id && currentAngle?.id && selectedTextures?.length) {
           const res = await getAllMergeData({
             mergeData,
             textureIds: selectedTextures,
@@ -323,7 +323,7 @@ const WardrobeImageViewer = ({
       }
     }
     loadAndCheckImages();
-  }, [showShades, selectedTextures, currentAngle]);
+  }, [selectedTextures, currentAngle]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -1445,7 +1445,7 @@ const WardrobeImageViewer = ({
                     <h2 className={styles.packagePrice}>{price}</h2>
                   </>
                 )}
-                <div className={styles.buttonContainer} style={{flexDirection: isMobile ? 'column': ''}}>
+                <div className={styles.buttonContainer} style={{flexDirection: isMobile ? 'column': '', zIndex: 999}}>
                   <button
                     className={styles.button3}
                     onClick={handleDownloadPdf}

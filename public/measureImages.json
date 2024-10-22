@@ -3,93 +3,183 @@
       {
         "imagesList": [
           {
-            "url": "/measure/HingedWardrobe-6.25x6/HingedWardrobe-6.25x6.png",
+            "url": "/measure/front/HingedWardrobe-6.25x6/HingedWardrobe-6.25x6.png",
             "viewType": "front",
             "storeId": 2569
           },
           {
-            "url": "/measure/HingedWardrobe-7x5/HingedWardrobe-7x5.png",
+            "url": "/measure/front/HingedWardrobe-7x5/HingedWardrobe-7x5.png",
             "viewType": "front",
             "storeId": 2571
           },
           {
-            "url": "/measure/HingedWardrobe-7x6/HingedWardrobe-7x6.png",
+            "url": "/measure/front/HingedWardrobe-7x6/HingedWardrobe-7x6.png",
             "viewType": "front",
             "storeId": 2570
           },
           {
-            "url": "/measure/HingedWardrobe-7x7/HingedWardrobe-7x7.png",
+            "url": "/measure/front/HingedWardrobe-7x7/HingedWardrobe-7x7.png",
             "viewType": "front",
             "storeId": 2592
           },
           {
-            "url": "/measure/HingedWardrobe-7x8/HingedWardrobe-7x8.png",
+            "url": "/measure/front/HingedWardrobe-7x8/HingedWardrobe-7x8.png",
             "viewType": "front",
             "storeId": 2575
           },
           {
-            "url": "/measure/HingedWardrobe-8x5/HingedWardrobe-8x5.png",
+            "url": "/measure/front/HingedWardrobe-8x5/HingedWardrobe-8x5.png",
             "viewType": "front",
             "storeId": 2576
           },
           {
-            "url": "/measure/HingedWardrobe-8x6/HingedWardrobe-8x6.png",
+            "url": "/measure/front/HingedWardrobe-8x6/HingedWardrobe-8x6.png",
             "viewType": "front",
             "storeId": 2594
           },
           {
-            "url": "/measure/HingedWardrobe-8x7/HingedWardrobe-8x7.png",
+            "url": "/measure/front/HingedWardrobe-8x7/HingedWardrobe-8x7.png",
             "viewType": "front",
             "storeId": 2595
           },
           {
-            "url": "/measure/HingedWardrobe-8x8/HingedWardrobe-8x8.png",
+            "url": "/measure/front/HingedWardrobe-8x8/HingedWardrobe-8x8.png",
             "viewType": "front",
             "storeId": 2509
           },
           {
-            "url": "/measure/SlidingWardrobe-6.25x6/SlidingWardrobe-6.25x6.png",
+            "url": "/measure/front/SlidingWardrobe-6.25x6/SlidingWardrobe-6.25x6.png",
             "viewType": "front",
             "storeId": 2574
           },
           {
-            "url": "/measure/SlidingWardrobe-6.25x6.5/SlidingWardrobe-6.25x6.5.png",
+            "url": "/measure/front/SlidingWardrobe-6.25x6.5/SlidingWardrobe-6.25x6.5.png",
             "viewType": "front",
             "storeId": 2590
           },
           {
-            "url": "/measure/SlidingWardrobe-6.25x7.25/SlidingWardrobe-6.25x7.25.png",
+            "url": "/measure/front/SlidingWardrobe-6.25x7.25/SlidingWardrobe-6.25x7.25.png",
             "viewType": "front",
             "storeId": 2588
           },
           {
-            "url": "/measure/SlidingWardrobe-7x6/SlidingWardrobe-7x6.png",
+            "url": "/measure/front/SlidingWardrobe-7x6/SlidingWardrobe-7x6.png",
             "viewType": "front",
             "storeId": 2573
           },
           {
-            "url": "/measure/SlidingWardrobe-7x6.5/SlidingWardrobe-7x6.5.png",
+            "url": "/measure/front/SlidingWardrobe-7x6.5/SlidingWardrobe-7x6.5.png",
             "viewType": "front",
             "storeId": 2596
           },
           {
-            "url": "/measure/SlidingWardrobe-7x7.25/SlidingWardrobe-7x7.25.png",
+            "url": "/measure/front/SlidingWardrobe-7x7.25/SlidingWardrobe-7x7.25.png",
             "viewType": "front",
             "storeId": 2597
           },
           {
-            "url": "/measure/SlidingWardrobe-8x6/SlidingWardrobe-8x6.png",
+            "url": "/measure/front/SlidingWardrobe-8x6/SlidingWardrobe-8x6.png",
             "viewType": "front",
             "storeId": 2593
           },
           {
-            "url": "/measure/SlidingWardrobe-8x6.5/SlidingWardrobe-8x6.5.png",
+            "url": "/measure/front/SlidingWardrobe-8x6.5/SlidingWardrobe-8x6.5.png",
             "viewType": "front",
             "storeId": 2589
           },
           {
-            "url": "/measure/SlidingWardrobe-8x7.25/SlidingWardrobe-8x7.25.png",
+            "url": "/measure/front/SlidingWardrobe-8x7.25/SlidingWardrobe-8x7.25.png",
             "viewType": "front",
+            "storeId": 2591
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-6.25x6/HingedWardrobe-6.25x6.png",
+            "viewType": "perspective",
+            "storeId": 2569
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-7x5/HingedWardrobe-7x5.png",
+            "viewType": "perspective",
+            "storeId": 2571
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-7x6/HingedWardrobe-7x6.png",
+            "viewType": "perspective",
+            "storeId": 2570
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-7x7/HingedWardrobe-7x7.png",
+            "viewType": "perspective",
+            "storeId": 2592
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-7x8/HingedWardrobe-7x8.png",
+            "viewType": "perspective",
+            "storeId": 2575
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-8x5/HingedWardrobe-8x5.png",
+            "viewType": "perspective",
+            "storeId": 2576
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-8x6/HingedWardrobe-8x6.png",
+            "viewType": "perspective",
+            "storeId": 2594
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-8x7/HingedWardrobe-8x7.png",
+            "viewType": "perspective",
+            "storeId": 2595
+          },
+          {
+            "url": "/measure/perspective/HingedWardrobe-8x8/HingedWardrobe-8x8.png",
+            "viewType": "perspective",
+            "storeId": 2509
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-6.25x6/SlidingWardrobe-6.25x6.png",
+            "viewType": "perspective",
+            "storeId": 2574
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-6.25x6.5/SlidingWardrobe-6.25x6.5.png",
+            "viewType": "perspective",
+            "storeId": 2590
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-6.25x7.25/SlidingWardrobe-6.25x7.25.png",
+            "viewType": "perspective",
+            "storeId": 2588
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-7x6/SlidingWardrobe-7x6.png",
+            "viewType": "perspective",
+            "storeId": 2573
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-7x6.5/SlidingWardrobe-7x6.5.png",
+            "viewType": "perspective",
+            "storeId": 2596
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-7x7.25/SlidingWardrobe-7x7.25.png",
+            "viewType": "perspective",
+            "storeId": 2597
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-8x6/SlidingWardrobe-8x6.png",
+            "viewType": "perspective",
+            "storeId": 2593
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-8x6.5/SlidingWardrobe-8x6.5.png",
+            "viewType": "perspective",
+            "storeId": 2589
+          },
+          {
+            "url": "/measure/perspective/SlidingWardrobe-8x7.25/SlidingWardrobe-8x7.25.png",
+            "viewType": "perspective",
             "storeId": 2591
           }
         ]
