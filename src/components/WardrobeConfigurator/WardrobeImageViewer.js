@@ -56,7 +56,6 @@ import { getSceneLabelOptions } from "../Configurator/utils/index.js";
 import { API_ROOT_URL } from "../../constants/apiConstant.js";
 import axios from "axios";
 import { errorToastV2 } from "../../helpers/toastHelper.js";
-import { wait } from "@testing-library/user-event/dist/utils/index.js";
 let APIData = [];
 
 const WardrobeImageViewer = ({
