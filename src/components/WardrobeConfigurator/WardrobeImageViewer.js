@@ -161,7 +161,7 @@ const WardrobeImageViewer = ({
   }, [modelId, storeId]);
 
   useEffect(() => {
-    handleCameraAngleClick(cameraAngles[0]);
+    handleCameraAngleClick(cameraAngles[1]);
   }, [cameraAngles]);
 
   // console.log(colorFinish[0]?.textures, woodFinish);
@@ -551,7 +551,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
-    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0]);
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[1]);
     setErrors({})
     // window.location.reload();
   };
