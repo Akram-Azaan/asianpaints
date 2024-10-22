@@ -56,6 +56,7 @@ import { getSceneLabelOptions } from "../Configurator/utils/index.js";
 import { API_ROOT_URL } from "../../constants/apiConstant.js";
 import axios from "axios";
 import { errorToastV2 } from "../../helpers/toastHelper.js";
+import { wait } from "@testing-library/user-event/dist/utils/index.js";
 let APIData = [];
 
 const WardrobeImageViewer = ({
@@ -384,7 +385,7 @@ const WardrobeImageViewer = ({
     cameraAngles.length > 0 && setCurrentAngle(cameraAngles[0]);
   };
 
-  const validate = () => {
+  const validate = (formData) => {
     const newErrors = {};
 
     if (!formData.firstname) newErrors.name = "Name is required";
@@ -414,7 +415,8 @@ const WardrobeImageViewer = ({
     if (!formData.email) {
       newErrors.email = "Email is required";
     } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = 
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if (!emailRegex.test(formData.email)) {
         newErrors.email = "Email is invalid";
       }
@@ -439,38 +441,47 @@ const WardrobeImageViewer = ({
     }
   }, [formData]);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
+
     const { name, value, type, checked } = e.target;
+    let obj = {}
 
     if (name === "name") {
       const [firstname, ...lastnameArray] = value.split(" ");
       const lastname =
         lastnameArray.length > 0 ? lastnameArray.join(" ") : "NA";
-
-      setFormData({
-        ...formData,
-        firstname,
-        lastname,
-      });
+        obj = {
+          ...formData,
+          firstname,
+          lastname,
+        }
+      setFormData(obj);
     } else if (name === "pincode") {
       if (value.length <= 6) {
-        setFormData({
+        obj = {
           ...formData,
           [name]: value,
-        });
+        }
+        setFormData(obj);
       }
     } else if (name === "mobile") {
-      if (value.length <= 10) {
-        setFormData({
+      if (value?.length <= 10 || value?.length == 0) {
+         obj = {
           ...formData,
           [name]: value,
-        });
+        }
+        setFormData(obj);
       }
     } else {
-      setFormData({
+      obj = {
         ...formData,
         [name]: type === "checkbox" ? checked : value,
-      });
+      }
+      setFormData(obj);
+    }
+    const validationErrors = await validate(obj);
+    if (Object.keys(errors).length) {
+      setErrors(validationErrors);
     }
   };
 
@@ -478,7 +489,7 @@ const WardrobeImageViewer = ({
     e.preventDefault();
     console.log(formData, "formDataformData");
     // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-    const validationErrors = await validate();
+    const validationErrors = await validate(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       // console.log(validationErrors);
@@ -542,6 +553,7 @@ const WardrobeImageViewer = ({
       receiveUpdates: true,
     });
     cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0]);
+    setErrors({})
     // window.location.reload();
   };
 
@@ -1033,12 +1045,12 @@ const WardrobeImageViewer = ({
                       alt={`Wardrobe Frame ${currentFrame}`}
                     />
                   )}
-                  {showShades && isMobile && <h6 style={{position: 'absolute', top: '10px', fontWeight: '700'}}>Visualize our top {woodFinish} color shades</h6>}
+                  {showShades && isMobile && !loader && <h6 style={{position: 'absolute', top: '10px', fontWeight: '700'}}>Visualize our top {woodFinish} color shades</h6>}
                 </div>
-                {showShades && (
+                {showShades && !loader && (
                   <div className={styles.shadesBox} style={{width: isMobile ? '100%': '82%'}}>
                     <div style={{position: 'relative'}}>
-                    {!isMobile && <h4>Visualize our top {woodFinish} color shades</h4>}
+                    {!isMobile && !loader && <h4>Visualize our top {woodFinish} color shades</h4>}
                     <div className={styles.shades}>
                       {shadeList?.map((item, index) => (
                         <div
