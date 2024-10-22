@@ -18,8 +18,8 @@ import ReasonsIcon5 from "../assets/images/ReasonsIcon5.png";
 import ReasonsIcon6 from "../assets/images/ReasonsIcon6.png";
 import SLIDING_OPEN_CAMERA from "../assets/images/Black_back_img.svg";
 import SLIDING_CLOSE_CAMERA from "../assets/images/White_back_img.svg";
-import HINGED_OPEN_CAMERA from "../assets/images/hinge_open_camera.png";
-import HINGED_CLOSE_CAMERA from "../assets/images/hinge_close_camera.png";
+import HINGED_OPEN_CAMERA from "../assets/images/Black_back_img.svg";
+import HINGED_CLOSE_CAMERA from "../assets/images/White_back_img.svg";
 
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
