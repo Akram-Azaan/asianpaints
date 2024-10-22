@@ -117,7 +117,8 @@ const WardrobeImageViewer = ({
   const [showNameLabel, setShowNameLabel] = useState(false);
   const [showCodeLabel, setShowCodeLabel] = useState(false);
   const [showEmailLabel, setShowEmailLabel] = useState(false);
-  const [showNumberLabel, setShowNumberLabel] = useState(false)
+  const [showNumberLabel, setShowNumberLabel] = useState(false);
+  const [currentMeasureImage, setCurrentMeasureImage] = useState(null)
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -161,7 +162,47 @@ const WardrobeImageViewer = ({
   }, [modelId, storeId]);
 
   useEffect(() => {
-    handleCameraAngleClick(cameraAngles[1]);
+    if (currentAngle?.id) {
+      getDimensionImages()
+    }
+  }, [currentAngle, storeId])
+
+  const getDimensionImages = async () => {
+    await fetch("/measureImages.json")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const allImages = data.allImages;
+        if (allImages.length && allImages[0].imagesList?.length) {
+          const allMeasureImages = allImages[0].imagesList;
+          const filteredImages = allMeasureImages?.filter((val) =>
+            currentAngle?.name?.toLowerCase()?.includes(val?.viewType)
+          );
+          const currentImgToShow = filteredImages?.find((val) => val.storeId === storeId)
+          if (currentImgToShow?.url) {
+            setCurrentMeasureImage(currentImgToShow)
+          } else {
+            setCurrentMeasureImage(null);
+          }
+          console.log(
+            currentImgToShow,
+            storeId,
+            "check all values",
+            currentAngle
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  };
+
+  useEffect(() => {
+    handleCameraAngleClick(cameraAngles[0]);
   }, [cameraAngles]);
 
   // console.log(colorFinish[0]?.textures, woodFinish);
@@ -517,7 +558,7 @@ const WardrobeImageViewer = ({
         response.CRMleadId,
         response.returnCode
       );
-      handleCameraAngleClick(cameraAngles[1]);
+      handleCameraAngleClick(cameraAngles[0]);
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -551,7 +592,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
-    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[1]);
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0]);
     setErrors({})
     // window.location.reload();
   };
@@ -1044,6 +1085,13 @@ const WardrobeImageViewer = ({
                       alt={`Wardrobe Frame ${currentFrame}`}
                     />
                   )}
+                  {
+                    currentMeasureImage?.url && !loader && <img
+                    src={currentMeasureImage?.url}
+                    className={styles.measureImage}
+                    alt={`Measure tool`}
+                  />
+                  }
                   {showShades && isMobile && !loader && <h6 style={{position: 'absolute', top: '10px', fontWeight: '700'}}>Visualize our top {woodFinish} color shades</h6>}
                 </div>
                 {showShades && !loader && (

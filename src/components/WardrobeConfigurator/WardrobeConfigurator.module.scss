@@ -79,7 +79,7 @@ body{
             margin-bottom: 0;
             position: absolute;
             z-index: 99;
-            top: 24px;
+            top: 12px;
         }
 
         .buttons {
@@ -1283,6 +1283,6 @@ input[type="number"] {
     width: 100%;
 }
 
-.doorPanelImageList {
-
+.measureImage {
+    position: absolute;
 }
