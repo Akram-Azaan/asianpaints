@@ -500,6 +500,7 @@ const WardrobeImageViewer = ({
       setLoadingScreen(false);
       setShowPackage(true);
       setShowShades(true);
+      document.body.style.background = 'linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%)'
 
       adobeAnaLeadFormSubmition(
         formData.pincode,

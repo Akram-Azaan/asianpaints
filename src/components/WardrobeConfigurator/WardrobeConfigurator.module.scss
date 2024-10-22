@@ -5,8 +5,8 @@
     font-family: Lato !important;
 }
 body{
-    // background: #fff;
-  background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
+    background: #fff;
+//   background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
 }
 
 .wardrobeContainer {
@@ -433,8 +433,7 @@ body{
                 left: 8px;
                 font-size: 10px;
                 font-weight: 600;
-                // background-color: #fff;
-                background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
+                background: #fff !important;
                 padding: 0 5px;
             }
 
