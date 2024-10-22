@@ -974,13 +974,14 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {!(showDetails && isMobile) && (!isMobile || !loadingScreen) && (
-              <div className={styles.wardrobe}>
+              <div className={styles.wardrobe} style={{display: isMobile ? 'block': 'flex'}}>
                 <h2 className={styles.title}>
                   {!isMobile
                     ? showShades
                       ? "Your wardrobe cost estimation is ready!"
                       : "Build your wardrobe and get cost estimation"
-                    : "Build your custom wardrobe and get an instant cost estimate"}
+                    : ""}
+                    {/* Build your custom wardrobe and get an instant cost estimate */}
                 </h2>
                 <div className={styles.buttons}>
                   <div className={styles.roundbox}>
@@ -1031,11 +1032,12 @@ const WardrobeImageViewer = ({
                       alt={`Wardrobe Frame ${currentFrame}`}
                     />
                   )}
+                  {showShades && isMobile && <h6 style={{position: 'absolute', top: '10px', fontWeight: '700'}}>Visualize our top {woodFinish} color shades</h6>}
                 </div>
                 {showShades && (
-                  <div className={styles.shadesBox}>
+                  <div className={styles.shadesBox} style={{width: isMobile ? '100%': '82%'}}>
                     <div style={{position: 'relative'}}>
-                    <h4>Visualize our top {woodFinish} color shades</h4>
+                    {!isMobile && <h4>Visualize our top {woodFinish} color shades</h4>}
                     <div className={styles.shades}>
                       {shadeList?.map((item, index) => (
                         <div
@@ -1080,7 +1082,7 @@ const WardrobeImageViewer = ({
             className={`d-flex align-items-center justify-content-center text-center`}
           >
             {showDoorPanel && (
-              <div className={styles.rightBox} style={{width: '72%'}}>
+              <div className={styles.rightBox}>
                 <div className={styles.doorPanel}>
                 <h4 className="mb-0">1. Select a door panel</h4>
                 <div className={styles.flexContent}>
@@ -1119,7 +1121,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showWardrobe && (
-              <div className={styles.rightBox} style={{width: '72%'}}>
+              <div className={styles.rightBox}>
                 <h4 className="mb-0">2. Select wardrobe dimension</h4>
                 <div className={styles.dimensionBox}>
                   <Row className={`h-100 justify-content-start g-4`}>
@@ -1168,9 +1170,9 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showWoodFinish && (
-              <div className={styles.rightBox} style={{width: '80%'}}>
+              <div className={styles.rightBox}>
                 <div
-                  className={`d-flex align-items-center justify-content-start`}
+                  className={`d-flex align-items-center ${!isMobile ? 'justify-content-start': 'justify-content-center'}`}
                 >
                   <h4 className="mb-0 me-3">3. Select a wood finish</h4>
                   <FinishPopup />
@@ -1191,14 +1193,14 @@ const WardrobeImageViewer = ({
                           setCurrentAngle(cameraAngles[0]);
                       }}
                     >
-                      <div className={styles.doorPanelImage} style={{margin: 0, height: '135px'}}>
-                        <img src={finish.thumb} alt={finish.label} style={{width: '100%', height: '135px'}}/>
+                      <div className={styles.doorPanelImage} style={{margin: 0}}>
+                        <img src={finish.thumb} alt={finish.label} style={{width: '100%'}}/>
                       </div>
-                      <div style={{padding: '12px'}}>
-                      <div className={styles.doorPanelTitle}>
-                        {finish.label}
-                      </div>
-                      <p className="mb-0">({finish.subTitle})</p>
+                      <div className={styles.doorPanelTextContent}>
+                        <div className={styles.doorPanelTitle}>
+                          {finish.label}
+                        </div>
+                        <p className="mb-0">({finish.subTitle})</p>
                       </div>
                     </div>
                   ))}
@@ -1230,7 +1232,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showDetails && (
-              <div className={styles.rightBox} style={{width: '80%'}}>
+              <div className={styles.rightBox}>
                 <h4 className="mb-0">
                   Your free quote is just a few details away!
                 </h4>
@@ -1370,7 +1372,7 @@ const WardrobeImageViewer = ({
               </div>
             )}
             {showPackage && (
-              <div className={styles.packageRightBox} style={{width: '80%'}}>
+              <div className={styles.packageRightBox}>
                 {!isMobile && (
                   <>
                     <h4 className={styles.packageTitle}>
@@ -1383,7 +1385,7 @@ const WardrobeImageViewer = ({
                     <h2 className={styles.packagePrice}>{price}</h2>
                   </>
                 )}
-                <div className={styles.buttonContainer}>
+                <div className={styles.buttonContainer} style={{flexDirection: isMobile ? 'column': ''}}>
                   <button
                     className={styles.button3}
                     onClick={handleDownloadPdf}
