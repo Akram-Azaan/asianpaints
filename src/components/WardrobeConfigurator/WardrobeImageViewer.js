@@ -153,7 +153,7 @@ const WardrobeImageViewer = ({
             scene: sceneId,
           });
           setCameraAngles(angles);
-          cameraAngles.length > 0 && setCurrentAngle(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+          angles.length > 0 && setCurrentAngle(angles[angles?.length > 1 ? 1 : 0]);
           // setLoader(false);
         }
       }
@@ -188,12 +188,6 @@ const WardrobeImageViewer = ({
           } else {
             setCurrentMeasureImage(null);
           }
-          console.log(
-            currentImgToShow,
-            storeId,
-            "check all values",
-            currentAngle
-          );
         }
       })
       .catch((error) => {
@@ -240,9 +234,7 @@ const WardrobeImageViewer = ({
     if (doorPanelOptions.dimension === "7 x 7 ft") {
       defaultTextures.push(BACK_LABEL[0]);
     }
-    console.log(doorPanelOptions?.dimension);
     return defaultTextures;
-    // console.log(defaultTextures,"defaultTextures")
   };
 
   useEffect(() => {
@@ -294,38 +286,46 @@ const WardrobeImageViewer = ({
     return uniqueArray;
   }
 
-  useEffect(() => {
-    async function loadAndCheckImages() {
-      // console.log(allScenes, "allScenes");
-      try {
-        setLoader(true);
+  const loadAndCheckImages = async() => {
+    try {
+      setLoader(true);
 
-        const mergeData = {
-          scene: scene_id,
-          textures: selectedTextures,
-          is_render: true,
-          ext: "png",
-          store: storeId,
-        };
+      const mergeData = {
+        scene: scene_id,
+        textures: selectedTextures,
+        is_render: true,
+        ext: "png",
+        store: storeId,
+      };
 
-        if (modelId && scene_id && currentAngle?.id && selectedTextures?.length) {
-          const res = await getAllMergeData({
-            mergeData,
-            textureIds: selectedTextures,
-            resetFrame: false,
-            sceneView: currentAngle?.id,
-            total: cameraAngles?.length,
-          });
-          setAllImages(res?.data?.data?.images);
-        }
-      } catch (error) {
-        console.error("Error loading images:", error);
-      } finally {
-        setLoader(false);
+      if (modelId && scene_id && currentAngle?.id && selectedTextures?.length) {
+        const res = await getAllMergeData({
+          mergeData,
+          textureIds: selectedTextures,
+          resetFrame: false,
+          sceneView: currentAngle?.id,
+          total: cameraAngles?.length,
+        });
+        setAllImages(res?.data?.data?.images);
       }
+    } catch (error) {
+      console.error("Error loading images:", error);
+    } finally {
+      setTimeout(() =>{
+        setLoader(false);
+      },0)
     }
-    loadAndCheckImages();
-  }, [selectedTextures, currentAngle]);
+  }
+
+  useEffect(() => {
+    loadAndCheckImages()
+  },[currentAngle]);
+
+  useEffect(() => {
+    if(showWoodFinish){
+      loadAndCheckImages()
+    }
+  },[selectedTextures]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -540,7 +540,6 @@ const WardrobeImageViewer = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData, "formDataformData");
     // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const validationErrors = await validate(formData);
     if (Object.keys(validationErrors).length > 0) {
@@ -559,7 +558,6 @@ const WardrobeImageViewer = ({
       // await delay(10000);
       const response = await createLeadInSalesforce(formData, updatedPrice);
       const result = await createLeadInApDatabase(formData, response.CRMleadId);
-      console.log("result for database lead for Asian paint", result);
       // console.log("Lead created successfully:", response);
       setLoadingScreen(false);
       setShowPackage(true);
@@ -649,7 +647,6 @@ const WardrobeImageViewer = ({
   const createPdfShadesImages = async () => {
     // console.log(selectedCurcass, "getCurcassList");
     // console.log(shadeList, "shadeListshadeList");
-
     let combinedResults = [];
 
     const curcassTexture = selectedCurcass[0];
@@ -708,7 +705,6 @@ const WardrobeImageViewer = ({
     }
 
     // console.log(pdfShadesImages, "pdfShadesImages");
-    console.log(woodFinish, "woodFinish");
 
     const backgroundImage =
       woodFinish === "Laminate"
@@ -1098,16 +1094,17 @@ const WardrobeImageViewer = ({
                     </div>
                   )}
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
-                  {!loader && allImages?.length > 0 && (
+                  {allImages?.length > 0 && (
                     <img
+                      className={loader ? "d-none" : ''} 
                       src={allImages[currentFrame]?.image_low}
                       alt={`Wardrobe Frame ${currentFrame}`}
                     />
                   )}
-                  {currentMeasureImage?.url && !loader && !showDoorPanel && (
+                  {currentMeasureImage?.url && !showDoorPanel && (
                     <img
                       src={currentMeasureImage?.url}
-                      className={styles.measureImage}
+                      className={`${styles.measureImage} ${loader ? "d-none" : ''}`}
                       alt={`Measure tool`}
                     />
                   )}

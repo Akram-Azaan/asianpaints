@@ -40,6 +40,7 @@ const WardrobeConfigurator = () => {
       ...doorPanelOptions,
       // dimension: WARDROBE_TYPE_WITH_DIMENSIONS[0].dimensions[0].size,
     });
+    setIsRender(false)
     const tokenUrlObject = getTokenUrl(doorPanelOptions.door, doorPanelOptions.dimension);
     // const tokenUrl = tokenUrlObject?.tokenUrl;
     // updateDataForModelIdLocal(tokenUrlObject);
@@ -58,7 +59,6 @@ const WardrobeConfigurator = () => {
   };
 
   const getAllDataFromModelId = async (isRender) => {
-    // console.log(localConfiguratorData,isRender,"localConfiguratorData")
     setLoader(true);
     let allData = await getAllPublicData({
       newModelIds: localConfiguratorData?.tokenUrl,
@@ -66,15 +66,15 @@ const WardrobeConfigurator = () => {
       isOpenedFromAdminPanel: false,
     });
     const rawData = JSON.parse(JSON.stringify(allData));
-    console.log(allData, "allData");
     if (allData?.results?.length) {
       setAllStoreList(allData?.results);
       // setToken(rawData?.results?.[0]?.configurator?.token);
       setToken(localConfiguratorData?.tokenUrl)
       setStoreId(localConfiguratorData?.storeId)
       // setCurrentSelectedStore(allData?.results[0]);
+    }else{
+      setLoader(false);
     }
-    setLoader(false);
   };
   // const updateDataForModelIdLocal = (tokenUrlObject) => {
   //   console.log("tokenUrlObject", tokenUrlObject);
