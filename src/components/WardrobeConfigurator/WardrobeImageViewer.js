@@ -202,7 +202,9 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    handleCameraAngleClick(cameraAngles[0]);
+    if(cameraAngles?.length){
+      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+     }
   }, [cameraAngles]);
 
   // console.log(colorFinish[0]?.textures, woodFinish);
@@ -558,7 +560,7 @@ const WardrobeImageViewer = ({
         response.CRMleadId,
         response.returnCode
       );
-      handleCameraAngleClick(cameraAngles[0]);
+      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -592,7 +594,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
-    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[0]);
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
     setErrors({})
     // window.location.reload();
   };
@@ -1041,23 +1043,7 @@ const WardrobeImageViewer = ({
                     <div
                       className={cx(styles.rounds, {
                         [styles.bordered]:
-                          currentAngle?.name === cameraAngles[0]?.name,
-                      })}
-                      onClick={() => handleCameraAngleClick(cameraAngles[0])}
-                    >
-                      <img
-                        src={
-                          doorPanelOptions?.door === "Sliding door"
-                            ? SLIDING_ANGLE_1
-                            : HINGED_ANGLE_1
-                        }
-                        alt={cameraAngles[0]?.name}
-                      />
-                    </div>
-                    <div
-                      className={cx(styles.rounds, {
-                        [styles.bordered]:
-                          currentAngle?.name !== cameraAngles[0]?.name,
+                          currentAngle?.name === cameraAngles[1]?.name,
                       })}
                       onClick={() => handleCameraAngleClick(cameraAngles[1])}
                     >
@@ -1068,6 +1054,22 @@ const WardrobeImageViewer = ({
                             : HINGED_ANGLE_2
                         }
                         alt={cameraAngles[1]?.name}
+                      />
+                    </div>
+                    <div
+                      className={cx(styles.rounds, {
+                        [styles.bordered]:
+                          currentAngle?.name !== cameraAngles[1]?.name,
+                      })}
+                      onClick={() => handleCameraAngleClick(cameraAngles[0])}
+                    >
+                      <img
+                        src={
+                          doorPanelOptions?.door === "Sliding door"
+                            ? SLIDING_ANGLE_1
+                            : HINGED_ANGLE_1
+                        }
+                        alt={cameraAngles[0]?.name}
                       />
                     </div>
                   </div>
