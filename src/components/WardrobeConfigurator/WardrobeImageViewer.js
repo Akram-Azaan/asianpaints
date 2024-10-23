@@ -473,8 +473,8 @@ const WardrobeImageViewer = ({
     if (
       firstname &&
       lastname &&
-      pincode.length === 6 &&
-      mobile.length === 10 &&
+      pincode?.trim()?.length === 6 &&
+      mobile?.trim().length === 10 &&
       email
     ) {
       setIsFormValid(true);
@@ -482,6 +482,16 @@ const WardrobeImageViewer = ({
       setIsFormValid(false);
     }
   }, [formData]);
+
+  useEffect(() => {
+    const { firstname, lastname, name } = formData;
+    if(showDetails && !name){
+      setFormData({
+        ...formData,
+        name: (firstname + " " + lastname?.replace("NA",""))?.trim(),
+      });
+    }
+  }, [showDetails]);
 
   const handleChange = async (e) => {
 
@@ -496,6 +506,7 @@ const WardrobeImageViewer = ({
           ...formData,
           firstname,
           lastname,
+          name: (firstname + " " + lastname?.replace("NA","")),
         }
       setFormData(obj);
     } else if (name === "pincode") {
