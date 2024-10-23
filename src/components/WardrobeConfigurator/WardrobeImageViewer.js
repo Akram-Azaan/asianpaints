@@ -1086,7 +1086,7 @@ const WardrobeImageViewer = ({
                     />
                   )}
                   {
-                    currentMeasureImage?.url && !loader && <img
+                    currentMeasureImage?.url && !loader && !showDoorPanel && <img
                     src={currentMeasureImage?.url}
                     className={styles.measureImage}
                     alt={`Measure tool`}
