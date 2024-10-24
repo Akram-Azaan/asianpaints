@@ -1504,6 +1504,7 @@ const WardrobeImageViewer = ({
                   className={styles.buttonContainer}
                   style={{
                     flexDirection: isMobile ? 'column' : '',
+                    position: 'relative',
                     zIndex: 999,
                   }}
                 >

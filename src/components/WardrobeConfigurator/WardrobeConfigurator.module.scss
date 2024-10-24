@@ -704,6 +704,10 @@ body{
                     width: auto;
                     object-fit: cover;
                     scale: 1;
+                    &.measureImage{
+                        height: 322px;
+                        padding: 10px;
+                    }
                 }
             }
 
