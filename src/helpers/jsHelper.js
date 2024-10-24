@@ -278,3 +278,13 @@ export const adobeAnaSelectedShades = (woodfinish, shade) => {
     paramsCheck();
   }
 };
+
+export const getFirstNameAndLastName = (value) => {
+  if (value) {
+    const nameArray = value?.split(' ');
+    const firstName = nameArray?.[0] || '';
+    const lastName = nameArray?.slice?.(1).join?.(' ') || '';
+    return { firstName, lastName };
+  }
+  return { firstName: '', lastName: '' };
+};

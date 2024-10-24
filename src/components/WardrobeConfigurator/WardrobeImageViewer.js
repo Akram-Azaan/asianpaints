@@ -48,6 +48,7 @@ import {
   adobeAnaSelectedTab,
   adobeAnaSelectedWoodFinish,
   adobeAnaWardrobeAction,
+  getFirstNameAndLastName,
   objectToFormData,
 } from "../../helpers/jsHelper";
 import Loader from "../../common/Loader";
@@ -322,10 +323,10 @@ const WardrobeImageViewer = ({
   },[currentAngle]);
 
   useEffect(() => {
-    if(showWoodFinish){
+    if(showWoodFinish || showPackage){
       loadAndCheckImages()
     }
-  },[selectedTextures]);
+  },[selectedTextures,showPackage]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -468,11 +469,10 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    const { firstname, lastname, pincode, mobile, email } = formData;
-
+    const { firstname, lastname, pincode, mobile, email,name } = formData;
     if (
-      firstname &&
-      lastname &&
+      (firstname &&
+      lastname || name?.trim()) &&
       pincode?.trim()?.length === 6 &&
       mobile?.trim().length === 10 &&
       email
@@ -483,30 +483,18 @@ const WardrobeImageViewer = ({
     }
   }, [formData]);
 
-  useEffect(() => {
-    const { firstname, lastname, name } = formData;
-    if(showDetails && !name){
-      setFormData({
-        ...formData,
-        name: (firstname + " " + lastname?.replace("NA",""))?.trim(),
-      });
-    }
-  }, [showDetails]);
-
   const handleChange = async (e) => {
 
     const { name, value, type, checked } = e.target;
     let obj = {}
 
     if (name === "name") {
-      const [firstname, ...lastnameArray] = value.split(" ");
-      const lastname =
-        lastnameArray.length > 0 ? lastnameArray.join(" ") : "NA";
+     const {firstName, lastName } =  getFirstNameAndLastName(value)
         obj = {
           ...formData,
-          firstname,
-          lastname,
-          name: (firstname + " " + lastname?.replace("NA","")),
+          firstname:firstName,
+          lastname:lastName,
+          name: value,
         }
       setFormData(obj);
     } else if (name === "pincode") {
@@ -1523,7 +1511,7 @@ const WardrobeImageViewer = ({
                     className={styles.button3}
                     onClick={handleDownloadPdf}
                   >
-                    {downloading ? 'downloading PDF...' : 'Download PDF'}
+                    {downloading ? 'Downloading PDF...' : 'Download PDF'}
                   </button>
                   <button className={styles.button1} onClick={visualizeAgain}>
                     Visualize again
