@@ -512,42 +512,47 @@ const WardrobeImageViewer = ({
   }, [formData]);
 
   const handleChange = async (e) => {
-
     const { name, value, type, checked } = e.target;
-    let obj = {}
-
-    if (name === "name") {
-     const {firstName, lastName } =  getFirstNameAndLastName(value)
-        obj = {
-          ...formData,
-          firstname:firstName,
-          lastname:lastName,
-          name: value,
+    let obj = {};
+  
+    // Allow only digits for mobile and pincode
+    if (name === "mobile" || name === "pincode") {
+      const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
+  
+      if (name === "mobile") {
+        if (numericValue.length <= 10 || numericValue.length === 0) {
+          obj = {
+            ...formData,
+            [name]: numericValue,
+          };
+          setFormData(obj);
         }
+      } else if (name === "pincode") {
+        if (numericValue.length <= 6) {
+          obj = {
+            ...formData,
+            [name]: numericValue,
+          };
+          setFormData(obj);
+        }
+      }
+    } else if (name === "name") {
+      const { firstName, lastName } = getFirstNameAndLastName(value);
+      obj = {
+        ...formData,
+        firstname: firstName,
+        lastname: lastName,
+        name: value,
+      };
       setFormData(obj);
-    } else if (name === "pincode") {
-      if (value.length <= 6) {
-        obj = {
-          ...formData,
-          [name]: value,
-        }
-        setFormData(obj);
-      }
-    } else if (name === "mobile") {
-      if (value?.length <= 10 || value?.length == 0) {
-         obj = {
-          ...formData,
-          [name]: value,
-        }
-        setFormData(obj);
-      }
     } else {
       obj = {
         ...formData,
         [name]: type === "checkbox" ? checked : value,
-      }
+      };
       setFormData(obj);
     }
+  
     const validationErrors = await validate(obj);
     if (Object.keys(errors).length) {
       setErrors(validationErrors);
@@ -1450,7 +1455,7 @@ const WardrobeImageViewer = ({
                         </label>
                         {/* )} */}
                         <input
-                          type="number"
+                          type="tel"
                           name="mobile"
                           placeholder="Mobile number"
                           autoComplete="off"
@@ -1493,7 +1498,7 @@ const WardrobeImageViewer = ({
                         <label className={styles.inputLabel}>Pincode</label>
                         {/* )} */}
                         <input
-                          type="number"
+                          type="text"
                           name="pincode"
                           placeholder="Enter your pincode"
                           autoComplete="off"
