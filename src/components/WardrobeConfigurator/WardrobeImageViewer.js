@@ -1037,7 +1037,7 @@ const WardrobeImageViewer = ({
     <>
       <div className={styles.wardrobeContainer}>
         {/* className={`h-100 justify-content-between align-items-center`} */}
-        <Row 
+        <Row
           // style={{ height: "100%", width: "100%" }}
           style={{ height: "auto", width: "100%" }}
         >
@@ -1068,29 +1068,30 @@ const WardrobeImageViewer = ({
                     : ""}
                   {/* Build your custom wardrobe and get an instant cost estimate */}
                 </h2>
-                
 
-                <div className={styles.imageView} ref={imageViewRef} 
+                <div
+                  className={styles.imageView}
+                  ref={imageViewRef}
                   style={{
                     width: !isMobile && loader ? imageDimensions.width : "",
                     height: !isMobile && loader ? imageDimensions.height : "",
                   }}
-                  >
-                    {cameraAngles?.length > 0 && (
-                  <div className={styles.buttons}>
-                    <div className={styles.roundbox}>
-                    <div
-                        className={cx(styles.rounds, {
-                          [styles.bordered]:
-                            currentAngle?.name === cameraAngles[0]?.name,
-                        })}
-                        onClick={() => {
-                          handleCameraAngleClick(cameraAngles[0]);
-                          setAngleNum(0);
-                          setIsFirstImageLoaded(false)
-                        }}
-                      >
-                        {/* <img
+                >
+                  {cameraAngles?.length > 0 && (
+                    <div className={styles.buttons}>
+                      <div className={styles.roundbox}>
+                        <div
+                          className={cx(styles.rounds, {
+                            [styles.bordered]:
+                              currentAngle?.name === cameraAngles[0]?.name,
+                          })}
+                          onClick={() => {
+                            handleCameraAngleClick(cameraAngles[0]);
+                            setAngleNum(0);
+                            setIsFirstImageLoaded(false);
+                          }}
+                        >
+                          {/* <img
                           src={
                             doorPanelOptions?.door === "Sliding door"
                               ? SLIDING_ANGLE_1
@@ -1098,27 +1099,27 @@ const WardrobeImageViewer = ({
                           }
                           alt={cameraAngles[0]?.name}
                         /> */}
-                        <img
-                          src={
-                            currentAngle?.name === cameraAngles[0]?.name
-                              ? SELECTED_FRONT
-                              : DEFAULT_FRONT
-                          }
-                          alt={cameraAngles[0]?.name}
-                        />
-                      </div>
-                      <div
-                        className={cx(styles.rounds, {
-                          [styles.bordered]:
-                            currentAngle?.name === cameraAngles[1]?.name,
-                        })}
-                        onClick={() => {
-                          handleCameraAngleClick(cameraAngles[1]);
-                          setAngleNum(1);
-                          setIsFirstImageLoaded(false)
-                        }}
-                      >
-                        {/* <img
+                          <img
+                            src={
+                              currentAngle?.name === cameraAngles[0]?.name
+                                ? SELECTED_FRONT
+                                : DEFAULT_FRONT
+                            }
+                            alt={cameraAngles[0]?.name}
+                          />
+                        </div>
+                        <div
+                          className={cx(styles.rounds, {
+                            [styles.bordered]:
+                              currentAngle?.name === cameraAngles[1]?.name,
+                          })}
+                          onClick={() => {
+                            handleCameraAngleClick(cameraAngles[1]);
+                            setAngleNum(1);
+                            setIsFirstImageLoaded(false);
+                          }}
+                        >
+                          {/* <img
                           src={
                             doorPanelOptions?.door === "Sliding door"
                               ? SLIDING_ANGLE_2
@@ -1126,18 +1127,18 @@ const WardrobeImageViewer = ({
                           }
                           alt={cameraAngles[1]?.name}
                         /> */}
-                        <img
-                          src={
-                            currentAngle?.name === cameraAngles[1]?.name
-                              ? SELECTED_SIDE
-                              : DEFAULT_SIDE
-                          }
-                          alt={cameraAngles[1]?.name}
-                        />
+                          <img
+                            src={
+                              currentAngle?.name === cameraAngles[1]?.name
+                                ? SELECTED_SIDE
+                                : DEFAULT_SIDE
+                            }
+                            alt={cameraAngles[1]?.name}
+                          />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
                   {(loader || (allImages && allImages.length === 0)) && (
                     <div className={styles.loadingCircle}>
                       <CircularProgress />
@@ -1150,20 +1151,25 @@ const WardrobeImageViewer = ({
                       src={allImages[currentFrame]?.image_low}
                       alt={`Wardrobe Frame ${currentFrame}`}
                       // onLoad={() => setIsFirstImageLoaded(true)}
-                      onLoad={() => setTimeout(() =>{
-                        setIsFirstImageLoaded(true)
-                      },1000)}
+                      onLoad={() =>
+                        setTimeout(() => {
+                          setIsFirstImageLoaded(true);
+                        }, 1000)
+                      }
                     />
                   )}
-                  {!loader && currentMeasureImage?.url && !showDoorPanel  && isFirstImageLoaded && (
-                    <img
-                      src={currentMeasureImage?.url}
-                      className={`${styles.measureImage} ${
-                        loader ? "d-none" : ""
-                      }`}
-                      alt={`Measure tool`}
-                    />
-                  )}
+                  {!loader &&
+                    currentMeasureImage?.url &&
+                    !showDoorPanel &&
+                    isFirstImageLoaded && (
+                      <img
+                        src={currentMeasureImage?.url}
+                        className={`${styles.measureImage} ${
+                          loader ? "d-none" : ""
+                        }`}
+                        alt={`Measure tool`}
+                      />
+                    )}
                   {showShades && isMobile && !loader && (
                     <h6
                       style={{
@@ -1194,7 +1200,7 @@ const WardrobeImageViewer = ({
                             })}
                             key={item?.id}
                             onClick={() => {
-                              setIsFirstImageLoaded(false)
+                              setIsFirstImageLoaded(false);
                               adobeAnaSelectedShades(
                                 woodFinish,
                                 item?.display_name
@@ -1351,12 +1357,12 @@ const WardrobeImageViewer = ({
                           finish.label === woodFinish ? styles.bordered : ""
                         )}
                         onClick={() => {
-                          setIsFirstImageLoaded(false)
+                          setIsFirstImageLoaded(false);
                           setWoodFinish(finish.label);
                           setWardrobePackage(finish.subTitle);
                           cameraAngles.length > 0 &&
                             setCurrentAngle(
-                              cameraAngles[cameraAngles?.length > 1 ? 1 : 0]
+                              cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]
                             );
                         }}
                       >
@@ -1418,7 +1424,7 @@ const WardrobeImageViewer = ({
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
                         {/* {showNameLabel && ( */}
-                          <label className={styles.inputLabel}>Name</label>
+                        <label className={styles.inputLabel}>Name</label>
                         {/* )} */}
                         <input
                           type="text"
@@ -1433,15 +1439,15 @@ const WardrobeImageViewer = ({
                         />
                       </div>
                       {/* {errors.name && ( */}
-                        <div className={styles.error}>{errors.name}</div>
+                      <div className={styles.error}>{errors.name}</div>
                       {/* )} */}
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
                         {/* {showNumberLabel && ( */}
-                          <label className={styles.inputLabel}>
-                            Mobile number
-                          </label>
+                        <label className={styles.inputLabel}>
+                          Mobile number
+                        </label>
                         {/* )} */}
                         <input
                           type="number"
@@ -1463,7 +1469,7 @@ const WardrobeImageViewer = ({
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
                         {/* {showEmailLabel && ( */}
-                          <label className={styles.inputLabel}>Email</label>
+                        <label className={styles.inputLabel}>Email</label>
                         {/* // )} */}
                         <input
                           type="text"
@@ -1484,7 +1490,7 @@ const WardrobeImageViewer = ({
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
                         {/* {showCodeLabel && ( */}
-                          <label className={styles.inputLabel}>Pincode</label>
+                        <label className={styles.inputLabel}>Pincode</label>
                         {/* )} */}
                         <input
                           type="number"
@@ -1499,7 +1505,7 @@ const WardrobeImageViewer = ({
                         />
                       </div>
                       {/* {errors.pincode && ( */}
-                        <div className={styles.error}>{errors.pincode}</div>
+                      <div className={styles.error}>{errors.pincode}</div>
                       {/* )} */}
                     </Col>
                   </Row>
