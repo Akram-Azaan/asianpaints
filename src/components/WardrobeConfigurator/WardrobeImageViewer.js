@@ -91,7 +91,7 @@ const WardrobeImageViewer = ({
     pincode: "",
     mobile: "",
     email: "",
-    receiveUpdates: false,
+    receiveUpdates: true,
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [price, setPrice] = useState(null);
@@ -119,7 +119,8 @@ const WardrobeImageViewer = ({
   const [showCodeLabel, setShowCodeLabel] = useState(false);
   const [showEmailLabel, setShowEmailLabel] = useState(false);
   const [showNumberLabel, setShowNumberLabel] = useState(false);
-  const [currentMeasureImage, setCurrentMeasureImage] = useState(null)
+  const [currentMeasureImage, setCurrentMeasureImage] = useState(null);
+  const [angleNum, setAngleNum] = useState(0);
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -154,7 +155,7 @@ const WardrobeImageViewer = ({
             scene: sceneId,
           });
           setCameraAngles(angles);
-          angles.length > 0 && setCurrentAngle(angles[angles?.length > 1 ? 1 : 0]);
+          angles.length > 0 && setCurrentAngle(angles[angles?.length > 1 ? angleNum : 0]);
           // setLoader(false);
         }
       }
@@ -198,7 +199,9 @@ const WardrobeImageViewer = ({
 
   useEffect(() => {
     if(cameraAngles?.length){
-      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+      // handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
+      console.log(angleNum,"angleNum")
      }
   }, [cameraAngles]);
 
@@ -425,7 +428,7 @@ const WardrobeImageViewer = ({
       ...doorPanelOptions,
       dimension: e.target.value,
     });
-    cameraAngles.length > 0 && setCurrentAngle(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+    // cameraAngles.length > 0 && setCurrentAngle(cameraAngles[cameraAngles?.length > 1 ? cameraAngles : 0]);
   };
 
   const validate = (formData) => {
@@ -550,7 +553,7 @@ const WardrobeImageViewer = ({
       setLoadingScreen(false);
       setShowPackage(true);
       setShowShades(true);
-      document.body.style.background = 'linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%)'
+      // document.body.style.background = 'linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%)'
 
       adobeAnaLeadFormSubmition(
         formData.pincode,
@@ -567,7 +570,7 @@ const WardrobeImageViewer = ({
     adobeAnaDimensionNext(doorPanelOptions.dimension);
     setShowWardrobe(false);
     setShowWoodFinish(true);
-    cameraAngles.length > 0 && setCurrentAngle(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+    cameraAngles.length > 0 && setCurrentAngle(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
   };
 
   const visualizeAgain = () => {
@@ -665,7 +668,7 @@ const WardrobeImageViewer = ({
         mergeData,
         textureIds: selectedPdfTextures,
         resetFrame: false,
-        sceneView: cameraAngles[cameraAngles?.length > 1 ? 1 : 0]?.id,
+        sceneView: cameraAngles[cameraAngles?.length > 1 ? cameraAngles : 0]?.id,
         total: cameraAngles?.length,
       });
 
@@ -1008,7 +1011,7 @@ const WardrobeImageViewer = ({
     <>
       <div className={styles.wardrobeContainer}>
         {/* className={`h-100 justify-content-between align-items-center`} */}
-        <Row style={{ height: '100%', width: '100%' }}>
+        <Row style={{ height: "100%", width: "100%" }}>
           {/* lg={6} md={6} sm={12} xs={12} */}
           <Col lg={6} md={6} sm={12} xs={12} style={{ padding: 0 }}>
             {isMobile && showPackage && (
@@ -1026,49 +1029,55 @@ const WardrobeImageViewer = ({
             {!(showDetails && isMobile) && (!isMobile || !loadingScreen) && (
               <div
                 className={styles.wardrobe}
-                style={{ display: isMobile ? 'block' : 'flex' }}
+                style={{ display: isMobile ? "block" : "flex" }}
               >
                 <h2 className={styles.title}>
                   {!isMobile
                     ? showShades
-                      ? 'Your wardrobe cost estimation is ready!'
-                      : 'Build your wardrobe and get cost estimation'
-                    : ''}
+                      ? "Your wardrobe cost estimation is ready!"
+                      : "Build your wardrobe and get cost estimation"
+                    : ""}
                   {/* Build your custom wardrobe and get an instant cost estimate */}
                 </h2>
                 {cameraAngles?.length > 0 && (
                   <div className={styles.buttons}>
                     <div className={styles.roundbox}>
-                      <div
+                    <div
                         className={cx(styles.rounds, {
                           [styles.bordered]:
-                            currentAngle?.name === cameraAngles[1]?.name,
+                            currentAngle?.name === cameraAngles[0]?.name,
                         })}
-                        onClick={() => handleCameraAngleClick(cameraAngles[1])}
+                        onClick={() => {
+                          handleCameraAngleClick(cameraAngles[0]);
+                          setAngleNum(0);
+                        }}
                       >
                         <img
                           src={
-                            doorPanelOptions?.door === 'Sliding door'
-                              ? SLIDING_ANGLE_2
-                              : HINGED_ANGLE_2
+                            doorPanelOptions?.door === "Sliding door"
+                              ? SLIDING_ANGLE_1
+                              : HINGED_ANGLE_1
                           }
-                          alt={cameraAngles[1]?.name}
+                          alt={cameraAngles[0]?.name}
                         />
                       </div>
                       <div
                         className={cx(styles.rounds, {
                           [styles.bordered]:
-                            currentAngle?.name === cameraAngles[0]?.name,
+                            currentAngle?.name === cameraAngles[1]?.name,
                         })}
-                        onClick={() => handleCameraAngleClick(cameraAngles[0])}
+                        onClick={() => {
+                          handleCameraAngleClick(cameraAngles[1]);
+                          setAngleNum(1);
+                        }}
                       >
                         <img
                           src={
-                            doorPanelOptions?.door === 'Sliding door'
-                              ? SLIDING_ANGLE_1
-                              : HINGED_ANGLE_1
+                            doorPanelOptions?.door === "Sliding door"
+                              ? SLIDING_ANGLE_2
+                              : HINGED_ANGLE_2
                           }
-                          alt={cameraAngles[0]?.name}
+                          alt={cameraAngles[1]?.name}
                         />
                       </div>
                     </div>
@@ -1084,7 +1093,7 @@ const WardrobeImageViewer = ({
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
                   {allImages?.length > 0 && (
                     <img
-                      className={loader ? "d-none" : ''} 
+                      className={loader ? "d-none" : ""}
                       src={allImages[currentFrame]?.image_low}
                       alt={`Wardrobe Frame ${currentFrame}`}
                     />
@@ -1092,16 +1101,18 @@ const WardrobeImageViewer = ({
                   {currentMeasureImage?.url && !showDoorPanel && (
                     <img
                       src={currentMeasureImage?.url}
-                      className={`${styles.measureImage} ${loader ? "d-none" : ''}`}
+                      className={`${styles.measureImage} ${
+                        loader ? "d-none" : ""
+                      }`}
                       alt={`Measure tool`}
                     />
                   )}
                   {showShades && isMobile && !loader && (
                     <h6
                       style={{
-                        position: 'absolute',
-                        top: '10px',
-                        fontWeight: '700',
+                        position: "absolute",
+                        top: "10px",
+                        fontWeight: "700",
                       }}
                     >
                       Visualize our top {woodFinish} color shades
@@ -1111,9 +1122,9 @@ const WardrobeImageViewer = ({
                 {showShades && !loader && (
                   <div
                     className={styles.shadesBox}
-                    style={{ width: isMobile ? '100%' : '82%' }}
+                    style={{ width: isMobile ? "100%" : "100%" }}
                   >
-                    <div style={{ position: 'relative' }}>
+                    <div style={{ position: "relative" }}>
                       {!isMobile && !loader && (
                         <h4>Visualize our top {woodFinish} color shades</h4>
                       )}
@@ -1128,9 +1139,9 @@ const WardrobeImageViewer = ({
                               adobeAnaSelectedShades(
                                 woodFinish,
                                 item?.display_name
-                              )
-                              setActiveShade(item)
-                              setCurrentShadeFrame(index)
+                              );
+                              setActiveShade(item);
+                              setCurrentShadeFrame(index);
                             }}
                           >
                             <div
@@ -1186,18 +1197,18 @@ const WardrobeImageViewer = ({
                 </div>
                 <div
                   className={styles.buttonContainer}
-                  style={{ justifyContent: 'flex-end' }}
+                  style={{ justifyContent: "flex-end" }}
                 >
                   <button
                     className={styles.button1}
                     onClick={() => {
-                      setShowDoorpanel(false)
-                      setShowWardrobe(true)
-                      adobeAnaSelectedDoorPanel(doorPanelOptions?.door)
+                      setShowDoorpanel(false);
+                      setShowWardrobe(true);
+                      adobeAnaSelectedDoorPanel(doorPanelOptions?.door);
                       cameraAngles.length > 0 &&
                         setCurrentAngle(
-                          cameraAngles[cameraAngles?.length > 1 ? 1 : 0]
-                        )
+                          cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]
+                        );
                     }}
                   >
                     Next
@@ -1238,15 +1249,15 @@ const WardrobeImageViewer = ({
 
                 <div
                   className={styles.buttonContainer}
-                  style={{ justifyContent: 'space-between' }}
+                  style={{ justifyContent: "space-between" }}
                 >
                   <button
                     className={styles.button2}
                     style={{ padding: 0 }}
                     onClick={() => {
-                      setShowDoorpanel(true)
-                      setShowWardrobe(false)
-                      adobeAnaDimensionBack()
+                      setShowDoorpanel(true);
+                      setShowWardrobe(false);
+                      adobeAnaDimensionBack();
                     }}
                   >
                     Back
@@ -1262,8 +1273,8 @@ const WardrobeImageViewer = ({
                 <div
                   className={`d-flex align-items-center ${
                     !isMobile
-                      ? 'justify-content-start'
-                      : 'justify-content-center'
+                      ? "justify-content-start"
+                      : "justify-content-center"
                   }`}
                 >
                   <h4 className="mb-0 me-3">3. Select a wood finish</h4>
@@ -1276,15 +1287,15 @@ const WardrobeImageViewer = ({
                         key={finish.id}
                         className={cx(
                           styles.doorPanelItemList,
-                          finish.label === woodFinish ? styles.bordered : ''
+                          finish.label === woodFinish ? styles.bordered : ""
                         )}
                         onClick={() => {
-                          setWoodFinish(finish.label)
-                          setWardrobePackage(finish.subTitle)
+                          setWoodFinish(finish.label);
+                          setWardrobePackage(finish.subTitle);
                           cameraAngles.length > 0 &&
                             setCurrentAngle(
                               cameraAngles[cameraAngles?.length > 1 ? 1 : 0]
-                            )
+                            );
                         }}
                       >
                         <div
@@ -1294,7 +1305,7 @@ const WardrobeImageViewer = ({
                           <img
                             src={finish.thumb}
                             alt={finish.label}
-                            style={{ width: '100%' }}
+                            style={{ width: "100%" }}
                           />
                         </div>
                         <div className={styles.doorPanelTextContent}>
@@ -1309,14 +1320,14 @@ const WardrobeImageViewer = ({
                 </div>
                 <div
                   className={styles.buttonContainer}
-                  style={{ justifyContent: 'space-between' }}
+                  style={{ justifyContent: "space-between" }}
                 >
                   <button
                     className={styles.button2}
                     style={{ padding: 0 }}
                     onClick={() => {
-                      setShowWardrobe(true)
-                      setShowWoodFinish(false)
+                      setShowWardrobe(true);
+                      setShowWoodFinish(false);
                     }}
                   >
                     Back
@@ -1324,10 +1335,10 @@ const WardrobeImageViewer = ({
                   <button
                     className={styles.button1}
                     onClick={() => {
-                      adobeAnaSelectedWoodFinish(woodFinish)
-                      setShowWardrobe(false)
-                      setShowWoodFinish(false)
-                      setShowDetails(true)
+                      adobeAnaSelectedWoodFinish(woodFinish);
+                      setShowWardrobe(false);
+                      setShowWoodFinish(false);
+                      setShowDetails(true);
                     }}
                   >
                     Next
@@ -1344,9 +1355,9 @@ const WardrobeImageViewer = ({
                   <Row className="h-100 justify-content-center g-4">
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        {showNameLabel && (
+                        {/* {showNameLabel && ( */}
                           <label className={styles.inputLabel}>Name</label>
-                        )}
+                        {/* )} */}
                         <input
                           type="text"
                           name="name"
@@ -1355,42 +1366,21 @@ const WardrobeImageViewer = ({
                           value={formData.name}
                           onChange={handleChange}
                           className={styles.input}
-                          onFocus={() => setShowNameLabel(true)}
-                          onBlur={() => setShowNameLabel(false)}
+                          // onFocus={() => setShowNameLabel(true)}
+                          // onBlur={() => setShowNameLabel(false)}
                         />
                       </div>
-                      {errors.name && (
+                      {/* {errors.name && ( */}
                         <div className={styles.error}>{errors.name}</div>
-                      )}
+                      {/* )} */}
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        {showCodeLabel && (
-                          <label className={styles.inputLabel}>Pincode</label>
-                        )}
-                        <input
-                          type="number"
-                          name="pincode"
-                          placeholder="Enter your pincode"
-                          autoComplete="off"
-                          value={formData.pincode}
-                          onChange={handleChange}
-                          className={styles.input}
-                          onFocus={() => setShowCodeLabel(true)}
-                          onBlur={() => setShowCodeLabel(false)}
-                        />
-                      </div>
-                      {errors.pincode && (
-                        <div className={styles.error}>{errors.pincode}</div>
-                      )}
-                    </Col>
-                    <Col lg={6} md={6} sm={12} xs={12}>
-                      <div className={styles.inputBox}>
-                        {showNumberLabel && (
+                        {/* {showNumberLabel && ( */}
                           <label className={styles.inputLabel}>
                             Mobile number
                           </label>
-                        )}
+                        {/* )} */}
                         <input
                           type="number"
                           name="mobile"
@@ -1399,8 +1389,8 @@ const WardrobeImageViewer = ({
                           value={formData.mobile}
                           onChange={handleChange}
                           className={styles.inputCountry}
-                          onFocus={() => setShowNumberLabel(true)}
-                          onBlur={() => setShowNumberLabel(false)}
+                          // onFocus={() => setShowNumberLabel(true)}
+                          // onBlur={() => setShowNumberLabel(false)}
                         />
                         <span className={styles.countryCode}>+91</span>
                       </div>
@@ -1410,9 +1400,9 @@ const WardrobeImageViewer = ({
                     </Col>
                     <Col lg={6} md={6} sm={12} xs={12}>
                       <div className={styles.inputBox}>
-                        {showEmailLabel && (
+                        {/* {showEmailLabel && ( */}
                           <label className={styles.inputLabel}>Email</label>
-                        )}
+                        {/* // )} */}
                         <input
                           type="text"
                           name="email"
@@ -1421,13 +1411,34 @@ const WardrobeImageViewer = ({
                           value={formData.email}
                           onChange={handleChange}
                           className={styles.input}
-                          onFocus={() => setShowEmailLabel(true)}
-                          onBlur={() => setShowEmailLabel(false)}
+                          // onFocus={() => setShowEmailLabel(true)}
+                          // onBlur={() => setShowEmailLabel(false)}
                         />
                       </div>
                       {errors.email && (
                         <div className={styles.error}>{errors.email}</div>
                       )}
+                    </Col>
+                    <Col lg={6} md={6} sm={12} xs={12}>
+                      <div className={styles.inputBox}>
+                        {/* {showCodeLabel && ( */}
+                          <label className={styles.inputLabel}>Pincode</label>
+                        {/* )} */}
+                        <input
+                          type="number"
+                          name="pincode"
+                          placeholder="Enter your pincode"
+                          autoComplete="off"
+                          value={formData.pincode}
+                          onChange={handleChange}
+                          className={styles.input}
+                          // onFocus={() => setShowCodeLabel(true)}
+                          // onBlur={() => setShowCodeLabel(false)}
+                        />
+                      </div>
+                      {/* {errors.pincode && ( */}
+                        <div className={styles.error}>{errors.pincode}</div>
+                      {/* )} */}
                     </Col>
                   </Row>
                   <div className={styles.checkboxContainer}>
@@ -1450,15 +1461,15 @@ const WardrobeImageViewer = ({
 
                   <div
                     className={styles.buttonContainer}
-                    style={{ justifyContent: 'space-between' }}
+                    style={{ justifyContent: "space-between" }}
                   >
                     <button
                       className={styles.button2}
                       style={{ padding: 0 }}
                       onClick={() => {
-                        setShowWoodFinish(true)
-                        setShowDetails(false)
-                        setShowPackage(false)
+                        setShowWoodFinish(true);
+                        setShowDetails(false);
+                        setShowPackage(false);
                       }}
                     >
                       Back
@@ -1503,8 +1514,8 @@ const WardrobeImageViewer = ({
                 <div
                   className={styles.buttonContainer}
                   style={{
-                    flexDirection: isMobile ? 'column' : '',
-                    position: 'relative',
+                    flexDirection: isMobile ? "column" : "",
+                    position: "relative",
                     zIndex: 999,
                   }}
                 >
@@ -1512,7 +1523,7 @@ const WardrobeImageViewer = ({
                     className={styles.button3}
                     onClick={handleDownloadPdf}
                   >
-                    {downloading ? 'Downloading PDF...' : 'Download PDF'}
+                    {downloading ? "Downloading PDF..." : "Download PDF"}
                   </button>
                   <button className={styles.button1} onClick={visualizeAgain}>
                     Visualize again
@@ -1564,7 +1575,7 @@ const WardrobeImageViewer = ({
         </Row>
       </div>
     </>
-  )
+  );
 };
 
 export default WardrobeImageViewer;
