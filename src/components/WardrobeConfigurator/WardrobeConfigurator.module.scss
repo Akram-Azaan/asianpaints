@@ -505,9 +505,34 @@ body{
         .checkboxContainer {
             display: flex;
             margin: 28px 0 21px;
-            input{
+            // input{
+            //     width: 20px;
+            //     accent-color: #7345B2;
+            // }
+            input {
                 width: 20px;
-                accent-color: #7345B2;
+                height: 20px;
+                appearance: none;
+                border: 1px solid #7345B2;
+                border-radius: 5px;
+                position: relative;
+                cursor: pointer;
+            }
+            
+            input:checked {
+                background-color: #ffffff;
+            }
+            
+            input:checked::after {
+                content: "";
+                position: absolute;
+                left: 6px;
+                top: 3px;
+                width: 6px;
+                height: 10px;
+                border: solid #7345B2;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
             }
 
             .checkboxLabel {
@@ -786,6 +811,11 @@ body{
             .inputBox {
                 .inputLabel {
                     background-color: #f6ecfd;
+                }
+            }
+            .checkboxContainer{
+                input{
+                    width: 27px;
                 }
             }
 
