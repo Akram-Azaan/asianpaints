@@ -38,6 +38,10 @@ import {
   HINGED_ANGLE_2,
   SLIDING_ANGLE_1,
   BACK_LABEL,
+  SELECTED_FRONT,
+  DEFAULT_SIDE,
+  SELECTED_SIDE,
+  DEFAULT_FRONT,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -1086,11 +1090,19 @@ const WardrobeImageViewer = ({
                           setIsFirstImageLoaded(false)
                         }}
                       >
-                        <img
+                        {/* <img
                           src={
                             doorPanelOptions?.door === "Sliding door"
                               ? SLIDING_ANGLE_1
                               : HINGED_ANGLE_1
+                          }
+                          alt={cameraAngles[0]?.name}
+                        /> */}
+                        <img
+                          src={
+                            currentAngle?.name === cameraAngles[0]?.name
+                              ? SELECTED_FRONT
+                              : DEFAULT_FRONT
                           }
                           alt={cameraAngles[0]?.name}
                         />
@@ -1106,11 +1118,19 @@ const WardrobeImageViewer = ({
                           setIsFirstImageLoaded(false)
                         }}
                       >
-                        <img
+                        {/* <img
                           src={
                             doorPanelOptions?.door === "Sliding door"
                               ? SLIDING_ANGLE_2
                               : HINGED_ANGLE_2
+                          }
+                          alt={cameraAngles[1]?.name}
+                        /> */}
+                        <img
+                          src={
+                            currentAngle?.name === cameraAngles[1]?.name
+                              ? SELECTED_SIDE
+                              : DEFAULT_SIDE
                           }
                           alt={cameraAngles[1]?.name}
                         />

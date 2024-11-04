@@ -21,11 +21,22 @@ import SLIDING_CLOSE_CAMERA from "../assets/images/White_back_img.svg";
 import HINGED_OPEN_CAMERA from "../assets/images/Black_back_img.svg";
 import HINGED_CLOSE_CAMERA from "../assets/images/White_back_img.svg";
 
+import FRONT_ANGLE_1 from "../assets/images/default-front.svg";
+import FRONT_ANGLE_2 from "../assets/images/selected-front.svg";
+
+import SIDE_ANGLE_1 from "../assets/images/default-side.svg";
+import SIDE_ANGLE_2 from "../assets/images/selected-side.svg";
+
 export const SLIDING_DOOR = "Sliding door";
 export const HINGED_DOOR = "Hinged door";
 
 // export const CAMERA_ANGLE_1 = SLIDING_THUMB;
 // export const CAMERA_ANGLE_2 = SLIDING_THUMB;
+
+export const DEFAULT_FRONT = FRONT_ANGLE_1;
+export const SELECTED_FRONT = FRONT_ANGLE_2;
+export const DEFAULT_SIDE = SIDE_ANGLE_1;
+export const SELECTED_SIDE = SIDE_ANGLE_2;
 
 export const SLIDING_ANGLE_1 = SLIDING_OPEN_CAMERA;
 export const SLIDING_ANGLE_2 = SLIDING_CLOSE_CAMERA;
