@@ -121,6 +121,26 @@ const WardrobeImageViewer = ({
   const [showNumberLabel, setShowNumberLabel] = useState(false);
   const [currentMeasureImage, setCurrentMeasureImage] = useState(null);
   const [angleNum, setAngleNum] = useState(0);
+  const [isFirstImageLoaded, setIsFirstImageLoaded] = useState(false);
+  const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+  const imageViewRef = useRef(null);
+
+  useEffect(() => {
+    function updateDimensions() {
+      if (imageViewRef.current) {
+        const width = imageViewRef.current.offsetWidth;
+        const height = width * 0.75; // Set height to 75% of the width
+        setImageDimensions({ width, height });
+      }
+    }
+
+    updateDimensions(); // Initial calculation on mount
+
+    // Recalculate on window resize
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
 
   const sceneBackgroundInfo = async (paylaod) => {
     const res = await getSceneViewBackgroundInfoPublic(paylaod);
@@ -424,6 +444,7 @@ const WardrobeImageViewer = ({
   }, []);
 
   const handleRadioChange = (e) => {
+    setIsFirstImageLoaded(false)
     setDoorPanelOptions({
       ...doorPanelOptions,
       dimension: e.target.value,
@@ -472,13 +493,13 @@ const WardrobeImageViewer = ({
   };
 
   useEffect(() => {
-    const { firstname, lastname, pincode, mobile, email,name } = formData;
+    const { firstname, lastname, pincode, mobile, email,name,receiveUpdates } = formData;
     if (
       (firstname &&
       lastname || name?.trim()) &&
       pincode?.trim()?.length === 6 &&
       mobile?.trim().length === 10 &&
-      email
+      email && receiveUpdates === true
     ) {
       setIsFormValid(true);
     } else {
@@ -575,6 +596,7 @@ const WardrobeImageViewer = ({
 
   const visualizeAgain = () => {
     adobeAnaWardrobeAction("visualize again", wardrobePackage);
+    setAngleNum(0);
     setShowDoorpanel(true);
     setShowWardrobe(false);
     setShowWoodFinish(false);
@@ -594,7 +616,7 @@ const WardrobeImageViewer = ({
       email: "",
       receiveUpdates: true,
     });
-    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+    cameraAngles.length > 0 && handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
     setErrors({})
     // window.location.reload();
   };
@@ -668,7 +690,7 @@ const WardrobeImageViewer = ({
         mergeData,
         textureIds: selectedPdfTextures,
         resetFrame: false,
-        sceneView: cameraAngles[cameraAngles?.length > 1 ? cameraAngles : 0]?.id,
+        sceneView: cameraAngles[cameraAngles?.length > 1 ? 1 : 0]?.id,
         total: cameraAngles?.length,
       });
 
@@ -1011,7 +1033,10 @@ const WardrobeImageViewer = ({
     <>
       <div className={styles.wardrobeContainer}>
         {/* className={`h-100 justify-content-between align-items-center`} */}
-        <Row style={{ height: "100%", width: "100%" }}>
+        <Row 
+          // style={{ height: "100%", width: "100%" }}
+          style={{ height: "auto", width: "100%" }}
+        >
           {/* lg={6} md={6} sm={12} xs={12} */}
           <Col lg={6} md={6} sm={12} xs={12} style={{ padding: 0 }}>
             {isMobile && showPackage && (
@@ -1039,7 +1064,15 @@ const WardrobeImageViewer = ({
                     : ""}
                   {/* Build your custom wardrobe and get an instant cost estimate */}
                 </h2>
-                {cameraAngles?.length > 0 && (
+                
+
+                <div className={styles.imageView} ref={imageViewRef} 
+                  style={{
+                    width: !isMobile && loader ? imageDimensions.width : "",
+                    height: !isMobile && loader ? imageDimensions.height : "",
+                  }}
+                  >
+                    {cameraAngles?.length > 0 && (
                   <div className={styles.buttons}>
                     <div className={styles.roundbox}>
                     <div
@@ -1050,6 +1083,7 @@ const WardrobeImageViewer = ({
                         onClick={() => {
                           handleCameraAngleClick(cameraAngles[0]);
                           setAngleNum(0);
+                          setIsFirstImageLoaded(false)
                         }}
                       >
                         <img
@@ -1069,6 +1103,7 @@ const WardrobeImageViewer = ({
                         onClick={() => {
                           handleCameraAngleClick(cameraAngles[1]);
                           setAngleNum(1);
+                          setIsFirstImageLoaded(false)
                         }}
                       >
                         <img
@@ -1083,10 +1118,8 @@ const WardrobeImageViewer = ({
                     </div>
                   </div>
                 )}
-
-                <div className={styles.imageView}>
                   {(loader || (allImages && allImages.length === 0)) && (
-                    <div>
+                    <div className={styles.loadingCircle}>
                       <CircularProgress />
                     </div>
                   )}
@@ -1096,9 +1129,13 @@ const WardrobeImageViewer = ({
                       className={loader ? "d-none" : ""}
                       src={allImages[currentFrame]?.image_low}
                       alt={`Wardrobe Frame ${currentFrame}`}
+                      // onLoad={() => setIsFirstImageLoaded(true)}
+                      onLoad={() => setTimeout(() =>{
+                        setIsFirstImageLoaded(true)
+                      },1000)}
                     />
                   )}
-                  {currentMeasureImage?.url && !showDoorPanel && (
+                  {!loader && currentMeasureImage?.url && !showDoorPanel  && isFirstImageLoaded && (
                     <img
                       src={currentMeasureImage?.url}
                       className={`${styles.measureImage} ${
@@ -1119,7 +1156,8 @@ const WardrobeImageViewer = ({
                     </h6>
                   )}
                 </div>
-                {showShades && !loader && (
+                {/* {showShades && !loader && ( */}
+                {showShades && (
                   <div
                     className={styles.shadesBox}
                     style={{ width: isMobile ? "100%" : "100%" }}
@@ -1136,6 +1174,7 @@ const WardrobeImageViewer = ({
                             })}
                             key={item?.id}
                             onClick={() => {
+                              setIsFirstImageLoaded(false)
                               adobeAnaSelectedShades(
                                 woodFinish,
                                 item?.display_name
@@ -1152,7 +1191,9 @@ const WardrobeImageViewer = ({
                               }}
                             ></div>
                             <div className={styles.shadeTitle}>
-                              <h4>{item?.display_name}</h4>
+                              <span>
+                                <h4>{item?.display_name}</h4>
+                              </span>
                             </div>
                           </div>
                         ))}
@@ -1290,6 +1331,7 @@ const WardrobeImageViewer = ({
                           finish.label === woodFinish ? styles.bordered : ""
                         )}
                         onClick={() => {
+                          setIsFirstImageLoaded(false)
                           setWoodFinish(finish.label);
                           setWardrobePackage(finish.subTitle);
                           cameraAngles.length > 0 &&
