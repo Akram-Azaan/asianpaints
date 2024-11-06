@@ -283,7 +283,7 @@ export const getFirstNameAndLastName = (value) => {
   if (value) {
     const nameArray = value?.split(' ');
     const firstName = nameArray?.[0] || '';
-    const lastName = nameArray?.slice?.(1).join?.(' ') || '';
+    const lastName = nameArray?.slice?.(1).join?.(' ') || 'NA';
     return { firstName, lastName };
   }
   return { firstName: '', lastName: '' };
