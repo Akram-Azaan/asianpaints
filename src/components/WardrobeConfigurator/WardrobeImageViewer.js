@@ -1038,9 +1038,31 @@ const WardrobeImageViewer = ({
     return wardrobePrice;
   };
 
+  useEffect(() => {
+    function sendHeight() {
+      const container = document.querySelector('#wardrobeConfig');
+      if (container) {
+        const height = container.scrollHeight;
+        console.log(height,"heightheight")
+        window.parent.postMessage({ type: 'adjustHeight', height: height }, '*');
+      }
+    }
+
+    const timeoutId = setTimeout(() => {
+      sendHeight();
+    }, 100);
+
+    window.addEventListener('resize', sendHeight);
+
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', sendHeight);
+    };
+  });
+
   return (
     <>
-      <div className={styles.wardrobeContainer}>
+      <div id="wardrobeConfig" className={styles.wardrobeContainer}>
         {/* className={`h-100 justify-content-between align-items-center`} */}
         <Row
           // style={{ height: "100%", width: "100%" }}
@@ -1077,9 +1099,14 @@ const WardrobeImageViewer = ({
                 <div
                   className={styles.imageView}
                   ref={imageViewRef}
+                  // window.innerWidth
+                  // style={{
+                  //   width: !isMobile && loader ? imageDimensions.width : "",
+                  //   height: !isMobile && loader ? imageDimensions.height : "",
+                  // }}
                   style={{
-                    width: !isMobile && loader ? imageDimensions.width : "",
-                    height: !isMobile && loader ? imageDimensions.height : "",
+                    width: !isMobile ? window.innerWidth/2 : '',
+                    height: !isMobile ? window.innerWidth/2 * .75 : '',
                   }}
                 >
                   {cameraAngles?.length > 0 && (

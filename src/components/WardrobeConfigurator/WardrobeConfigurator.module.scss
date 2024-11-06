@@ -6,6 +6,7 @@
 }
 body{
     background: #fff;
+    // overflow: hidden;
 //   background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
 }
 
@@ -15,7 +16,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    // height: 100vh;
     // padding: 40px;
     // background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
 
@@ -752,10 +753,10 @@ body{
                     width: auto;
                     object-fit: cover;
                     scale: 1;
-                    &.measureImage{
-                        height: 322px;
-                        // padding: 10px;
-                    }
+                    // &.measureImage{
+                    //     height: 322px;
+                    //     // padding: 10px;
+                    // }
                 }
             }
 
