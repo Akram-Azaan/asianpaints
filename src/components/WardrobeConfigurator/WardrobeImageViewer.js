@@ -590,7 +590,7 @@ const WardrobeImageViewer = ({
         response.CRMleadId,
         response.returnCode
       );
-      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
+      handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
     } catch (error) {
       console.error("Error creating lead:", error);
     }
@@ -1087,14 +1087,7 @@ const WardrobeImageViewer = ({
                 className={styles.wardrobe}
                 style={{ display: isMobile ? "block" : "flex" }}
               >
-                <h2 className={styles.title}>
-                  {!isMobile
-                    ? showShades
-                      ? "Your wardrobe cost estimation is ready!"
-                      : "Build your wardrobe and get cost estimation"
-                    : ""}
-                  {/* Build your custom wardrobe and get an instant cost estimate */}
-                </h2>
+                
 
                 <div
                   className={styles.imageView}
@@ -1109,6 +1102,14 @@ const WardrobeImageViewer = ({
                     height: !isMobile ? window.innerWidth/2 * .75 : '',
                   }}
                 >
+                  <h2 className={styles.title}>
+                  {!isMobile
+                    ? showShades
+                      ? "Your wardrobe cost estimation is ready!"
+                      : "Build your wardrobe and get cost estimation"
+                    : ""}
+                  {/* Build your custom wardrobe and get an instant cost estimate */}
+                </h2>
                   {cameraAngles?.length > 0 && (
                     <div className={styles.buttons}>
                       <div className={styles.roundbox}>
@@ -1221,7 +1222,7 @@ const WardrobeImageViewer = ({
                     style={{ width: isMobile ? "100%" : "100%" }}
                   >
                     <div style={{ position: "relative" }}>
-                      {!isMobile && !loader && (
+                      {!isMobile  && (
                         <h4>Visualize our top {woodFinish} color shades</h4>
                       )}
                       <div className={styles.shades}>

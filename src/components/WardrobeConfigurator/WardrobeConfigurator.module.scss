@@ -159,6 +159,7 @@ body{
                 scroll-behavior: smooth;
                 -ms-overflow-style: none;
                 scrollbar-width: none;
+                margin-bottom: 30px;
 
                 &::-webkit-scrollbar {
                     display: none;
@@ -166,7 +167,7 @@ body{
 
                 .shadeItem {
                     width: calc(16.66% - 16px);
-                    margin-right: 4px;
+                    margin-right: 6px;
                     border-top-right-radius: 20px;
                     overflow: hidden;
                     border: 1px solid #CCCCCC99;
@@ -181,7 +182,7 @@ body{
                     }
 
                     .shadeTitle {
-                        height: 20px;
+                        height: 30px;
                         background: #fff;
                         width: 100%;
                         display: flex;
@@ -189,9 +190,12 @@ body{
                             width: 100%;
                             padding: 0 10px;
                             text-align: left;
+                            display: flex;
+                            align-items: center;
                             h4{
                                 display: inline-block;
                                 font-size: 12px;
+                                font-family: Lato;
                                 font-weight: 700;
                                 color: #202020;
                                 padding: 4px 0;
@@ -200,13 +204,16 @@ body{
                                 overflow: hidden;
                                 text-overflow: ellipsis;
                                 white-space: nowrap;
-                                margin-bottom: 4px;
+                                margin-bottom: 0px;
                             }
                         }
                     }
                 }
                 .bordered{
                     border: 1px solid #6611dd;
+                    .shadeTitle{
+                        background-color: #F1EDF8;                        ;
+                    }
                 }
             }
         }
@@ -771,6 +778,7 @@ body{
                     column-gap: 6px;
                     .shadeItem{
                         min-width: calc(32% - 4px);
+                        margin-right: 0;
                         .shadeTitle{
                             h4{
                                 max-width: 60px;
@@ -934,6 +942,7 @@ body{
                     column-gap: 6px;
                     .shadeItem{
                         min-width: calc(32% - 4px);
+                        margin-right: 0;
                         .shadeTitle{
                             h4{
                                 max-width: 60px;
