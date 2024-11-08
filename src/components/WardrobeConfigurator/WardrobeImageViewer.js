@@ -152,12 +152,12 @@ const WardrobeImageViewer = ({
     return res;
   };
 
-  const getCameraAngles = (id) => {
-    const angles = CAMERA_ANGLES.filter((type) => {
-      return type.storeId === id;
-    });
-    return angles;
-  };
+  // const getCameraAngles = (id) => {
+  //   const angles = CAMERA_ANGLES.filter((type) => {
+  //     return type.storeId === id;
+  //   });
+  //   return angles;
+  // };
 
   useEffect(() => {
     async function loadAndCheckStoreData() {
@@ -225,7 +225,7 @@ const WardrobeImageViewer = ({
     if(cameraAngles?.length){
       // handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
       handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
-      console.log(angleNum,"angleNum")
+      // console.log(angleNum,"angleNum")
      }
   }, [cameraAngles]);
 
@@ -1043,7 +1043,7 @@ const WardrobeImageViewer = ({
       const container = document.querySelector('#wardrobeConfig');
       if (container) {
         const height = container.scrollHeight;
-        console.log(height,"heightheight")
+        // console.log(height,"heightheight")
         window.parent.postMessage({ type: 'adjustHeight', height: height }, '*');
       }
     }
