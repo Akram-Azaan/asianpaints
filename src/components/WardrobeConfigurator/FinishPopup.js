@@ -4,6 +4,7 @@ import { ReactComponent as InfoIcon } from "../../assets/images/Info.svg";
 import { Modal } from "../../common/Modal";
 import "./FinishPopup.scss";
 import { WOOD_FINISH_OPTIONS } from "../../constants/wardrobeConstants";
+import tick from '../../assets/images/tick.svg';
 
 const FinishPopup = () => {
   const [openHelpModal, setOpenHelpModal] = useState(false);
@@ -30,6 +31,14 @@ const FinishPopup = () => {
                       {finish.label} ({finish.subTitle})
                     </h3>
                     <p>{finish.desc}</p>
+                    <ul>
+                      {finish.descList.map((desc, ind) => (
+                        <li key={ind}>
+                          <span><img src={tick} alt="tick"/></span>
+                          <span>{desc}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </Col>
               );

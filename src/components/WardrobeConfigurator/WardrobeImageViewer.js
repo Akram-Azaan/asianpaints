@@ -1187,7 +1187,7 @@ const WardrobeImageViewer = ({
                       onLoad={() =>
                         setTimeout(() => {
                           setIsFirstImageLoaded(true);
-                        }, 1000)
+                        }, 200)
                       }
                     />
                   )}
@@ -1483,7 +1483,7 @@ const WardrobeImageViewer = ({
                         </label>
                         {/* )} */}
                         <input
-                          type="tel"
+                          type="text"
                           name="mobile"
                           placeholder="Mobile number"
                           autoComplete="off"

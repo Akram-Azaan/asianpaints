@@ -6,7 +6,13 @@
 }
 body{
     background: #fff;
-    overflow: hidden;
+    // overflow: hidden;
+    scrollbar-width: none;
+    margin-bottom: 30px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 //   background: linear-gradient(90.85deg, #f6edff 2.92%, #ffe9ea 61.17%, #fef4e1 98.14%);
 }
 
@@ -167,6 +173,7 @@ body{
 
                 .shadeItem {
                     width: calc(16.66% - 16px);
+                    max-width: 92px;
                     margin-right: 6px;
                     border-top-right-radius: 20px;
                     overflow: hidden;
@@ -188,7 +195,7 @@ body{
                         display: flex;
                         span{
                             width: 100%;
-                            padding: 0 10px;
+                            padding: 0 4px;
                             text-align: left;
                             display: flex;
                             align-items: center;
