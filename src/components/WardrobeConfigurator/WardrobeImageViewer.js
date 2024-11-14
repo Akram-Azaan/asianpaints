@@ -520,12 +520,13 @@ const WardrobeImageViewer = ({
       const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
   
       if (name === "mobile") {
-        if (numericValue.length <= 10 || numericValue.length === 0) {
-          obj = {
-            ...formData,
-            [name]: numericValue,
-          };
-          setFormData(obj);
+        const formattedMobileValue = numericValue.startsWith('0') ? numericValue.slice(1) : numericValue;
+        if (formattedMobileValue.length <= 10 || formattedMobileValue.length === 0) {
+            obj = {
+                ...formData,
+                [name]: formattedMobileValue,
+            };
+            setFormData(obj);
         }
       } else if (name === "pincode") {
         if (numericValue.length <= 6) {
