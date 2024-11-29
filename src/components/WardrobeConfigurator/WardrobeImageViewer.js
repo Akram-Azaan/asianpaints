@@ -31,13 +31,11 @@ import {
   CAMERA_ANGLE_2,
   FINISH_SHADES_LIST,
   CARCUSS_FINISH,
-  PDF_IMAGES,
-  CAMERA_ANGLES,
   SLIDING_ANGLE_2,
   HINGED_ANGLE_1,
   HINGED_ANGLE_2,
   SLIDING_ANGLE_1,
-  BACK_LABEL,
+  // BACK_LABEL,
   SELECTED_FRONT,
   DEFAULT_SIDE,
   SELECTED_SIDE,
@@ -152,13 +150,6 @@ const WardrobeImageViewer = ({
     return res;
   };
 
-  // const getCameraAngles = (id) => {
-  //   const angles = CAMERA_ANGLES.filter((type) => {
-  //     return type.storeId === id;
-  //   });
-  //   return angles;
-  // };
-
   useEffect(() => {
     async function loadAndCheckStoreData() {
       if (allStoreList?.length) {
@@ -226,7 +217,7 @@ const WardrobeImageViewer = ({
       // handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? 1 : 0]);
       handleCameraAngleClick(cameraAngles[cameraAngles?.length > 1 ? angleNum : 0]);
       // console.log(angleNum,"angleNum")
-     }
+    }
   }, [cameraAngles]);
 
   // console.log(colorFinish[0]?.textures, woodFinish);
@@ -259,9 +250,9 @@ const WardrobeImageViewer = ({
     let defaultTextures = [];
     defaultTextures.push(selectedCurcass[0]);
     defaultTextures.push(activeShade);
-    if (doorPanelOptions.dimension === "7 x 7 ft") {
-      defaultTextures.push(BACK_LABEL[0]);
-    }
+    // if (doorPanelOptions.dimension === "7 x 7 ft") {
+    //   defaultTextures.push(BACK_LABEL[0]);
+    // }
     return defaultTextures;
   };
 
@@ -653,20 +644,6 @@ const WardrobeImageViewer = ({
     setCurrentAngle(angle);
   };
 
-  // useEffect(() => {
-  //   const getPdfImages = async () => {
-  //     const matchingType = PDF_IMAGES.filter((type) => {
-  //       return (
-  //         type.doorType === doorPanelOptions?.door &&
-  //         type.size === doorPanelOptions?.dimension &&
-  //         type.finishType === woodFinish
-  //       );
-  //     });
-  //     setPdfRenderImages(matchingType);
-  //   };
-  //   getPdfImages();
-  // }, [doorPanelOptions, woodFinish]);
-
   const createPdfShadesImages = async () => {
     // console.log(selectedCurcass, "getCurcassList");
     // console.log(shadeList, "shadeListshadeList");
@@ -683,9 +660,9 @@ const WardrobeImageViewer = ({
       // Create selectedPdfTextures for each shadeList item
       selectedPdfTextures.push(curcassTexture);
       selectedPdfTextures.push(shadeTexture);
-      if (doorPanelOptions.dimension === "7 x 7 ft") {
-        selectedPdfTextures.push(BACK_LABEL[0]);
-      }
+      // if (doorPanelOptions.dimension === "7 x 7 ft") {
+      //   selectedPdfTextures.push(BACK_LABEL[0]);
+      // }
 
       const mergeData = {
         scene: scene_id,
