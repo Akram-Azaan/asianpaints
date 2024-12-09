@@ -40,6 +40,7 @@ import {
   DEFAULT_SIDE,
   SELECTED_SIDE,
   DEFAULT_FRONT,
+  RENDER_IMAGES,
 } from "../../constants/wardrobeConstants";
 import {
   adobeAnaDimensionBack,
@@ -304,29 +305,49 @@ const WardrobeImageViewer = ({
     });
     return uniqueArray;
   }
+  
+  const getShadelistrender = () => {
+    const shadesObj = RENDER_IMAGES.find((type) => {
+      return (
+        type.doorType === doorPanelOptions?.door &&
+        type.size === doorPanelOptions?.dimension &&
+        type.finishType === woodFinish && 
+        type.display_name === activeShade.display_name
+      );
+    });
+    return shadesObj;
+  };
 
   const loadAndCheckImages = async() => {
     try {
       setLoader(true);
-
-      const mergeData = {
-        scene: scene_id,
-        textures: selectedTextures,
-        is_render: true,
-        ext: "png",
-        store: storeId,
-      };
-
-      if (modelId && scene_id && currentAngle?.id && selectedTextures?.length) {
-        const res = await getAllMergeData({
-          mergeData,
-          textureIds: selectedTextures,
-          resetFrame: false,
-          sceneView: currentAngle?.id,
-          total: cameraAngles?.length,
-        });
-        setAllImages(res?.data?.data?.images);
+      console.log(activeShade, "Loading images activeShade");
+      const shadesObj = await getShadelistrender();
+      console.log(shadesObj,angleNum, "shadesObj");
+      if(angleNum === 0){
+        setAllImages(shadesObj?.frontViewRender);
+      }else{
+        setAllImages(shadesObj?.sideViewRender);
       }
+      console.log(allImages,"sideViewRender")
+      // const mergeData = {
+      //   scene: scene_id,
+      //   textures: selectedTextures,
+      //   is_render: true,
+      //   ext: "png",
+      //   store: storeId,
+      // };
+
+      // if (modelId && scene_id && currentAngle?.id && selectedTextures?.length) {
+      //   const res = await getAllMergeData({
+      //     mergeData,
+      //     textureIds: selectedTextures,
+      //     resetFrame: false,
+      //     sceneView: currentAngle?.id,
+      //     total: cameraAngles?.length,
+      //   });
+      //   setAllImages(res?.data?.data?.images);
+      // }
     } catch (error) {
       console.error("Error loading images:", error);
     } finally {
@@ -1159,8 +1180,8 @@ const WardrobeImageViewer = ({
                   {allImages?.length > 0 && (
                     <img
                       className={loader ? "d-none" : ""}
-                      src={allImages[currentFrame]?.image_low}
-                      alt={`Wardrobe Frame ${currentFrame}`}
+                      src={allImages}
+                      alt={`Wardrobe Frame ${angleNum}`}
                       // onLoad={() => setIsFirstImageLoaded(true)}
                       onLoad={() =>
                         setTimeout(() => {
