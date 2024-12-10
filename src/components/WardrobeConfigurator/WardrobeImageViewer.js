@@ -224,7 +224,7 @@ const WardrobeImageViewer = ({
   // console.log(colorFinish[0]?.textures, woodFinish);
 
   const getShadelist = () => {
-    const shades = FINISH_SHADES_LIST.filter((type) => {
+    const shades = RENDER_IMAGES.filter((type) => {
       return (
         type.doorType === doorPanelOptions?.door &&
         type.size === doorPanelOptions?.dimension &&
@@ -270,21 +270,21 @@ const WardrobeImageViewer = ({
     fetchShades();
   }, [doorPanelOptions, woodFinish]);
 
-  useEffect(() => {
-    const fetchCurcass = async () => {
-      const curcass = await getCurcassList();
-      setSelectedCurcass(curcass);
-    };
-    fetchCurcass();
-  }, [doorPanelOptions]);
+  // useEffect(() => {
+  //   const fetchCurcass = async () => {
+  //     const curcass = await getCurcassList();
+  //     setSelectedCurcass(curcass);
+  //   };
+  //   fetchCurcass();
+  // }, [doorPanelOptions]);
 
-  useEffect(() => {
-    const fetchTextures = async () => {
-      const imageTextures = await getDefaultTextures();
-      setSelectedTextures(imageTextures);
-    };
-    fetchTextures();
-  }, [selectedCurcass, activeShade]);
+  // useEffect(() => {
+  //   const fetchTextures = async () => {
+  //     const imageTextures = await getDefaultTextures();
+  //     setSelectedTextures(imageTextures);
+  //   };
+  //   fetchTextures();
+  // }, [selectedCurcass, activeShade]);
 
   const handleFilterAllImage = () => {
     return allImages || [];
@@ -322,12 +322,12 @@ const WardrobeImageViewer = ({
     try {
       setLoader(true);
       console.log(activeShade, "Loading images activeShade");
-      const shadesObj = await getShadelistrender();
-      console.log(shadesObj,angleNum, "shadesObj");
+      // const shadesObj = await getShadelistrender();
+      console.log(activeShade,angleNum, "shadesObj");
       if(angleNum === 0){
-        setAllImages(shadesObj?.frontViewRender);
+        setAllImages(activeShade?.frontViewRender);
       }else{
-        setAllImages(shadesObj?.sideViewRender);
+        setAllImages(activeShade?.sideViewRender);
       }
       console.log(allImages,"sideViewRender")
       // const mergeData = {
@@ -365,7 +365,7 @@ const WardrobeImageViewer = ({
     if(showWoodFinish || showPackage){
       loadAndCheckImages()
     }
-  },[selectedTextures,showPackage]);
+  },[selectedTextures,showPackage,activeShade]);
 
   const getAllMergeData = async ({
     mergeData,
@@ -751,7 +751,7 @@ const WardrobeImageViewer = ({
         return `
         <div class="${styles.shadeBox}" key="${item?.id}">
           <div class="${styles.imageBox}">
-            <img src="${item?.images[0]?.image_low}" alt="shade" />
+            <img src="${item?.sideViewRender}" alt="shade" />
             </div>
           <h4>${item?.display_name}</h4>
         </div>
@@ -830,7 +830,7 @@ const WardrobeImageViewer = ({
             <div class="${styles.pdfWardrobeDetailsBody}">
               <div class="${styles.imageBox}">
                 <img src="${
-                  shadeImages[currentShadeFrame]?.images[0]?.image_low
+                  shadeImages[currentShadeFrame]?.sideViewRender
                 }" alt="wardrobe" />
               </div>
               <div class="${styles.detailsBox}">
@@ -913,8 +913,9 @@ const WardrobeImageViewer = ({
   const handleDownloadPdf = async () => {
     setDownloading(true);
     // console.log(currentShadeFrame,"currentShadeFramecurrentShadeFrame")
-    const pdfMergeImages = await createPdfShadesImages();
-    await pdfContent(pdfMergeImages, currentShadeFrame);
+    // const pdfMergeImages = await createPdfShadesImages();
+    // console.log(shadeList,shadeList.length,"shades for pdf")
+    await pdfContent(shadeList, currentShadeFrame);
     adobeAnaWardrobeAction("download pdf", wardrobePackage);
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
