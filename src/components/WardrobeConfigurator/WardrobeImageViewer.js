@@ -321,15 +321,15 @@ const WardrobeImageViewer = ({
   const loadAndCheckImages = async() => {
     try {
       setLoader(true);
-      console.log(activeShade, "Loading images activeShade");
+      // console.log(activeShade, "Loading images activeShade");
       // const shadesObj = await getShadelistrender();
-      console.log(activeShade,angleNum, "shadesObj");
+      // console.log(activeShade,angleNum, "shadesObj");
       if(angleNum === 0){
         setAllImages(activeShade?.frontViewRender);
       }else{
         setAllImages(activeShade?.sideViewRender);
       }
-      console.log(allImages,"sideViewRender")
+      // console.log(allImages,"sideViewRender")
       // const mergeData = {
       //   scene: scene_id,
       //   textures: selectedTextures,
