@@ -1044,7 +1044,7 @@ const WardrobeImageViewer = ({
       if (container) {
         const height = container.scrollHeight;
         // console.log(height,"heightheight")
-        window.parent.postMessage({ type: 'adjustHeight', height: height }, '*');
+        window.parent.postMessage({ key: 'adjustHeight', value: height }, '*');
       }
     }
 

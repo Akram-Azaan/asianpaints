@@ -10,6 +10,7 @@ import {
   API_ROOT_URL_DEV,
   IMAGINE_AP_SALESFORCE,
   IMAGINE_AP_DATABASE,
+  API_ROOT_URL_AP,
 } from "../constants/apiConstant";
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
@@ -147,7 +148,7 @@ export function getQueryParams() {
 export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   const params = getQueryParams();
   const envType = params.envType;
-  const baseUrl = envType === "prod" ? API_ROOT_URL : API_ROOT_URL_DEV;
+  const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
   const url = `${baseUrl}${IMAGINE_AP_SALESFORCE}`;
   try {
     const headers = {
@@ -179,7 +180,7 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
 export const createLeadInApDatabase = async (leadData,crmID) => {
   const params = getQueryParams();
   const envType = params.envType;
-  const baseUrl = envType === "prod" ? API_ROOT_URL : API_ROOT_URL_DEV;
+  const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
   const url = `${baseUrl}${IMAGINE_AP_DATABASE}`;
   try {
     const headers = {
