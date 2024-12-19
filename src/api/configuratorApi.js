@@ -11,6 +11,8 @@ import {
   IMAGINE_AP_SALESFORCE,
   IMAGINE_AP_DATABASE,
   API_ROOT_URL_AP,
+  IMAGINE_AP_PROD_SALESFORCE,
+  IMAGINE_AP_PROD_DATABASE,
 } from "../constants/apiConstant";
 import axios from "axios";
 import { viewerActions } from "../redux/slicers/viewer.slicers";
@@ -149,7 +151,8 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   const params = getQueryParams();
   const envType = params.envType;
   const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
-  const url = `${baseUrl}${IMAGINE_AP_SALESFORCE}`;
+  const mainUrl = envType === "prod" ? IMAGINE_AP_PROD_SALESFORCE : IMAGINE_AP_SALESFORCE;
+  const url = `${baseUrl}${mainUrl}`;
   try {
     const headers = {
       "Content-Type": "application/json",
@@ -181,7 +184,9 @@ export const createLeadInApDatabase = async (leadData,crmID) => {
   const params = getQueryParams();
   const envType = params.envType;
   const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
-  const url = `${baseUrl}${IMAGINE_AP_DATABASE}`;
+  const mainUrl = envType === "prod" ? IMAGINE_AP_PROD_DATABASE : IMAGINE_AP_DATABASE;
+
+  const url = `${baseUrl}${mainUrl}`;
   try {
     const headers = {
       "Content-Type": "application/json",

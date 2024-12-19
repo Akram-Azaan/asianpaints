@@ -25,3 +25,6 @@ export const CHECK_FOR_UNICODE = '';
 //wardrobe api
 export const IMAGINE_AP_SALESFORCE = "/configurator/api/v2/ap-sf-wardrobe/"
 export const IMAGINE_AP_DATABASE = "/configurator/api/v2/ap-data-update/"
+
+export const IMAGINE_AP_PROD_SALESFORCE = '/production/sf/v1/ap-sf-wardrobe/'
+export const IMAGINE_AP_PROD_DATABASE = '/production/sf/v1/ap-data-update/'
