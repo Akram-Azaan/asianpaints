@@ -168,6 +168,7 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
         C_EstimatedValue: estimatedPrice,
         C_CampaignId: "BH_Stores_Bh.com_ORG",
         C_IntegrationSource: "Wardrobe_Calculator_Imagine",
+        page_url: "https://www.beautifulhomes.asianpaints.com/interior-design-services/wardrobe-cost-calculator.html",
       },
     };
 
@@ -230,7 +231,7 @@ export const createLeadInApDatabase = async (leadData,crmID) => {
           dummy3: "",
           bpno: "",
           visitor_id: "",
-          pageUrl: "",
+          pageUrl: "https://www.beautifulhomes.asianpaints.com/interior-design-services/wardrobe-cost-calculator.html",
           skuchosen: "",
           measureneed: "",
           dealer_name: "",
