@@ -46,10 +46,12 @@ import {
   GLOSS_FINISH,
   KITCHEN_ROOM,
   LIVING_ROOM,
+  NATURAL_FINISH,
   NEUTRAL,
   ROOM_LIST,
 } from "../../constants/constants";
 import { AnimatedLoader } from "../Loader/AnimatedLoader";
+import { getImageUrl, preloadImage } from "../../helpers/jsHelper";
 
 const ConfiguratorViewer = () => {
   const [loader, setLoader] = useState(false);
@@ -107,7 +109,7 @@ const ConfiguratorViewer = () => {
     }
   }, [localConfiguratorData]);
 
-  const updateDataForModelIdLocal = (modelId) => {
+  const updateDataForModelIdLocal = async (modelId) => {
     switch (modelId) {
       case DINNING_ROOM: {
         setLocalConfiguratorData(configuratorData1);
@@ -118,6 +120,14 @@ const ConfiguratorViewer = () => {
         setHobspotLabel(hobspotLabel1);
         setSelectedHubspot(hobspotLabel1?.[0]);
         setHubspotImagePosition(imageHubspotPosition1);
+        await Promise.all(
+          colorOptionList1.map((val) => {
+            if((val?.finishColorType === NATURAL_FINISH || !val?.colorCode) && val?.thumb){
+              preloadImage(getImageUrl(val))
+            }
+          }
+          )
+        );
         break;
       }
       case KITCHEN_ROOM: {
@@ -129,6 +139,14 @@ const ConfiguratorViewer = () => {
         setHobspotLabel(hobspotLabel2);
         setSelectedHubspot(hobspotLabel2?.[0]);
         setHubspotImagePosition(imageHubspotPosition2);
+        await Promise.all(
+          colorOptionList2.map((val) => {
+            if((val?.finishColorType === NATURAL_FINISH || !val?.colorCode) && val?.thumb){
+              preloadImage(getImageUrl(val))
+            }
+          }
+          )
+        );
         break;
       }
       case LIVING_ROOM: {
@@ -140,6 +158,14 @@ const ConfiguratorViewer = () => {
         setHobspotLabel(hobspotLabel3);
         setSelectedHubspot(hobspotLabel3?.[2] || hobspotLabel3?.[0]);
         setHubspotImagePosition(imageHubspotPosition3);
+        await Promise.all(
+          colorOptionList3.map((val) => {
+            if((val?.finishColorType === NATURAL_FINISH || !val?.colorCode) && val?.thumb){
+              preloadImage(getImageUrl(val))
+            }
+          }
+          )
+        );
         break;
       }
       case BEDROOM_ROOM: {
@@ -151,6 +177,14 @@ const ConfiguratorViewer = () => {
         setHobspotLabel(hobspotLabel4);
         setSelectedHubspot(hobspotLabel4?.[0]);
         setHubspotImagePosition(imageHubspotPosition4);
+        await Promise.all(
+          colorOptionList4.map((val) => {
+            if((val?.finishColorType === NATURAL_FINISH || !val?.colorCode) && val?.thumb){
+              preloadImage(getImageUrl(val))
+            }
+          }
+          )
+        );
         break;
       }
       default: {
@@ -162,6 +196,14 @@ const ConfiguratorViewer = () => {
         setHobspotLabel(hobspotLabel1);
         setSelectedHubspot(hobspotLabel1?.[0]);
         setHubspotImagePosition(imageHubspotPosition1);
+        await Promise.all(
+          colorOptionList1.map((val) => {
+            if((val?.finishColorType === NATURAL_FINISH || !val?.colorCode) && val?.thumb){
+              preloadImage(getImageUrl(val?.thumb))
+            }
+          }
+          )
+        );
       }
     }
   };

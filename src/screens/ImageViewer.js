@@ -34,8 +34,10 @@ import {
 import { LOADING_DELAY, MAX_CAMERA_ANGLES, PROTOTYPE_MESSAGES } from "../constants/productConfiguratorConstants";
 import {
   capitalize,
+  getImageUrl,
   getLocalStorage,
   objectToFormData,
+  preloadImage,
   setLocalStorage,
   trackDropdownAndRadioFilter,
   trackSwatches,
@@ -373,6 +375,7 @@ const ImageViewer = ({
       const highResImageHeight = allData?.scene?.render_reso_y;
       const defaultTextures = [];
       if (allData?.default_merge?.images?.length) {
+        await preloadImage(getImageUrl(allData?.default_merge?.images?.[0]))
         setAllImages(allData?.default_merge?.images);
         setOuterLoader(false);
       }
@@ -563,6 +566,11 @@ const ImageViewer = ({
       APIData = [...APIData, ...removeDuplicateImage(data?.images)];
       if (data && APIData.length > 0 && lastCall) {
         let imagesToSet = JSON.parse(JSON.stringify(APIData));
+        await Promise.all(
+          imagesToSet.map((val) =>
+            preloadImage(getImageUrl(val))
+          )
+        );
         setAllImages(imagesToSet);
         if (!isImageViewer) {
           const images = [];
@@ -594,7 +602,7 @@ const ImageViewer = ({
   const hideLoader = () => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 700);
+    }, 50);
   };
 
   const switchToFullScreen = (flag) => {
@@ -848,6 +856,7 @@ const ImageViewer = ({
   };
 
   const getLeftSideContentImageConf = (isFullScreen = false) => {
+    const imageUrl = getImageUrl(handleFilterAllImage()[currentFrame])
     return (
       <>
         {!!handleFilterAllImage()?.length && (
@@ -856,7 +865,7 @@ const ImageViewer = ({
               isLoading ? "blur-img" : ""
             } `}
           >
-            <img src={handleFilterAllImage()[currentFrame]?.image_low} />
+            <img src={imageUrl} />
             {!outerLoader && getRelativeComponents()}
             {isLoading && (
               <div className="w-100 h-100 d-flex position-absolute justify-content-center align-items-center loader-parent">

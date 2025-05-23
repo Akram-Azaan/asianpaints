@@ -288,3 +288,16 @@ export const getFirstNameAndLastName = (value) => {
   }
   return { firstName: '', lastName: '' };
 };
+
+export const preloadImage = (src) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+  });
+};
+
+export const getImageUrl = (imageUrl) => {
+  return imageUrl?.image || imageUrl?.jpg_image || imageUrl?.jpg_image_low || imageUrl?.image_low || imageUrl?.thumb || imageUrl
+};
