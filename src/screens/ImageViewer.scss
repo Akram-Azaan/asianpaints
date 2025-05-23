@@ -752,13 +752,13 @@
     }
     .applyed {
       left: 100%;
-      margin-left: 4px;
+      padding-left: 4px;
       &.position-left {
         left: auto;
         right: 100%;
         flex-direction: row-reverse;
         margin-left: 0;
-        margin-right: 4px;
+        padding-right: 4px;
       }
     }
   }

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Loader from "../Loader/Loader";
 import ImageViewer from "../../screens/ImageViewer";
 import { getAllPublicData } from "../../api/configuratorApi";
 import styles from "./ConfiguratorViewer.module.scss";
@@ -50,6 +49,7 @@ import {
   NEUTRAL,
   ROOM_LIST,
 } from "../../constants/constants";
+import { AnimatedLoader } from "../Loader/AnimatedLoader";
 
 const ConfiguratorViewer = () => {
   const [loader, setLoader] = useState(false);
@@ -218,11 +218,11 @@ const ConfiguratorViewer = () => {
         </div>
       </div>
       {loader && (
-        <Loader
+        <AnimatedLoader
           zIndex={1000}
-          loading={true}
-          className="bg-white"
           position="fixed"
+          top={0}
+          backDrop="transparent"
         />
       )}
     </div>

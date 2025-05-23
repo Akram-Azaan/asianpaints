@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import Loader from "./components/Loader/Loader";
+import { AnimatedLoader } from "./components/Loader/AnimatedLoader";
 export const CONFIGURATOR_VIEWER = "/configurator/:modelId";
 export const CONFIGURATOR_VIEWER_TEST = "/test";
 export const WARDROBE_CONFIGURATOR = "/wardrobe";
@@ -49,11 +49,12 @@ export const Routing = () => {
     <ErrorBoundary>
       <Suspense
         fallback={
-          <Loader
-            zIndex={1000}
-            loading={true}
+          <AnimatedLoader
             className="bg-white"
-            position="fixed"
+            zIndex={1000}
+            position="absolute"
+            top={0}
+            backDrop={"rgba(255, 255, 255, 1"}
           />
         }
       >

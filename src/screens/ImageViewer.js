@@ -19,6 +19,7 @@ import Radio from "../common/Radio";
 import { getSceneLabelOptions } from "../components/Configurator/utils";
 import Help from "../components/Help";
 import Loader from "../components/Loader/Loader";
+import { AnimatedLoader } from "../components/Loader/AnimatedLoader";
 import { API_ROOT_URL } from "../constants/apiConstant";
 import {
   COLOURED_FINISH,
@@ -31,7 +32,7 @@ import {
   ROOM_LIST,
   VIEW_TOOLTIP_KEY,
 } from "../constants/constants";
-import { MAX_CAMERA_ANGLES } from "../constants/productConfiguratorConstants";
+import { LOADING_DELAY, MAX_CAMERA_ANGLES, PROTOTYPE_MESSAGES } from "../constants/productConfiguratorConstants";
 import {
   capitalize,
   getLocalStorage,
@@ -97,6 +98,7 @@ const ImageViewer = ({
   const [finishType, setFinishType] = useState(GLOSS_FINISH);
   const [finishShadeType, setFinishShadeType] = useState(null);
   const [showDetails, setShowDetails] = useState(null);
+  const [loadingMessage, setLoadingMessage] = useState("");
   const hotspotTooltipTarget = useRef(null);
   const viewTooltipTarget = useRef(null);
   const hideShadeType = dropdownOptions?.finishType?.value === NATURAL_FINISH;
@@ -106,6 +108,18 @@ const ImageViewer = ({
   const isTestConfig = window?.location?.pathname === "/test";
 
   usePageTitle("Asian Paints Configurator");
+
+  useEffect(() => {
+    if (outerLoader) {
+      setLoadingMessage(PROTOTYPE_MESSAGES[0]);
+      setTimeout(() => {
+        setLoadingMessage(PROTOTYPE_MESSAGES[1]);
+      }, LOADING_DELAY);
+      setTimeout(() => {
+        setLoadingMessage(PROTOTYPE_MESSAGES[2]);
+      }, LOADING_DELAY * 2);
+    }
+  }, [outerLoader]);
 
   useEffect(() => {
     if (finishType && selectedHubspot && Object.keys(appliedHubSpot)?.length) {
@@ -865,7 +879,15 @@ const ImageViewer = ({
             {!outerLoader && getRelativeComponents()}
             {isLoading && (
               <div className="w-100 h-100 d-flex position-absolute justify-content-center align-items-center loader-parent">
-                <Loader loading={true} text="Applying Selection" color="#fff" />
+                <AnimatedLoader
+                  hideLoadingText={"Applying Selection" ? false : true}
+                  loadingText={"Applying Selection"}
+                  loadingTextColor="#ffffff"    
+                  zIndex={1000}
+                  position="fixed"
+                  top={0}
+                  backDrop="transparent"
+                />
               </div>
             )}
           </div>
@@ -1090,14 +1112,17 @@ const ImageViewer = ({
       <div className={`config-viewer bg-white w-100 h-100 p-3`}>
         {getYourTheme()}
       </div>
-      {outerLoader && (
-        <Loader
-          className="bg-white"
+       {(outerLoader) && (
+        <AnimatedLoader
+          hideLoadingText={loadingMessage ? false : true}
+          loadingText={loadingMessage}
           zIndex={1000}
           position="fixed"
-          loading={true}
+          top={0}
+          backDrop={"rgba(255, 255, 255, 1"}
         />
       )}
+      
     </>
   );
 };

@@ -132,3 +132,11 @@ export const MAX_CAMERA_ANGLES = 5;
 export const MIN_IMAGE_WIDTH_HEIGHT = 1500;
 
 export const MAX_ALLOWED_THUMBNAIL_SIZE = 5000000;
+
+export const LOADING_DELAY = 1000;
+
+export const PROTOTYPE_MESSAGES = [
+  'Setting things up for you...',
+  'Optimizing your experience...',
+  'Bringing your design to life...',
+];

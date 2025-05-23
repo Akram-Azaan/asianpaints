@@ -23,6 +23,7 @@ export const Loader = forwardRef(
       renderProgress,
       portal,
       zIndex,
+      loaderComponent = null,
       ...rest
     },
     ref
@@ -40,7 +41,7 @@ export const Loader = forwardRef(
           styles.loaderV2,
           //   !children && backdrop && styles.backdrop,
           className,
-          backdropColor === "dark" && styles.backdropDark
+          backdropColor === 'dark' && styles.backdropDark
         )}
         style={{
           position,
@@ -58,15 +59,19 @@ export const Loader = forwardRef(
           <div
             className={cx(styles.progressContainer, progressContainerClassName)}
           >
-            {typeof renderProgress === "function" ? (
+            {typeof renderProgress === 'function' ? (
               renderProgress()
             ) : (
               <>
-                <CircularProgress
-                  size={size}
-                  color={color}
-                  thickness={thickness}
-                />
+                {loaderComponent ? (
+                  loaderComponent
+                ) : (
+                  <CircularProgress
+                    size={size}
+                    color={color}
+                    thickness={thickness}
+                  />
+                )}
                 {rest?.text && (
                   <span className={styles.loaderText}>{rest?.text}</span>
                 )}
@@ -76,7 +81,7 @@ export const Loader = forwardRef(
         )}
         {children}
       </Component>
-    );
+    )
 
     if (portal) {
       return <Portal>{render}</Portal>;
