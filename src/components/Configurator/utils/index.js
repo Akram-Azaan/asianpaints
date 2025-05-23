@@ -13,16 +13,20 @@ export const getSceneLabelOptions = async ({ token, sceneId, storeId, page = 1 }
     page
   });
   labels = labels?.filter((val) => val.name !== 'default_label');
-  for (const val of labels) {
-    const textures = await dispatcher(
-      getOptionsDataInPrototype({
-        token,
-        optionId: val.id,
-        storeId,
-        isPublic: true,
-      })
-    );
-    val.textures = textures.results;
-  }
+  const texturesArray = await Promise.all(
+    labels.map((val) =>
+      dispatcher(
+        getOptionsDataInPrototype({
+          token,
+          optionId: val.id,
+          storeId,
+          isPublic: true,
+        })
+      )
+    )
+  );
+  labels.forEach((val, index) => {
+    val.textures = texturesArray[index].results;
+  });
   return labels;
 };

@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Col, Overlay, Row, Tooltip } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import {
-  getScenesInPrototypeForPublic,
   getSceneViewBackgroundInfoPublic,
 } from "../api/configuratorApi";
 import { ReactComponent as Close } from "../assets/images/close.svg";
@@ -63,6 +62,7 @@ const ImageViewer = ({
   appliedHubSpot,
   setAppliedHubSpot,
   hubspotImagePosition,
+  scenes,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [allImages, setAllImages] = useState([]);
@@ -84,7 +84,7 @@ const ImageViewer = ({
   const [isFinalise, setIsFinalise] = useState(false);
   const [imageDimensions, setImageDimensions] = useState(null);
   const outerContainerRef = useRef(null);
-  const [allScenes, setAllScenes] = useState([]);
+  const [allScenes, setAllScenes] = useState(scenes || []);
   const isMobile = window.innerWidth < 576;
   const [selectedLayoutData, setSelectedLayoutData] = useState();
   const [selectedProfileData, setSelectedProfileData] = useState();
@@ -314,32 +314,9 @@ const ImageViewer = ({
   }, [localLayoutData, localProfileData]);
 
   useEffect(() => {
-    async function loadAndCheckStoreData() {
-      if (allStoreList?.length) {
-        setOuterLoader(true);
-        const scenes = await getScenesInPrototypeForPublic({
-          token: modelId,
-          is_render: isRender,
-        });
-        setAllScenes([...scenes]);
-        if (scenes?.length) {
-          const sceneId = scenes[0]?.id;
-          let filteredData = allStoreList?.filter(
-            (val) => parseInt(val?.scene?.id) === parseInt(sceneId)
-          );
-          if (!filteredData?.length && selectedStoreLocal) {
-            filteredData = [selectedStoreLocal];
-          }
-          const sortedData = filteredData.sort(
-            (a, b) => new Date(b?.updated_at) - new Date(a?.updated_at)
-          );
-          sortedData?.length && setSelectedStore(sortedData[0]);
-        }
-      }
-    }
-    loadAndCheckStoreData();
-  }, [selectedStoreLocal, allStoreList]);
-
+    setAllScenes(scenes);
+  }, [scenes]);
+  
   useEffect(() => {
     if (selectedScene?.id) {
       let filteredStore;
@@ -395,6 +372,10 @@ const ImageViewer = ({
       const highResImageWidth = allData?.scene?.render_reso_x;
       const highResImageHeight = allData?.scene?.render_reso_y;
       const defaultTextures = [];
+      if (allData?.default_merge?.images?.length) {
+        setAllImages(allData?.default_merge?.images);
+        setOuterLoader(false);
+      }
       Object?.keys(appliedHubSpot).map((value) => {
         defaultTextures.push({
           id: +appliedHubSpot[value]?.id,

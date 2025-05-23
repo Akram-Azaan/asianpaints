@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ImageViewer from "../../screens/ImageViewer";
-import { getAllPublicData } from "../../api/configuratorApi";
+import { getAllPublicData, getScenesInPrototypeForPublic } from "../../api/configuratorApi";
 import styles from "./ConfiguratorViewer.module.scss";
 
 import {
@@ -71,6 +71,7 @@ const ConfiguratorViewer = () => {
   const [selectedHubspot, setSelectedHubspot] = useState();
   const [appliedHubSpot, setAppliedHubSpot] = useState({});
   const [hubspotImagePosition, setHubspotImagePosition] = useState([]);
+  const [allScenes, setAllScenes] = useState([]);
 
   useEffect(() => {
     setDropdownOptions({
@@ -170,19 +171,34 @@ const ConfiguratorViewer = () => {
   };
 
   const getAllDataFromModelId = async (isRender) => {
-    setLoader(true);
-    let allData = await getAllPublicData({
-      newModelIds: localConfiguratorData?.tokenUrl,
-      isRender,
-      isOpenedFromAdminPanel: false,
-    });
-    const rawData = JSON.parse(JSON.stringify(allData));
-    if (allData?.results?.length) {
-      setAllStoreList(allData?.results);
-      setToken(rawData?.results?.[0]?.configurator?.token);
-      setCurrentSelectedStore(allData?.results[0]);
+    try {
+      setLoader(true);
+      const promise = getAllPublicData({
+        newModelIds: localConfiguratorData?.tokenUrl,
+        isRender,
+        isOpenedFromAdminPanel: false,
+      });
+      const promise1 = getScenesInPrototypeForPublic({
+        token: localConfiguratorData?.tokenUrl,
+        is_render: isRender,
+      });
+      const promises = [promise, promise1];
+      const data = await Promise.all(promises);
+      const allData = data?.[0] || {};
+      setAllScenes(data[1]);
+      const rawData = JSON.parse(JSON.stringify(allData));
+      if (allData?.results?.length) {
+        setAllStoreList(allData?.results);
+        setToken(
+          rawData?.results?.[0]?.token || localConfiguratorData?.tokenUrl
+        );
+        setCurrentSelectedStore(allData?.results[0]);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoader(false);
     }
-    setLoader(false);
   };
 
   return (
@@ -213,6 +229,7 @@ const ConfiguratorViewer = () => {
               appliedHubSpot={appliedHubSpot}
               setAppliedHubSpot={setAppliedHubSpot}
               hubspotImagePosition={hubspotImagePosition}
+              scenes={allScenes}
             />
           )}
         </div>
