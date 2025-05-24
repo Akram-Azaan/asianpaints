@@ -9,7 +9,6 @@ import {
 import { slidingConfiguratorData } from "../../helpers/slidingConfiguratorInfo";
 import { hingedConfiguratorData } from "../../helpers/hingedConfiguratorInfo";
 import { getAllPublicData } from "../../api/configuratorApi";
-import Loader from "../../common/Loader";
 
 const WardrobeConfigurator = () => {
   const [loader, setLoader] = useState(false);

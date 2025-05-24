@@ -299,5 +299,5 @@ export const preloadImage = (src) => {
 };
 
 export const getImageUrl = (imageUrl) => {
-  return imageUrl?.image || imageUrl?.jpg_image || imageUrl?.jpg_image_low || imageUrl?.image_low || imageUrl?.thumb || imageUrl
+  return imageUrl?.sideViewRender || imageUrl?.frontViewRender || imageUrl?.image || imageUrl?.jpg_image || imageUrl?.jpg_image_low || imageUrl?.image_low || imageUrl?.thumb || imageUrl
 };

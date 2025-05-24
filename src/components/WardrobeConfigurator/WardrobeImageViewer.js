@@ -52,14 +52,17 @@ import {
   adobeAnaSelectedWoodFinish,
   adobeAnaWardrobeAction,
   getFirstNameAndLastName,
+  getImageUrl,
   objectToFormData,
+  preloadImage,
 } from "../../helpers/jsHelper";
-import Loader from "../../common/Loader";
 import CircularProgress from "../../common/CircularProgress.js";
 import { getSceneLabelOptions } from "../Configurator/utils/index.js";
 import { API_ROOT_URL } from "../../constants/apiConstant.js";
 import axios from "axios";
 import { errorToastV2 } from "../../helpers/toastHelper.js";
+import { LOADING_DELAY, PROTOTYPE_MESSAGES } from "../../constants/productConfiguratorConstants.js";
+import { AnimatedLoader } from "../Loader/AnimatedLoader.js";
 let APIData = [];
 
 const WardrobeImageViewer = ({
@@ -126,8 +129,40 @@ const WardrobeImageViewer = ({
   const [angleNum, setAngleNum] = useState(0);
   const [isFirstImageLoaded, setIsFirstImageLoaded] = useState(false);
   const [imageDimensions, setImageDimensions] = useState({ width: 0, height: 0 });
+  const [loadingMessage, setLoadingMessage] = useState("");
   const imageViewRef = useRef(null);
 
+  useEffect(() => {
+     loadImages()
+  }, [RENDER_IMAGES, WOOD_FINISH_OPTIONS]);
+
+  const loadImages = async () => {
+    await Promise.all(
+      [...RENDER_IMAGES, ...WOOD_FINISH_OPTIONS].map((val) => {
+        if (val?.frontViewRender || val?.sideViewRender || val?.thumb) {
+          if (val?.frontViewRender) preloadImage(getImageUrl(val?.frontViewRender))
+          if (val?.sideViewRender) preloadImage(getImageUrl(val?.sideViewRender))
+          if (val?.thumb) preloadImage(getImageUrl(val?.thumb))
+        }
+      })
+    )
+  }
+
+  useEffect(() => {
+    if (outerLoader) {
+      setLoadingMessage(PROTOTYPE_MESSAGES[0]);
+      setTimeout(() => {
+        setLoadingMessage(PROTOTYPE_MESSAGES[1]);
+      }, LOADING_DELAY);
+      setTimeout(() => {
+        setLoadingMessage(PROTOTYPE_MESSAGES[2]);
+      }, LOADING_DELAY * 2);
+      setTimeout(() => {
+        setOuterLoader(false)
+      }, LOADING_DELAY * 2.6);
+    }
+  }, []);
+  
   useEffect(() => {
     function updateDimensions() {
       if (imageViewRef.current) {
@@ -154,7 +189,6 @@ const WardrobeImageViewer = ({
   useEffect(() => {
     async function loadAndCheckStoreData() {
       if (allStoreList?.length) {
-        setOuterLoader(true);
         const scenes = await getScenesInPrototypeForPublic({
           token: modelId,
           is_render: isRender,
@@ -1174,13 +1208,13 @@ const WardrobeImageViewer = ({
                   )}
                   {(loader || (allImages && allImages.length === 0)) && (
                     <div className={styles.loadingCircle}>
-                      <CircularProgress />
+                      <AnimatedLoader  backDrop="transparent"/>
                     </div>
                   )}
                   {/* {!loader && <img src={WARDROBE_IMAGE} alt={`Wardrobe`} />} */}
                   {allImages?.length > 0 && (
                     <img
-                      className={loader ? "d-none" : ""}
+                      // className={loader ? "d-none" : ""}
                       src={allImages}
                       alt={`Wardrobe Frame ${angleNum}`}
                       // onLoad={() => setIsFirstImageLoaded(true)}
@@ -1674,6 +1708,16 @@ const WardrobeImageViewer = ({
             )}
           </Col>
         </Row>
+        {outerLoader && (
+        <AnimatedLoader
+          hideLoadingText={loadingMessage ? false : true}
+          loadingText={loadingMessage}
+          zIndex={1000}
+          position="fixed"
+          top={0}
+          backDrop={"rgba(255, 255, 255, 1"}
+        />
+      )}
       </div>
     </>
   );
