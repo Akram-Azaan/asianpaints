@@ -494,6 +494,7 @@ const WardrobeImageViewer = ({
   }, []);
 
   const handleRadioChange = (e) => {
+    if(loader) return
     setIsFirstImageLoaded(false)
     setDoorPanelOptions({
       ...doorPanelOptions,
@@ -683,6 +684,7 @@ const WardrobeImageViewer = ({
     //   ...doorPanelOptions,
     //   door: door.label,
     // });
+    if(loader) return
     const newDoor = door.label;
     const firstDimension = WARDROBE_TYPE_WITH_DIMENSIONS.find(
       (d) => d.id === newDoor
