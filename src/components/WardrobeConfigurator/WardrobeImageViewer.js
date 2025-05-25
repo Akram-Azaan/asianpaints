@@ -134,11 +134,12 @@ const WardrobeImageViewer = ({
 
   useEffect(() => {
      loadImages()
-  }, [RENDER_IMAGES, WOOD_FINISH_OPTIONS]);
+  }, [WOOD_FINISH_OPTIONS]);
 
-  const loadImages = async () => {
+  const loadImages = async (list = []) => {
+    const dataList =  list?.length ? list : [...WOOD_FINISH_OPTIONS]
     await Promise.all(
-      [...RENDER_IMAGES, ...WOOD_FINISH_OPTIONS].map((val) => {
+      dataList.map((val) => {
         if (val?.frontViewRender || val?.sideViewRender || val?.thumb) {
           if (val?.frontViewRender) preloadImage(getImageUrl(val?.frontViewRender))
           if (val?.sideViewRender) preloadImage(getImageUrl(val?.sideViewRender))
@@ -294,6 +295,7 @@ const WardrobeImageViewer = ({
   useEffect(() => {
     const fetchShades = async () => {
       const shades = await getShadelist();
+      loadImages(shades)
       setShadeList(shades);
       setActiveShade(shades[0]);
 
