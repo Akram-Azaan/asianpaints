@@ -149,10 +149,12 @@ export function getQueryParams() {
 
 export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
   const params = getQueryParams();
-  const envType = params.envType;
+  const envType = params?.envType;
   const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
   const mainUrl = envType === "prod" ? IMAGINE_AP_PROD_SALESFORCE : IMAGINE_AP_SALESFORCE;
   const url = `${baseUrl}${mainUrl}`;
+  const campId = params?.campaignId ?? "Sleek_Website_BH";
+
   try {
     const headers = {
       "Content-Type": "application/json",
@@ -166,7 +168,7 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
         C_LastName: leadData.lastname,
         C_Email: leadData.email,
         C_EstimatedValue: estimatedPrice,
-        C_CampaignId: "Sleek_Website_BH",
+        C_CampaignId: campId,
         C_IntegrationSource: "Wardrobe_Calculator_Imagine",
         page_url: "https://www.beautifulhomes.asianpaints.com/interior-design-services/wardrobe-cost-calculator.html",
       },
@@ -183,11 +185,12 @@ export const createLeadInSalesforce = async (leadData,estimatedPrice) => {
 
 export const createLeadInApDatabase = async (leadData,crmID) => {
   const params = getQueryParams();
-  const envType = params.envType;
+  const envType = params?.envType;
   const baseUrl = envType === "prod" ? API_ROOT_URL_AP : API_ROOT_URL_DEV;
   const mainUrl = envType === "prod" ? IMAGINE_AP_PROD_DATABASE : IMAGINE_AP_DATABASE;
 
   const url = `${baseUrl}${mainUrl}`;
+  const campId = params?.campaignId ?? "Sleek_Website_BH";
   try {
     const headers = {
       "Content-Type": "application/json",
@@ -217,7 +220,7 @@ export const createLeadInApDatabase = async (leadData,crmID) => {
           state: "",
           pincode: leadData.pincode,
           remarks: "Wardrobe_Calculator_Imagine",
-          camp_id: "Sleek_Website_BH",
+          camp_id: campId,
           process_type: "",
           camp_name: "",
           send_to_crm: "",
