@@ -36,7 +36,7 @@ export const AnimatedLoader = memo(
           <div style={{ width: `${size}px`, height: `${size}px` }}>
             <DotLottieReact
               key={id}
-              src="https://lottie.host/8d6c2f8b-863f-43a1-bbd0-70786eb6bca3/lxaqzLlnYK.lottie"
+              src="https://media.imagine.io/media/public/loader/imagine-loader.lottie"
               loop
               autoplay
               // autoResizeCanvas
