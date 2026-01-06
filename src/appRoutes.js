@@ -9,12 +9,12 @@ export const WARDROBE_CONFIGURATOR = "/wardrobe";
 const ConfiguratorViewer = lazy(() =>
   import("./components/ConfiguratorViewer/ConfiguratorViewer")
 );
-// const WardrobeConfigurator = lazy(() =>
-//   import("./components/WardrobeConfigurator/WardrobeConfigurator")
-// );
-const PageNotAvailable = lazy(() =>
-  import("./components/PageNotAvailable/PageNotAvailable")
+const WardrobeConfigurator = lazy(() =>
+  import("./components/WardrobeConfigurator/WardrobeConfigurator")
 );
+// const PageNotAvailable = lazy(() =>
+//   import("./components/PageNotAvailable/PageNotAvailable")
+// );
 
 const routeMapFunc = (
   { exact = true, path, Component, componentProps, routes },
@@ -39,16 +39,16 @@ export const routes = [
     Component: ConfiguratorViewer,
     key: "viewer",
   },
-  // {
-  //   path: WARDROBE_CONFIGURATOR,
-  //   Component: WardrobeConfigurator,
-  //   key: "viewer",
-  // },
   {
     path: WARDROBE_CONFIGURATOR,
-    Component: PageNotAvailable,
-    key: "wardrobe",
+    Component: WardrobeConfigurator,
+    key: "viewer",
   },
+  // {
+  //   path: WARDROBE_CONFIGURATOR,
+  //   Component: PageNotAvailable,
+  //   key: "wardrobe",
+  // },
   { path: "/*", Component: ConfiguratorViewer, key: "viewer" },
 ];
 
